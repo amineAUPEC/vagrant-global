@@ -93,8 +93,14 @@ callerid="My name" <100>
 host=dynamic
 secret=test
 context=internal
+
+
+
 EOF
 }
+
+
+
 function sipconf_config_test(){
 sudo asterisk -rvvv << EOF
 
@@ -128,8 +134,10 @@ sudo echo "" > $default_config_dir_asterisk/extensions.conf
 sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
 [internal]
 
-exten => 600,1, Playback(demo-echotest)
-exten => 600,n, Echo
+exten => 600,1,Playback(demo-echotest)
+exten => 600,n,Echo
+
+exten => 600,n,Echo
 EOF
 sudo cat $default_config_dir_asterisk/extensions.conf 
 
