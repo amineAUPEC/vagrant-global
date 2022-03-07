@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function install_package(){
-    sudo apt-get install -y asterisk fish
+    sudo apt-get install -y asterisk fish tcpdump
 
 
 }
@@ -168,7 +168,8 @@ echo "dialing 600 from microsip"
 
 echo "capture tcpdump"
 function tcpdump_start(){
-tcpdump -i enp0s8 -w sip.cap
+tcpdump -i enp0s8 -w /home/vagrant/sip.cap
+cp /home/vagrant/sip.cap /vagrant
 
 }
 echo "capture wireshark"
