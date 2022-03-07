@@ -3,10 +3,11 @@
 function install_package(){
     sudo apt-get install -y asterisk fish tcpdump
 
-
 }
 
-
+function install_package_gui(){
+    sudo apt-get install -y xorg
+}
 install_package
 
 
