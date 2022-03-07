@@ -30,7 +30,7 @@ function install_package_gui(){
 
 
 install_package
-
+install_package_gui
 
 
 function verify_status(){
@@ -181,7 +181,7 @@ sudo cat $default_config_dir_asterisk/extensions.conf
 
 }
 
-# config_extensions_conf
+config_extensions_conf
 
 function reload_config(){
 
@@ -200,7 +200,9 @@ cp /home/vagrant/sip.cap /vagrant
 
 }
 echo "capture wireshark"
-
+function launch wireshark(){
+    sudo wireshark &
+}
 
 function test_gui_x11(){
 echo "as normal user" &> /dev/null
