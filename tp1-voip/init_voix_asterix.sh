@@ -5,15 +5,30 @@ function set_keyboards_fr(){
     sudo loadkeys fr
 }
 set_keyboards_fr
+
+
 function install_package(){
     sudo apt-get install -y asterisk fish tcpdump
 
 }
 
 function install_package_gui(){
-    sudo apt-get install -y xorg
+    sudo apt-get install -y xorg awesome
+
+# cat > ~/.xinitrc << EOF
+# exec awesome &> /dev/null
+# startx
+# EOF
+    # exec awesome &> /dev/null
+    # su vagrant
+    startx
 }
+
+
+
+
 install_package
+
 
 
 function verify_status(){
@@ -181,7 +196,11 @@ cp /home/vagrant/sip.cap /vagrant
 echo "capture wireshark"
 
 
+function test_gui_x11(){
+echo "as normal user" &> /dev/null
+xclock&
 
+}
 
 
 # function sipconf_config_default(){
