@@ -7,14 +7,14 @@ function install_package(){
 }
 
 
-install_package()
+install_package
 
 
 function verify_status(){
     sudo systemctl status asterisk
 }
 
-verify_status()
+verify_status
 
 
 function config_dir_asterisk(){
@@ -30,9 +30,11 @@ default_config_dir_asterisk="/etc/asterisk/"
 default_config_file="sip.conf"
 
 function draft(){
-
+ echo "draft"  
 
 }
+
+
 function divers(){
 
     man asterisk
@@ -56,7 +58,7 @@ EOF
 
 
 
-test_asterisk()
+test_asterisk
 
 
 
@@ -70,4 +72,4 @@ sudo cat "" > $default_config_dir_asterisk/$default_config_file
 
 }
 
-saving_asterisk_conf()
+saving_asterisk_conf
