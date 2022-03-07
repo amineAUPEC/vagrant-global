@@ -15,6 +15,8 @@ function install_package(){
 function install_package_gui(){
     sudo apt-get install -y xorg awesome
 
+    sudo apt-get install -y wireshark 
+
 # cat > ~/.xinitrc << EOF
 # exec awesome &> /dev/null
 # startx
