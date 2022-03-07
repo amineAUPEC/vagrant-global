@@ -94,9 +94,16 @@ host=dynamic
 secret=test
 context=internal
 
-
+[nibras]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=test
+context=internal
 
 EOF
+
+cat  $default_config_dir_asterisk/$default_config_file
 }
 
 
@@ -137,7 +144,8 @@ sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
 exten => 600,1,Playback(demo-echotest)
 exten => 600,n,Echo
 
-exten => 600,n,Echo
+exten => 100,1,Dial(SIP/salim)
+exten => 200,1,Dial(SIP/nibras)
 EOF
 sudo cat $default_config_dir_asterisk/extensions.conf 
 
