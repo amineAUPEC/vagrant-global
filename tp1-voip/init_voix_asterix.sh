@@ -47,10 +47,11 @@ function divers(){
 
 function test_asterisk(){
 sudo asterisk -rvvv <<< EOF
-
-
+sleep 5
+?
 core show applications
-
+sip show peers
+quit
 EOF
 
 
@@ -58,7 +59,7 @@ EOF
 
 
 
-test_asterisk
+# test_asterisk
 
 
 
