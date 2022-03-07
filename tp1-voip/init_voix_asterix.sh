@@ -131,6 +131,7 @@ sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
 exten => 600,1, Playback(demo-echotest)
 exten => 600,n, Echo
 EOF
+sudo cat $default_config_dir_asterisk/extensions.conf 
 
 
 
@@ -150,5 +151,8 @@ echo "dialing 600 from microsip"
 
 
 echo "capture tcpdump"
+function tcpdump_start(){
+tcpdump -i enp0s8 -w sip.cap
 
+}
 echo "capture wirehsark"
