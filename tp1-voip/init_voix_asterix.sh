@@ -87,18 +87,18 @@ context=public
 bindaddr=0.0.0.0
 transport=udp
 
-[salim]
+[amine]
 type=friend
 callerid="My name" <100>
 host=dynamic
 secret=test
 context=internal
 
-[nibras]
+[chhiny]
 type=friend
 callerid="My name" <200>
 host=dynamic
-secret=test
+secret=vitygtr
 context=internal
 
 EOF
@@ -144,8 +144,8 @@ sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
 exten => 600,1,Playback(demo-echotest)
 exten => 600,n,Echo
 
-exten => 100,1,Dial(SIP/salim)
-exten => 200,1,Dial(SIP/nibras)
+exten => 100,1,Dial(SIP/amine)
+exten => 200,1,Dial(SIP/chhiny)
 EOF
 sudo cat $default_config_dir_asterisk/extensions.conf 
 
@@ -177,48 +177,48 @@ echo "capture wireshark"
 
 
 
-function sipconf_config_default(){
+# function sipconf_config_default(){
 
-cat >  $default_config_dir_asterisk/$default_config_file << EOF 
-[general]
-context=public
-bindaddr=0.0.0.0
-transport=udp
+# cat >  $default_config_dir_asterisk/$default_config_file << EOF 
+# [general]
+# context=public
+# bindaddr=0.0.0.0
+# transport=udp
 
-[salim]
-type=friend
-callerid="My name" <100>
-host=dynamic
-secret=test
-context=internal
+# [salim]
+# type=friend
+# callerid="My name" <100>
+# host=dynamic
+# secret=test
+# context=internal
 
-[nibras]
-type=friend
-callerid="My name" <200>
-host=dynamic
-secret=test
-context=internal
+# [nibras]
+# type=friend
+# callerid="My name" <200>
+# host=dynamic
+# secret=test
+# context=internal
 
-EOF
+# EOF
 
-cat  $default_config_dir_asterisk/$default_config_file
-}
-
-
-function config_extensions_conf_default(){
-sudo echo "" > $default_config_dir_asterisk/extensions.conf
-sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
-[internal]
-
-exten => 600,1,Playback(demo-echotest)
-exten => 600,n,Echo
-
-exten => 100,1,Dial(SIP/salim)
-exten => 200,1,Dial(SIP/nibras)
-EOF
-sudo cat $default_config_dir_asterisk/extensions.conf 
+# cat  $default_config_dir_asterisk/$default_config_file
+# }
 
 
+# function config_extensions_conf_default(){
+# sudo echo "" > $default_config_dir_asterisk/extensions.conf
+# sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
+# [internal]
+
+# exten => 600,1,Playback(demo-echotest)
+# exten => 600,n,Echo
+
+# exten => 100,1,Dial(SIP/salim)
+# exten => 200,1,Dial(SIP/nibras)
+# EOF
+# sudo cat $default_config_dir_asterisk/extensions.conf 
 
 
-}
+
+
+# }
