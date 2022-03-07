@@ -121,7 +121,7 @@ EOF
 
 sipconf_config
 
-echo "cération d'un user"
+echo "création d'un user"
 
 echo "connexion d'un softphone auprès du serveur asterisk"
 
