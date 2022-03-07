@@ -171,4 +171,54 @@ function tcpdump_start(){
 tcpdump -i enp0s8 -w sip.cap
 
 }
-echo "capture wirehsark"
+echo "capture wireshark"
+
+
+
+
+
+function sipconf_config_default(){
+
+cat >  $default_config_dir_asterisk/$default_config_file << EOF 
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+
+[salim]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+
+[nibras]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=test
+context=internal
+
+EOF
+
+cat  $default_config_dir_asterisk/$default_config_file
+}
+
+
+function config_extensions_conf_default(){
+sudo echo "" > $default_config_dir_asterisk/extensions.conf
+sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
+[internal]
+
+exten => 600,1,Playback(demo-echotest)
+exten => 600,n,Echo
+
+exten => 100,1,Dial(SIP/salim)
+exten => 200,1,Dial(SIP/nibras)
+EOF
+sudo cat $default_config_dir_asterisk/extensions.conf 
+
+
+
+
+}
