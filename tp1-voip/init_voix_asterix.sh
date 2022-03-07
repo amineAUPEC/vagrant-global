@@ -74,3 +74,42 @@ sudo cat $default_config_dir_asterisk/$default_config_file.bkp
 }
 
 saving_asterisk_conf
+
+
+
+function question7(){
+
+cat >  $default_config_dir_asterisk/$default_config_file << EOF 
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+
+[salim]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+EOF
+
+    sip 
+    sip reload
+    sip show
+}
+
+
+echo "cération d'un user"
+
+echo "connexion d'un softphone auprès du serveur asterisk"
+
+
+echo "changement en accès par pont afin d'accéder"
+sudo systemctl restart networking
+
+
+echo "isntallation de microsip on windows"
+
+
+
+
