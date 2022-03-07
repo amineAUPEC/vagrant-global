@@ -11,7 +11,7 @@ install_package
 
 
 function verify_status(){
-    sudo systemctl status asterisk
+    sudo systemctl status asterisk | grep ""
 }
 
 verify_status
@@ -67,7 +67,7 @@ function saving_asterisk_conf(){
 
 sudo cp $default_config_dir_asterisk/$default_config_file $default_config_dir_asterisk/$default_config_file.bkp
 sudo echo "" > $default_config_dir_asterisk/$default_config_file
-sudo cat "" > $default_config_dir_asterisk/$default_config_file
+sudo cat $default_config_dir_asterisk/$default_config_file.bkp
 
 
 
