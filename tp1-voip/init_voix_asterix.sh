@@ -39,6 +39,10 @@ function verify_status(){
 
 verify_status
 
+function ssh_user_enabling(){
+    sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config    
+    sudo systemctl restart sshd.service
+}
 
 function config_dir_asterisk(){
 
