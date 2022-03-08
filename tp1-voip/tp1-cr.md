@@ -161,6 +161,6 @@ mise en place de téléphones SIP qui communique à travers un SIP PROXY
 
 on envoie vers un relai intermédiaire 
 2. La qualité audio varie en fonction des codecs
-3. Les rapprorts RTCP donne des valeurs 
+3. Les rapprorts RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )
 5.
 6. Il faudrait mettre en place une couche de cihfrrement /d'authentifcation supplménetaire.
