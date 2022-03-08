@@ -225,6 +225,24 @@ function directmedia_enable(){
     sudo sed -i 's/directmedia=no/directmedia=yes/g' /etc/asterisk/sip.conf   
 }
 
+function directmedia_redisable(){
+    sudo sed -i 's/directmedia=yes/directmedia=no/g' /etc/asterisk/sip.conf   
+
+}
+
+echo "starting TP2 **********"
+
+function add_delay(){
+
+int="eth0"
+int="enp0s8"
+sudo tc qdisc add dev $int root netem delay 100ms
+sudo tc qdisc add dev $int root netem delay 100ms 20ms
+sudo tc qdisc change dev $int root netem loss 0.3% 25%
+
+}
+
+directmedia_enable
 
 # function sipconf_config_default(){
 

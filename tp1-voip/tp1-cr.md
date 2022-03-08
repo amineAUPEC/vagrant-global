@@ -149,12 +149,18 @@ par défaut le paramètres directmedia=yes
 # tp 2 -cr 
 
 
-# exo1
+# exo1 : 1. CALCUL SUR LES TEMPS
+
 calcul = d=v*t
 
-# exo2
+# exo2 : 2. NEGOCIATION DES CODECS ET QUALITE AUDIO
+
 
 mise en place de téléphones SIP qui communique à travers un SIP PROXY
 
 
 on envoie vers un relai intermédiaire 
+2. La qualité audio varie en fonction des codecs
+3. Les rapprorts RTCP donne des valeurs 
+5.
+6. Il faudrait mettre en place une couche de cihfrrement /d'authentifcation supplménetaire.
