@@ -214,6 +214,18 @@ function test_network(){
     sudo ip -br a
     sudo netsta -tunap
 }
+
+
+function directmedia_disable(){
+    echo "directmedia=no" >> /etc/asterisk/sip.conf
+}
+# directmedia_disable
+function directmedia_enable(){
+    directmedia_disable
+    sudo sed -i 's/directmedia=no/directmedia=yes/g' /etc/asterisk/sip.conf   
+}
+
+
 # function sipconf_config_default(){
 
 # cat >  $default_config_dir_asterisk/$default_config_file << EOF 
