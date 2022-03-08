@@ -41,10 +41,10 @@ port source cote  VM (dynamique): 4000; 4002 ; 5060
 port source cote PC :(port plage dynamique mais reste fixe) : 57837   
    
 5. On teste le client :    
--  nous avons rechargé le fichier de configuration via diaplan reload   
+-  nous avons rechargé le fichier de configuration via `diaplan reload`  
 -  le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
 > Result :    
-```python   
+```dotnet   
  == Using SIP RTP CoS mark 5   
     > 0x7f42e801d290 -- Strict RTP learning after remote address set to: 192.168.1.110:4000   
  -- Executing [600@internal:1] Playback("SIP/amine-00000001", "demo-echotest") in new stack   
@@ -57,12 +57,12 @@ port source cote PC :(port plage dynamique mais reste fixe) : 57837
 6. la capture a lieu sur la carte en accès par pont    
 la valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte   
    
-7. La déconnexion se déroule par une demande request remove 1 bidning , les informations sont par conséquent "obsolète"   
+7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète"   
    
    
    
 l'échange de l'appelle ets réalisé à travers le protocole RTP et son protocole de transport reste le UDP   
-Le RTPCP rentre aussi en jeu   
+Le RTCP rentre aussi en jeu   
    
 d'abord il y a une demande sip/sdp   
    
@@ -110,9 +110,12 @@ ip dest
 8.e)    
 à faire    
 notes:    
-- reste question 8 à rédiger    
-- reste à tester la valeur directmedia=no et directmedia=yes   
+- reste question 8 à rédiger      
+- reste question 9, 10  
+- reste à tester la valeur directmedia=no et directmedia=yes    
 - mettre les screens
    
-echo "directmedia=no" >> /etc/asterisk/sip.conf
-sudo sed -i 's/directmedia=no/directmedia=yes/g' /etc/asterisk/sip.conf   
+```bash
+echo "directmedia=no" >> /etc/asterisk/sip.conf  
+sudo sed -i 's/directmedia=no/directmedia=yes/g' /etc/asterisk/sip.conf    
+```
