@@ -236,13 +236,24 @@ function add_delay(){
 
 int="eth0"
 int="enp0s8"
-sudo tc qdisc add dev $int root netem delay 100ms
+set int enp0s8
+# sudo tc qdisc add dev $int root netem delay 100ms
 sudo tc qdisc add dev $int root netem delay 100ms 20ms
 sudo tc qdisc change dev $int root netem loss 0.3% 25%
 
 }
 
 directmedia_enable
+
+
+
+
+
+function install_jami(){
+    sudo apt-get install -y jami
+    sudo snap install -y jami 
+
+}
 
 # function sipconf_config_default(){
 

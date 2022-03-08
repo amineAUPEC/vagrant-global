@@ -164,3 +164,12 @@ on envoie vers un relai intermédiaire
 3. Les rapprorts RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )
 5.
 6. Il faudrait mettre en place une couche de cihfrrement /d'authentifcation supplménetaire.
+
+
+
+draft
+
+1-capturelfuxrtcp_directmedia_yes
+   on rejoue la communicvation telephonique
+
+on ajoute les erreurs
