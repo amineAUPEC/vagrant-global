@@ -115,3 +115,46 @@ notes:
 echo "directmedia=no" >> /etc/asterisk/sip.conf  
 sudo sed -i 's/directmedia=no/directmedia=yes/g' /etc/asterisk/sip.conf    
 ```
+
+## draft
+directmedia permet : 
+
+
+
+
+
+Direct media = no
+
+Par défaut, on définit que les sessions média ne s’établissent pas directement entre les terminaux.
+
+Directmedia=yes ; pour les appels internes, les sessions RTP s’établissent directement
+
+
+
+lors des messages RTP : direct media autorisnet SIP1 vers SIP2 sans passer par le proxy via directmedia=yes, 
+si directmedia=no : pas de communication RTP et pase par le proxy SIP
+
+
+
+il faut aussi avoir un codec commun des deux cotes
+
+si directmedia=no
+le servur sip proxy : peut jouer le role de transcripteur via sa gestion des codecs
+
+
+
+par défaut le paramètres directmedia=yes
+
+
+# tp 2 -cr 
+
+
+# exo1
+calcul = d=v*t
+
+# exo2
+
+mise en place de téléphones SIP qui communique à travers un SIP PROXY
+
+
+on envoie vers un relai intermédiaire 
