@@ -210,7 +210,10 @@ xclock&
 
 }
 
-
+function test_network(){
+    sudo ip -br a
+    sudo netsta -tunap
+}
 # function sipconf_config_default(){
 
 # cat >  $default_config_dir_asterisk/$default_config_file << EOF 

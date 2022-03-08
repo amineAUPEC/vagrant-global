@@ -1,0 +1,57 @@
+# Info
+VOIP
+# ASTERISK
+1. Nous commençons par installer le paquet à l'aide de la commande   
+        `sudo apt-get update -y && sudo apt-get install -y Asterisk`   
+- Les fichier de configurations se situe dans /etc/asterix/ donc /etc/asterisk/sip.conf sera notre fichier de configuration principale.
+
+- Pour trouver la localisation :   
+        `package_name="asterisk" && dpkg -L $package_name | sort | uniq -c`  
+  - On voit bien que la majorité des fichiers se trouve dans /etc/asterisk         
+2. Nous lançons Asterisk en mode debug (en mode verbose)  
+        `sudo asterisk -rvvv` 
+- Les commandes principales sont :   
+  - `?` 
+  - `sip show peers/users`  
+  - `core show applications` 
+  - `sip reload` 
+  - `dialplan reload`  
+
+3. Nous avons configuré le client sip sous windows microsip en ajoutant le compte :   
+   - En ajoutant un compte : utilisateur celui qui est renseigné dans le sip.conf (amine) et son mot de passe (directive secret): test  
+   - le client est enregistré :  
+   - `sip show peers`    
+
+> Result :  
+```dotnet
+ubuntu-bionic*CLI> sip show peers
+Name/username             Host                                    Dyn Forcerport Comedia    ACL Port     Status      Description
+amine/amine               192.168.1.110                            D  Auto (No)  No             57837    Unmonitored
+chhiny                    (Unspecified)                            D  Auto (No)  No             0        Unmonitored
+2 sip peers [Monitored: 0 online, 0 offline Unmonitored: 1 online, 1 offline]
+    -- Unregistered SIP 'amine'
+    -- Registered SIP 'amine' at 192.168.1.110:57837
+
+```
+
+4. L'enregistrement se déroule à travers une liaison udp et l'échange de paquets  en utilisant le protcole RTP 
+ce sont des ports dynamiques qui sont utilisés
+
+port source cote VM : 57837
+port source cote PC : 4000; 4002
+
+5. On teste le client : 
+-  nous avons rechargé le fichier de configuration via diaplan reload
+-  le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)
+> Result : 
+```python
+ == Using SIP RTP CoS mark 5
+    > 0x7f42e801d290 -- Strict RTP learning after remote address set to: 192.168.1.110:4000
+ -- Executing [600@internal:1] Playback("SIP/amine-00000001", "demo-echotest") in new stack
+    > 0x7f42e801d290 -- Strict RTP learning after remote address set to: 192.168.1.110:4000
+    > 0x7f42e801d290 -- Strict RTP switching to RTP target address 192.168.1.110:4000 as source
+ -- <SIP/amine-00000001> Playing 'demo-echotest.gsm' (language 'en')
+    > 0x7f42e801d290 -- Strict RTP learning complete - Locking on source address 192.168.1.110:4000
+```
+
+6.
