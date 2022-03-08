@@ -125,7 +125,7 @@ context=internal
 type=friend
 callerid="My name" <200>
 host=dynamic
-secret=vitygtr
+secret=vitrygtr
 context=internal
 
 EOF

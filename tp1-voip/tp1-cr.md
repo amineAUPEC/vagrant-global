@@ -40,7 +40,7 @@ ce sont des ports dynamiques qui sont utilisés
 port source cote  VM (dynamique): 4000; 4002 ; 5060
 port source cote PC :(port plage dynamique mais reste fixe) : 57837
 
-1. On teste le client : 
+5. On teste le client : 
 -  nous avons rechargé le fichier de configuration via diaplan reload
 -  le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)
 > Result : 
@@ -70,3 +70,47 @@ ensuite ul ya le rtcp puis à nouveau le sip/sdp dès qu'il obtient le feu vert 
 
 
 on peut visualiser l'échange de la conevcrsation vocale : telephonhy > voip
+
+
+
+
+statistic-> flow graph
+
+
+
+8.a
+le protcole de transport est toujours udp
+request type invite : "cseq 102 invite"
+protocole sip/dp 
+
+sip:nomdetsinatire@ipdest:portdest
+
+try 
+ringing
+register 
+200 ok
+des echanges ack ont lieu
+
+
+
+8.b.
+trasnport de la voix via le protocole RTP 
+Real time transport protocol
+
+8.c.) 
+
+clre la session avec un request bye 
+
+8.d) 
+port source
+port dest
+ip source
+ip dest
+
+8.e) 
+à faire 
+notes: 
+- reste question 8 à rédiger 
+- reste à tester la valeur directmedia=no et directmedia=yes
+
+echo "directmedia=no" >> /etc/asterisk/sip.conf
