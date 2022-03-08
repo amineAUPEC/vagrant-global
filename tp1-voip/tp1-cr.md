@@ -37,10 +37,10 @@ chhiny                    (Unspecified)                            D  Auto (No) 
 4. L'enregistrement se déroule à travers une liaison udp et l'échange de paquets  en utilisant le protcole RTP 
 ce sont des ports dynamiques qui sont utilisés
 
-port source cote VM : 57837
-port source cote PC : 4000; 4002
+port source cote  VM (dynamique): 4000; 4002 ; 5060
+port source cote PC :(port plage dynamique mais reste fixe) : 57837
 
-5. On teste le client : 
+1. On teste le client : 
 -  nous avons rechargé le fichier de configuration via diaplan reload
 -  le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)
 > Result : 
@@ -54,4 +54,19 @@ port source cote PC : 4000; 4002
     > 0x7f42e801d290 -- Strict RTP learning complete - Locking on source address 192.168.1.110:4000
 ```
 
-6.
+6. la capture a lieu sur la carte en accès par pont 
+la valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte
+
+7. La déconnexion se déroule par une demande request remove 1 bidning , les informations sont par conséquent "obsolète"
+
+
+
+lechange de la'ppele ets rélaisé à travers le prtocole RTP et son prtocole de transport reste le UDP
+Le rtpcp rentre aussi en jeu
+
+d'abord il y a une demande sip/sdp
+
+ensuite ul ya le rtcp puis à nouveau le sip/sdp dès qu'il obtient le feu vert (sip/sdp 200 OK) : le protcole RTP prend le relai dee l'appel
+
+
+on peut visualiser l'échange de la conevcrsation vocale : telephonhy > voip
