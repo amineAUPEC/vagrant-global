@@ -57,24 +57,20 @@ port source cote PC :(port plage dynamique mais reste fixe) : 57837
 6. la capture a lieu sur la carte en accès par pont    
 la valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte   
    
-7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète"   
+7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète"     
+- Les différentes étapes sont :   
+   - l'échange de l'appelle est réalisé à travers le protocole RTP et son protocole de transport reste le UDP   
+   Le RTCP rentre aussi en jeu   
+      
+   - d'abord il y a une demande sip/sdp   
+      
+   - ensuite il ya le RTCP puis à nouveau le sip/sdp dès qu'il obtient le feu vert (sip/sdp 200 OK) : le protocole RTP prend le relai dee l'appel   
+      
+      
+   - on peut visualiser l'échange de la conversation vocale : telephony > VOIP   
    
-   
-   
-l'échange de l'appelle ets réalisé à travers le protocole RTP et son protocole de transport reste le UDP   
-Le RTCP rentre aussi en jeu   
-   
-d'abord il y a une demande sip/sdp   
-   
-ensuite ul ya le RTCP puis à nouveau le sip/sdp dès qu'il obtient le feu vert (sip/sdp 200 OK) : le protocole RTP prend le relai dee l'appel   
-   
-   
-on peut visualiser l'échange de la conversation vocale : telephony > VOIP   
-   
-   
-   
-   
-statistic-> flow graph   
+- Sur Wireshark
+  - statistic-> flow graph   
    
    
    
