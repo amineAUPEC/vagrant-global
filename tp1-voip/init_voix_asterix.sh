@@ -324,3 +324,32 @@ aconnect -x
 sudo chmod 777 /dev/snd/
 sudo chmod 777 /dev/snd/seq
 }
+
+
+
+
+root@ubuntu-bionic /vagrant# nano /etc/asterisk/sip.conf
+root@ubuntu-bionic /vagrant# cat /etc/asterisk/sip.conf
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+dissallow=all
+
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+dissallow=all
+
+[chhiny]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=vitrygtr
+context=internal
+dissallow=all
+
+directmedia=yes
