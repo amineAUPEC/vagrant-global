@@ -153,3 +153,14 @@ l'appel n'est pas réalisée car le canaux de transmission est pas compatible / 
   == Everyone is busy/congested at this time (1:0/0/1)
   car les appareils clients n'arrivent pas à communiquer correctement il faudrait potentiellement faire transiter grace au srevur SIP PROXY via asterisk en remplaçant le directmedia yes par la valeur no
 
+## scenario 7
+
+le codec nest pas configurée ccote asrteisk / sip proxy je pense dou le fait que lappel naboutit tjrs pas
+disallow all a été remodifie suite à une faute de frappe
+sip reload pour racherger la conf
+## scenario 8
+
+
+6. oojn chiffre lechnage à l'aide dun vpn par exemple
+7. on peut chiffrer à l'aide de protocole de chiffrement ou des clés de chiffrement
+8. on peut aussi sécuriser grâce à des codecs propriétaires
