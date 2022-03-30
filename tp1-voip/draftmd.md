@@ -1,7 +1,7 @@
 
 - chinny calls amine  : 
 - then code result
-  - we include the result when we switch G711 codecs to GSM 8Khz on both dial client the server remain in direct_media yes
+  - we include the result when we switch G711 codecs to GSM 8Khz on both dial client the server remain in directmedia yes
 certain conditionsently running on ubuntu-bionic (pid = 1063)
     -- Registered SIP 'amine' at 192.168.1.110:53025
        > Saved useragent "MicroSIP/3.20.7" for peer amine    
@@ -30,12 +30,12 @@ certain conditionsently running on ubuntu-bionic (pid = 1063)
     -- Registered SIP 'amine' at 192.168.1.110:58811
     -- Unregistered SIP 'chhiny'
     -- Registered SIP 'chhiny' at 192.168.1.110:58819
-ubuntu-bionic*CLI> vagrant-globalvagrant-global
+ubuntu-bionic*CLI> 
 
 
 ### scenario 2 : 
 chiny calls amine 23:06 
-direct_media =yes
+directmedia =yes
 chiny end the call
 
 
@@ -68,7 +68,7 @@ rtp stream analysis graph
 ## scenario 3 : 
 chiny calls amine 23:18
 G.723 8khz (microsip incompatible)
-direct_media =yes
+directmedia =yes
 
 amine bug codecs
 
@@ -125,10 +125,10 @@ disallow=all
 
 directmedia=yes
 
-### scenraio 5.1 
+### scenario 5.1 -> Q4 (before/intermediate)
 23:35
 
-appel erntre chiny et amine 
+appel entre chiny et amine 
 disallow all 
 codec g711
 directe_media yes
@@ -137,40 +137,40 @@ codec compatible
 mais ne fonctionne tjrs pas avec g723 8khz
 
 
-## scenario 6
+## scenario 6 -> Q4
 gsm 8khz chiny
 speex 8khz amine
 disallow all
-direct_media yes
+directmedia yes
 23:41
 
-=> resultat channel unnavalaible
+=> résultat channel unavailable
 
     -- Auto fallthrough, channel 'SIP/chhiny-00000011' status is 'CHANUNAVAIL'
 
 
-l'appel n'est pas réalisée car le canaux de transmission est pas compatible / selon asterisk il est indisponible  il y a un econgestion  
+l'appel n'est pas réalisée car le canaux de transmission est pas compatible / selon asterisk il est indisponible  il y a une congestion  
   == Everyone is busy/congested at this time (1:0/0/1)
-  car les appareils clients n'arrivent pas à communiquer correctement il faudrait potentiellement faire transiter grace au srevur SIP PROXY via asterisk en remplaçant le directmedia yes par la valeur no
+  car les appareils clients n'arrivent pas à communiquer correctement il faudrait potentiellement faire transiter grace au serveur SIP PROXY via asterisk en remplaçant le directmedia yes par la valeur no
 
-## scenario 7
+## scenario 7 -> Q6
 
-le codec nest pas configurée ccote asrteisk / sip proxy je pense dou le fait que lappel naboutit tjrs pas
-disallow all a été remodifie suite à une faute de frappe
-sip reload pour racherger la conf
+le codec n'est pas configurée côté asterisk  / sip proxy je pense dou le fait que l'appel n'aboutit toujours pas
+disallow all a été modifié suite à une faute de frappe
+sip reload pour recharger la conf
 ## scenario 8
 
 
-1. oojn chiffre lechnage à l'aide dun vpn par exemple
+1. On chiffre l'échange à l'aide d'un VPN par exemple
 2. on peut chiffrer à l'aide de protocole de chiffrement ou des clés de chiffrement
 3. on peut aussi sécuriser grâce à des codecs propriétaires
-4. procéder à du bourrage pour compliquer la compréhennsion / lecture par un tiers
+4. procéder à du bourrage pour compliquer la compréhension / lecture par un tiers
 ## scenario 9
 
 13:14 
 
 chiny call amine
-directemedia=yes
+directmedia=yes
 allow=all
 chiny : gsm 8khz
 amine : speex 8khz
@@ -179,7 +179,7 @@ amine : speex 8khz
 13:19 13:20
 
 chiny call amine
-directemedia=no
+directmedia=no
 allow=all
 chiny : gsm 8khz
 amine : speex 8khz

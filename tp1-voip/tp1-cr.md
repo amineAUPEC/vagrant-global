@@ -131,7 +131,7 @@ Directmedia=yes ; pour les appels internes, les sessions RTP s’établissent di
 
 
 
-lors des messages RTP : direct_media autorise les clients SIP1 vers SIP2 sans passer par le proxy via directmedia=yes, 
+lors des messages RTP : directmedia autorise les clients SIP1 vers SIP2 sans passer par le proxy via directmedia=yes, 
 si directmedia=no : pas de communication RTP et pasSe par le proxy SIP
 
 
@@ -188,4 +188,41 @@ Lorsque nous modifions le codec on voit que l'en-tete des paquets sont RTP sont 
 ![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)
 
 
+2. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?
 
+
+La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.
+Les codecs G.723 8khz et Speex 8khz ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.
+
+
+4. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe).
+L'appel n'est pas réalisé
+5. Remettre directmedia=no. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)
+L'appel n'est pas réalisé
+
+6. Utiliser Wireshark pour enregistrer l’appel. Comment peut-on sécuriser l’échange ?
+
+L'appel est bien réalisé, l'appel est transmis en clair.
+
+   1. On pourra sécurisé cet échange 
+   1. On chiffre l'échange à l'aide d'un VPN par exemple
+   2. On peut chiffrer à l'aide de protocole de chiffrement, certificats ou des clés de chiffrement.
+   3. On peut aussi sécuriser grâce à des codecs propriétaires.
+   4. On pourrait mettre en place du bourrage pour compliquer la compréhension / lecture par un tiers.
+   5. On pourrait créer un réseau de serveur/proxy SIP avec des couches de chiffrement.
+   6. On pourrait utilisé firewall ou un PBX.
+   7. Mettre en place plus d'utilisateur/ authentfication entre ses utilisateurs/ protection De déni de service.
+
+   
+
+
+## Nota Bene : 
+Nous avons utilisés VAGRANT afin de gérer la gestion des machines virtuelles. Pour les créer en 5 min chronos. 
+Nous avons aussi mis en place différents procédés afin de conserver un script bash afin d'appeler la fonction au moment donné.
+
+
+Nous avons aussi privilégié le format markdown pour la documentation.
+
+
+## sources : 
+https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-connaitre/
