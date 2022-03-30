@@ -175,3 +175,17 @@ draft
 on ajoute les erreurs
 
 
+
+1. Nous avons capturé le flux RTP et le flux RTCP. 
+En effet la communication est directe entre les différents clients mais le serveur SIP contr$ole / Initie les demandes téléphoniques.
+
+Pour cela nous avons utilisé la commande suivante : afin de le lancer avec X11 :
+```bash
+sesu - etudiant
+sudo wireshark &
+```
+Lorsque nous modifions le codec on voit que l'en-tete des paquets sont RTP sont modifiés
+![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)
+
+
+
