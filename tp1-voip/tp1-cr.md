@@ -41,7 +41,7 @@ port source cote  VM (dynamique): 4000; 4002 ; 5060
 port source cote PC :(port plage dynamique mais reste fixe) : 57837   
    
 5. On teste le client :    
--  nous avons rechargé le fichier de configuration via `diaplan reload`  
+-  nous avons rechargé le fichier de configuration via `dialplan reload`  
 -  le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
 > Result :    
 ```dotnet   
@@ -131,8 +131,8 @@ Directmedia=yes ; pour les appels internes, les sessions RTP s’établissent di
 
 
 
-lors des messages RTP : direct media autorisnet SIP1 vers SIP2 sans passer par le proxy via directmedia=yes, 
-si directmedia=no : pas de communication RTP et pase par le proxy SIP
+lors des messages RTP : direct_media autorise les clients SIP1 vers SIP2 sans passer par le proxy via directmedia=yes, 
+si directmedia=no : pas de communication RTP et pasSe par le proxy SIP
 
 
 
@@ -153,7 +153,7 @@ par défaut le paramètres directmedia=yes
 
 calcul = d=v*t
 
-# exo2 : 2. NEGOCIATION DES CODECS ET QUALITE AUDIO
+# exo2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
 
 
 mise en place de téléphones SIP qui communique à travers un SIP PROXY
@@ -163,7 +163,7 @@ on envoie vers un relai intermédiaire
 2. La qualité audio varie en fonction des codecs
 3. Les rapports RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )
 5.
-6. Il faudrait mettre en place une couche de chiffrement /d'authentifcation supplémentaire.
+6. Il faudrait mettre en place une couche de chiffrement /d'authentification supplémentaire.
 
 
 
