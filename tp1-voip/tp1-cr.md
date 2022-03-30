@@ -170,6 +170,8 @@ on envoie vers un relai intermédiaire
 draft
 
 1-capturelfuxrtcp_directmedia_yes
-   on rejoue la communicvation telephonique
+   on rejoue la communication telephonique
 
 on ajoute les erreurs
+
+
