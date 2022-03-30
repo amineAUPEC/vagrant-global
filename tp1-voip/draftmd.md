@@ -105,7 +105,7 @@ root@ubuntu-bionic /vagrant# cat /etc/asterisk/sip.conf
 context=public
 bindaddr=0.0.0.0
 transport=udp
-dissallow=all
+disallow=all
 
 [amine]
 type=friend
@@ -113,7 +113,7 @@ callerid="My name" <100>
 host=dynamic
 secret=test
 context=internal
-dissallow=all
+disallow=all
 
 [chhiny]
 type=friend
@@ -121,7 +121,7 @@ callerid="My name" <200>
 host=dynamic
 secret=vitrygtr
 context=internal
-dissallow=all
+disallow=all
 
 directmedia=yes
 
@@ -161,6 +161,40 @@ sip reload pour racherger la conf
 ## scenario 8
 
 
-6. oojn chiffre lechnage à l'aide dun vpn par exemple
-7. on peut chiffrer à l'aide de protocole de chiffrement ou des clés de chiffrement
-8. on peut aussi sécuriser grâce à des codecs propriétaires
+1. oojn chiffre lechnage à l'aide dun vpn par exemple
+2. on peut chiffrer à l'aide de protocole de chiffrement ou des clés de chiffrement
+3. on peut aussi sécuriser grâce à des codecs propriétaires
+4. procéder à du bourrage pour compliquer la compréhennsion / lecture par un tiers
+## scenario 9
+
+13:14 
+
+chiny call amine
+directemedia=yes
+allow=all
+chiny : gsm 8khz
+amine : speex 8khz
+## scenario 10
+13:18
+13:19 13:20
+
+chiny call amine
+directemedia=no
+allow=all
+chiny : gsm 8khz
+amine : speex 8khz
+
+sip transfer the call to amine and even to chiny
+chiny -> sip -> amine -> sip -> chiny
+110 -> 114 -> 110 -> 114 -> 110
+
+because amine and chiny have the same IP : 110
+sip : l'adresse IP du SIP se termine par .114
+
+vagrant halt
+
+
+
+## scénario 11
+Nous avons utilisés VAGRANT afin de gérer la gestion des machines virtuelles. Pour les créer en 5 min chronos. 
+Nous avons aussi mis en place différents procédés afin de conserver un script bash afin d'appeler la fonction au moment donné.
