@@ -172,11 +172,11 @@ draft
 1-capturelfuxrtcp_directmedia_yes
    on rejoue la communication telephonique
 
-on ajoute les erreurs
-
-
-
+   
+   
+   
 1. Nous avons capturé le flux RTP et le flux RTCP. 
+Tout d'abord : On ajoute les erreurs.
 En effet la communication est directe entre les différents clients mais le serveur SIP contr$ole / Initie les demandes téléphoniques.
 
 Pour cela nous avons utilisé la commande suivante : afin de le lancer avec X11 :
@@ -184,7 +184,7 @@ Pour cela nous avons utilisé la commande suivante : afin de le lancer avec X11 
 sesu - etudiant
 sudo wireshark &
 ```
-Lorsque nous modifions le codec on voit que l'en-tete des paquets sont RTP sont modifiés
+Lorsque nous modifions le codec on voit que l'en-tête des paquets sont RTP sont modifiés
 ![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)
 
 
@@ -211,7 +211,8 @@ L'appel est bien réalisé, l'appel est transmis en clair.
    4. On pourrait mettre en place du bourrage pour compliquer la compréhension / lecture par un tiers.
    5. On pourrait créer un réseau de serveur/proxy SIP avec des couches de chiffrement.
    6. On pourrait utilisé firewall ou un PBX.
-   7. Mettre en place plus d'utilisateur/ authentfication entre ses utilisateurs/ protection De déni de service.
+   7. Mettre en place plus d'utilisateur/ authentification entre ses utilisateurs/ protection De déni de service.
+   8. Mise en place du SRTP Secure Real Time Protocol au lieu du RTP classique.
 
    
 
