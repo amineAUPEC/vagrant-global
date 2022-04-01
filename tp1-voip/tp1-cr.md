@@ -1,5 +1,6 @@
 # Info   
 VOIP   
+# TP1 : VOIX SUR IP :ASTERISK   
 # ASTERISK   
 1. Nous commençons par installer le paquet à l'aide de la commande      
         `sudo apt-get update -y && sudo apt-get install -y Asterisk`      
@@ -17,12 +18,12 @@ VOIP
   - `sip reload`    
   - `dialplan reload`     
    
-3. Nous avons configuré le client sip sous windows microsip en ajoutant le compte :      
+3. Nous avons configuré le client SIP sous Windows microsip en ajoutant le compte :      
    - En ajoutant un compte : utilisateur celui qui est renseigné dans le sip.conf (amine) et son mot de passe (directive secret): test     
    - le client est enregistré :     
    - `sip show peers`       
    
-> Result :     
+> Résultat :     
 ```dotnet   
 ubuntu-bionic*CLI> sip show peers   
 Name/username             Host                                    Dyn Forcerport Comedia    ACL Port     Status      Description   
@@ -34,15 +35,14 @@ chhiny                    (Unspecified)                            D  Auto (No) 
    
 ```   
    
-4. L'enregistrement se déroule à travers une liaison udp et l'échange de paquets  en utilisant le protocole RTP    
-ce sont des ports dynamiques qui sont utilisés   
-   
-port source cote  VM (dynamique): 4000; 4002 ; 5060   
-port source cote PC :(port plage dynamique mais reste fixe) : 57837   
+4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP    
+- Ce sont des ports dynamiques qui sont utilisés  : 
+   - port source côté  VM (dynamique): 4000; 4002 ; 5060   
+   - port source côté PC :(port plage dynamique mais reste fixe) : 57837   
    
 5. On teste le client :    
--  nous avons rechargé le fichier de configuration via `dialplan reload`  
--  le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
+-  Nous avons rechargé le fichier de configuration via `dialplan reload`  
+-  Le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
 > Result :    
 ```dotnet   
  == Using SIP RTP CoS mark 5   
@@ -75,7 +75,7 @@ la valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 l
    
    
 8.a   
-le protocole de transport est toujours udp   
+le protocole de transport est toujours UDP   
 request type invite : "cseq 102 invite"   
 protocole SIP/SDP    
    
@@ -136,7 +136,7 @@ si directmedia=no : pas de communication RTP et pasSe par le proxy SIP
 
 
 
-il faut aussi avoir un codec commun des deux cotes
+il faut aussi avoir un codec commun des deux côtés
 
 si directmedia=no
 le servur sip proxy : peut jouer le role de transcripteur via sa gestion des codecs
