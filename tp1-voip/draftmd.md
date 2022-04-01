@@ -65,10 +65,10 @@ images
 rtp stream   
 rtp stream analysis graph  
 
-## scenario 3 : 
-chiny calls amine 23:18  
-G.723 8khz (microsip incompatible)  
-directmedia =yes  
+## scenario 3 :   
+chiny calls amine 23:18    
+G.723 8khz (microsip incompatible)    
+directmedia =yes    
 
 amine bug codecs  
 > Résultat :     
@@ -85,7 +85,6 @@ amine bug codecs
 [Mar 28 21:20:25] NOTICE[2119][C-00000003]: chan_sip.c:10884 process_sdp: No compatible codecs, not accepting this offer!
   == Using SIP RTP CoS mark 5
 [Mar 28 21:20:38] NOTICE[2119][C-00000004]: chan_sip.c:10884 process_sdp: No compatible codecs, not accepting this offer!
-ubuntu-bionic*CLI>
 ```
 ## scenario 4
 codec speex 8khz  
@@ -93,15 +92,12 @@ codec incompatible
 directe_media=yes  
 
 ## scenario 4.1
-
-
-codec speex 32khz  
-codec incompatible   
+codec speex 32khz    
+codec incompatible     
 
 # scenario 5
 
-root@ubuntu-bionic /vagrant# nano /etc/asterisk/sip.conf  
-root@ubuntu-bionic /vagrant# cat /etc/asterisk/sip.conf  
+`nano /etc/asterisk/sip.conf && cat /etc/asterisk/sip.conf` 
 ```ini
 [general]
 context=public
@@ -131,28 +127,28 @@ directmedia=yes
 ### scenario 5.1 -> Q4 (before/intermediate)
 23:35
 
-appel entre chiny et amine   
-disallow all   
-codec g711  
-directe_media yes  
-codec compatible  
+appel entre chiny et amine     
+disallow all     
+codec g711    
+directe_media yes    
+codec compatible    
 
-mais ne fonctionne tjrs pas avec g723 8khz  
+mais ne fonctionne tjrs pas avec g723 8khz    
 
 
 ## scenario 6 -> Q4
-gsm 8khz chiny  
-speex 8khz amine  
-disallow all  
-directmedia yes  
-23:41  
+gsm 8khz chiny    
+speex 8khz amine    
+disallow all    
+directmedia yes    
+23:41    
 
-=> résultat channel unavailable  
+=> résultat channel unavailable    
 
     -- Auto fallthrough, channel 'SIP/chhiny-00000011' status is 'CHANUNAVAIL'  
 
 
-l'appel n'est pas réalisée car le canaux de transmission est pas compatible / selon asterisk il est indisponible  il y a une congestion    
+l'appel n'est pas réalisée car le canaux de transmission est pas compatible / selon asterisk il est indisponible  il y a une congestion      
   == Everyone is busy/congested at this time (1:0/0/1)  
   car les appareils clients n'arrivent pas à communiquer   correctement il faudrait potentiellement faire transiter   grace au serveur SIP PROXY via asterisk en remplaçant le directmedia yes par la valeur no  
 
