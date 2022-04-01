@@ -4,7 +4,7 @@ VOIP
 # ASTERISK   
 1. Nous commençons par installer le paquet à l'aide de la commande      
         `sudo apt-get update -y && sudo apt-get install -y Asterisk`      
-- Les fichier de configurations se situe dans /etc/asterix/ donc /etc/asterisk/sip.conf sera notre fichier de configuration principale.   
+- Les fichier de configurations se situe dans */etc/asterix/* donc */etc/asterisk/sip.conf* sera notre fichier de configuration principale.   
    
 - Pour trouver la localisation :      
         `package_name="asterisk" && dpkg -L $package_name | sort | uniq -c`     
@@ -37,8 +37,8 @@ chhiny                    (Unspecified)                            D  Auto (No) 
    
 4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP    
 - Ce sont des ports dynamiques qui sont utilisés  : 
-   - port source côté  VM (dynamique): 4000; 4002 ; 5060   
-   - port source côté PC :(port plage dynamique mais reste fixe) : 57837   
+   - Port source côté VM (dynamique): **4000; 4002 ; 5060**
+   - Port source côté PC : (port plage dynamique mais reste fixe) : **57837**   
    
 5. On teste le client :    
 -  Nous avons rechargé le fichier de configuration via `dialplan reload`  
@@ -54,8 +54,8 @@ chhiny                    (Unspecified)                            D  Auto (No) 
     > 0x7f42e801d290 -- Strict RTP learning complete - Locking on source address 192.168.1.110:4000   
 ```   
    
-6. la capture a lieu sur la carte en accès par pont    
-la valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte   
+6. La capture a lieu sur la carte en accès par pont    
+La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte   
    
 7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète"     
 - Les différentes étapes sont :   
@@ -79,7 +79,7 @@ le protocole de transport est toujours UDP
 request type invite : "cseq 102 invite"   
 protocole SIP/SDP    
    
-sip:$nomdestinataire@$ipdest:$portdest   
+`sip:$nomdestinataire@$ipdest:$portdest`
    
 try    
 ringing   
