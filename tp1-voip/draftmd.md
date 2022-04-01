@@ -34,10 +34,10 @@ ubuntu-bionic*CLI>
 
 
 ### scenario 2 : 
-chiny calls amine 23:06 
-directmedia =yes
-chiny end the call
-> Résultat :     
+chiny calls amine 23:06   
+directmedia =yes  
+chiny end the call  
+> Résultat :       
 ```dotnet   
   == Using SIP RTP CoS mark 5
        > 0x7f4b10010f70 -- Strict RTP learning after remote address set to: 192.168.1.110:4000
