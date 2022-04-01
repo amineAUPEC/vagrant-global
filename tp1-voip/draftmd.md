@@ -2,6 +2,8 @@
 - chinny calls amine  : 
 - then code result
   - we include the result when we switch G711 codecs to GSM 8Khz on both dial client the server remain in directmedia yes
+> Résultat : 
+```dotnet
 certain conditionsently running on ubuntu-bionic (pid = 1063)
     -- Registered SIP 'amine' at 192.168.1.110:53025
        > Saved useragent "MicroSIP/3.20.7" for peer amine    
@@ -30,8 +32,7 @@ certain conditionsently running on ubuntu-bionic (pid = 1063)
     -- Registered SIP 'amine' at 192.168.1.110:58811
     -- Unregistered SIP 'chhiny'
     -- Registered SIP 'chhiny' at 192.168.1.110:58819
-ubuntu-bionic*CLI> 
-
+```
 
 ### scenario 2 : 
 chiny calls amine 23:06   
