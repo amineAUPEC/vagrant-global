@@ -409,7 +409,11 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
    8. Mise en place du SRTP Secure Real Time Protocol au lieu du RTP classique.  
 
 ![4 images](./tp2-images/7-/10-/directmediano--allowall--disallownone/fix)
-
+- Le serveur SIP transfère l'appel à Amine et à Chhiny.
+  - Chhiny -> SIP -> Amine -> SIP -> Chhiny  
+  - 110 -> 114 -> 110 -> 114 -> 110  
+  - Chhiny et Amine ont la même adresse IP.
+  - Le serveur SIP se termine par *.114*
 
 ## Nota Bene : 
 - Nous avons utilisés VAGRANT afin de gérer la gestion des machines virtuelles. Pour les créer en 5 min chronos.  
