@@ -198,7 +198,7 @@ D < 19000 km
 
 # exo2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
 
-
+## draft
 mise en place de téléphones SIP qui communique à travers un SIP PROXY  
 
 
@@ -211,12 +211,9 @@ on envoie vers un relai intermédiaire
 
 draft
 
-
 1-capturelfuxrtcp_directmedia_yes
    on rejoue la communication téléphonique
-
-   
-   
+## draftend
    
 1. Nous avons capturé le flux RTP et le flux RTCP. 
    - Tout d'abord : On ajoute les erreurs.
@@ -238,10 +235,10 @@ sudo wireshark &
     - A destination du port *13380* du serveur SIP *192.168.1.114*.
   - On observe que le codec est affiché dans le champ **Payload** : *g711U* 
   - On constate les pertes de paquets dans le champ **Lost**.
-  - Enfin on constate la latence dans les champs **Jitter**. 
+  - Enfin on constate la latence dans les champs **Jitter**.   
 ![screen2](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\2-2022-03-08-161044.png)
-- On peut voir le diagramme d'échange lors de l'appel grâce à l'onglet **Call Flow**:
-  -  On voit l'initiation  de l'appel entre les clients.Avec le protocole SIP.
+- On peut voir le diagramme d'échange lors de l'appel grâce à l'onglet **Call Flow** :
+  -  On voit l'initiation  de l'appel entre les clients. Avec le protocole SIP.
   -  On voit bien les paquets RTP échangés et leur longueur.
 <!-- ![screen4](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\4-2022-03-08-161139.png) -->
 Configuration du serveur Asterisk : *sip.conf*
