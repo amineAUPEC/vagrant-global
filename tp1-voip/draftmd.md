@@ -1,7 +1,8 @@
+### scenario 1 : -> Q1(compatible)
 
-- chinny calls amine  : 
+- Chhiny calls amine  : 
 - then code result
-  - we include the result when we switch G711 codecs to GSM 8Khz on both dial client the server remain in directmedia yes
+  - we include the result when we switch G711 codecs to GSM 8Khz on both dial client the server remain in `directmedia yes`
 > Résultat : 
 ```dotnet
 certain conditionsently running on ubuntu-bionic (pid = 1063)
@@ -34,7 +35,7 @@ certain conditionsently running on ubuntu-bionic (pid = 1063)
     -- Registered SIP 'chhiny' at 192.168.1.110:58819
 ```
 
-### scenario 2 : 
+### scenario 2 : -> Q1(compatible)
 chiny calls amine 23:06   
 directmedia =yes  
 chiny end the call  
@@ -90,7 +91,7 @@ amine bug codecs
 ## scenario 4
 codec speex 8khz  
 codec incompatible  
-directe_media=yes  
+direct_media=yes  
 
 ## scenario 4.1
 codec speex 32khz    
@@ -131,7 +132,7 @@ directmedia=yes
 appel entre chiny et amine     
 disallow all     
 codec g711    
-directe_media yes    
+directmedia yes    
 codec compatible    
 
 mais ne fonctionne tjrs pas avec g723 8khz    
@@ -150,22 +151,25 @@ directmedia yes
 
 
 l'appel n'est pas réalisée car le canaux de transmission est pas compatible / selon asterisk il est indisponible  il y a une congestion      
-  == Everyone is busy/congested at this time (1:0/0/1)  
-  car les appareils clients n'arrivent pas à communiquer   correctement il faudrait potentiellement faire transiter   grace au serveur SIP PROXY via asterisk en remplaçant le directmedia yes par la valeur no  
+  `== Everyone is busy/congested at this time (1:0/0/1)`
+  car les appareils clients n'arrivent pas à communiquer   correctement il faudrait potentiellement faire transiter   grace au serveur SIP PROXY via asterisk en remplaçant le `directmedia yes` par la valeur `no`  
 
-## scenario 7 -> Q6
 
-le codec n'est pas configurée côté asterisk  / sip proxy je   pense dou le fait que l'appel n'aboutit toujours pas  
-disallow all a été modifié suite à une faute de frappe  
-sip reload pour recharger la conf  
-## scenario 8
+Service unavailable est affiché sur le softphone. Lors de l'appel.
+## scenario 7 -> Q5
+
+le codec n'est pas configurée côté asterisk  / sip proxy je   pense dou le fait que l'appel n'aboutit toujours pas.    
+`disallow all` a été modifié suite à une faute de frappe.   
+`sip reload` pour recharger la configuration.  
+Mais faute de frappe à `disallow all`.  
+## scenario 8 -> Q6 (réflexion)
 
 
 1. On chiffre l'échange à l'aide d'un VPN par exemple  
 2. on peut chiffrer à l'aide de protocole de chiffrement ou des clés de chiffrement  
 3. on peut aussi sécuriser grâce à des codecs propriétaires
 4. procéder à du bourrage pour compliquer la compréhension / lecture par un tiers  
-## scenario 9
+## scenario 9 -> QNull
 
 13:14   
 
@@ -174,7 +178,7 @@ directmedia=yes
 allow=all  
 chiny : gsm 8khz  
 amine : speex 8khz  
-## scenario 10
+## scenario 10 -> Q5 (unofficial fix)
 13:19 13:20  
 
 chiny call amine  
@@ -194,6 +198,6 @@ sip : l'adresse IP du SIP se termine par .114
 
 
 
-## scénario 11
+## scénario 11 -> QNB
 Nous avons utilisés VAGRANT afin de gérer la gestion des machines virtuelles. Pour les créer en 5 min chronos. 
 Nous avons aussi mis en place différents procédés afin de conserver un script bash afin d'appeler la fonction au moment donné.  

@@ -334,7 +334,7 @@ root@ubuntu-bionic /vagrant# cat /etc/asterisk/sip.conf
 context=public
 bindaddr=0.0.0.0
 transport=udp
-dissallow=all
+disallow=all
 
 [amine]
 type=friend
@@ -342,14 +342,15 @@ callerid="My name" <100>
 host=dynamic
 secret=test
 context=internal
-dissallow=all
+disallow=all
 
+directmedia=yes
 [chhiny]
 type=friend
 callerid="My name" <200>
 host=dynamic
 secret=vitrygtr
 context=internal
-dissallow=all
+disallow=all
 
 directmedia=yes

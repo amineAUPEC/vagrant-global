@@ -22,7 +22,7 @@ VOIP
   - `sip reload`    
   - `dialplan reload`     
    
-1. Nous avons configuré le client SIP sous Windows microsip en ajoutant le compte :      
+3. Nous avons configuré le client SIP sous Windows microsip en ajoutant le compte :      
    - En ajoutant un compte : utilisateur celui qui est renseigné dans le sip.conf (amine) et son mot de passe (directive secret): test     
    - le client est enregistré :     
    - `sip show peers`       
@@ -98,19 +98,17 @@ La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 l
    - Le transport de la voix s'effectue via le protocole RTP     
    - Real time transport protocol     
    
-8. c.)    
-   
-clore la session avec un request bye    
+8. c.)   Le message utilisé pour clore la session contient **un request bye**   
    
 8.d)    
-port source :    
-port dest   
+port source :    192.168.1.110
+port dest   :
 ip source   
 ip dest   
    
 8.e)    
 
-9. Avec `directmedia=yes` pour *sip.conf* :   
+1. Avec `directmedia=yes` pour *sip.conf* :   
 - Le client communique directement avec le second client sans passer par le serveur SIP. Sauf lors de l'appel est initialisé.  
 - Le serveur SIP se contente de gérer les appels entrant et sortant. Et de les couper.
 - La communication passe à travers le protocole RTP.
@@ -163,8 +161,40 @@ par défaut le paramètres directmedia=yes
 
 
 # exo1 : 1. CALCUL SUR LES TEMPS
-
+```dotnet
 calcul = d=v*t
+
+temps de numérisation car temps négligeable
+
+tnum =0
+
+total=totaltransmissionpaquet= 64 
+en_tête =16 octets
+contenant_utile = 64 -16 octets
+contenant_utile = total- en_tête 
+print("contenant utile" $contenant_utile "octets")
+
+
+T_remplissage = ((64-16)*8)/8kbit/sec
+T_remplissage = 48 ms
+
+D=Dmax
+T_propagation= $D/200 000 km/s
+T_transmission=(64*8)/100Mbit/s=0.005212
+
+
+ricardo :
+Tnumérisation = 0 
+Tremplissage = ((64-16)*8) / 8kbit/seconde = 48ms 
+Tpropagation = D / 200000km/s 
+Ttransmission = (64*8) / 100mbit/s = 0.00512 ms (négligeable) 
+Ttraitement = 7 ms 
+ 
+
+0 + 48 + (D / 200km/ms) + 0.00512 + 7 < 150 
+D <  (150 – 48 – 0.00512 – 7) *200km 
+D < 19000 km 
+```
 
 # exo2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
 
@@ -173,14 +203,14 @@ mise en place de téléphones SIP qui communique à travers un SIP PROXY
 
 
 on envoie vers un relai intermédiaire   
-2. La qualité audio varie en fonction des codecs  
-3. Les rapports RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )  
-5.  
-6. Il faudrait mettre en place une couche de chiffrement /d'authentification supplémentaire.  
-
+1. La qualité audio varie en fonction des codecs  
+2. Les rapports RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )  
+3.  
+4. Il faudrait mettre en place une couche de chiffrement /d'authentification supplémentaire.  
 
 
 draft
+
 
 1-capturelfuxrtcp_directmedia_yes
    on rejoue la communication téléphonique
@@ -197,24 +227,70 @@ draft
 sesu - etudiant
 sudo wireshark &
 ```
-- Lorsque nous modifions le codec on voit que l'en-tête des paquets sont RTP sont modifiés  :   
+- Lorsque nous modifions le codec on voit que l'en-tête des paquets RTP sont modifiés  :   
 ![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)  
 
+![screen1](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\1-2022-03-08-165432.png)
+- Grâce à l'onglet **RTP STREAM**:
+  - Le port source pour le *client1* est : *4002*, son adresse IP est *192.168.1.110*. 
+    - A destination du port *11322* du serveur SIP *192.168.1.114*.
+  - Le port source pour le *client2* est : *4004*, son adresse IP est *192.168.1.110*.
+    - A destination du port *13380* du serveur SIP *192.168.1.114*.
+  - On observe que le codec est affiché dans le champ **Payload** : *g711U* 
+  - On constate les pertes de paquets dans le champ **Lost**.
+  - Enfin on constate la latence dans les champs **Jitter**. 
+![screen2](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\2-2022-03-08-161044.png)
+- On peut voir le diagramme d'échange lors de l'appel grâce à l'onglet **Call Flow**:
+  -  On voit l'initiation  de l'appel entre les clients.Avec le protocole SIP.
+  -  On voit bien les paquets RTP échangés et leur longueur.
+<!-- ![screen4](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\4-2022-03-08-161139.png) -->
+Configuration du serveur Asterisk : *sip.conf*
+`nano /etc/asterisk/sip.conf && cat /etc/asterisk/sip.conf` 
+```ini
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
 
-2. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+directmedia=yes
+
+[chhiny]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=vitrygtr
+context=internal
+directmedia=yes
+```
+
+
+1. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
    - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  
    - Les codecs G.723 8khz et Speex 8khz ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
 
-4. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe).  
-L'appel n'est pas réalisé  
-5. Remettre directmedia=no. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)  
-L'appel n'est pas réalisé  
+
+2. Les valeurs Qos associés sont différentes en fonction utilisées 
+    - Le codec par défaut : (G.711 A-law G.711 u-law ) : a la valeur de QoS la plus élevée.
+    - 
+3. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe).  
+L'appel n'est pas réalisé.  
+5. Remettre `directmedia=no`. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)  
+L'appel n'est pas réalisé. 
 
 6. Utiliser Wireshark pour enregistrer l’appel. Comment peut-on sécuriser l’échange ?  
 
-- L'appel est bien réalisé, l'appel est transmis en clair.  
+- L'appel est bien réalisé, lorsque l'on change `allow=all`:   
+  - On autorise tout type de codecs.  
+  - On passe par le proxy SIP grâce à `directmedia=no`.  
+  - L'appel est transmis en clair.  L'appel est bien réalisé entre les 2 **Softphones**.  
 
-   1. On pourra sécurisé cet échange   
+- **On pourra sécurisé cet échange**  :
    1. On chiffre l'échange à l'aide d'un VPN par exemple  
    2. On peut chiffrer à l'aide de protocole de chiffrement, certificats ou des clés de chiffrement.  
    3. On peut aussi sécuriser grâce à des codecs propriétaires.  
@@ -234,6 +310,21 @@ L'appel n'est pas réalisé
 
 - Nous avons aussi privilégié le format markdown pour la documentation.    
 
+- Voici le lien du VagrantFile : https://github.com/amineAUPEC/vagrant-global/blob/main/tp1-voip/Vagrantfile
+
+
+## Conclusion : 
+- La latence *(Gigue augmente)* en fonction des codecs.   
+- La communication est directe entre les différents clients mais le serveur SIP contrôle / Initie les demandes téléphoniques.  Avec la directive `directmedia=yes`.  
+- Le G711 n'a pas de compression mais il est un des meilleurs codecs.  
+- Nous avons communiqué entre différents clients SIP/VoIP (SoftPhone).   
+- Le protocole RTP est utilisé lors de la communication. Le RTCP contrôle la latence/corrige les erreurs.   
+  - Le SIP quant à lui contrôle la signalisation.   
+- Nous avons stresser le réseau avec la commande tc (trafic control) afin de détecter les seuils de la qualité de service (QoS).  
+
 
 ## sources : 
 https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-connaitre/
+
+## tasks
+faire question 3
