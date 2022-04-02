@@ -42,9 +42,10 @@ chhiny                    (Unspecified)                            D  Auto (No) 
 4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP    
 - Ce sont des ports dynamiques qui sont utilisés  : 
    - Port source côté VM (dynamique): **4000; 4002 ; 5060**
-   - Port source côté PC : (port plage dynamique mais reste fixe) : **57837**   
-   
-5. On teste le client :    
+   - Port source côté PC : (port plage dynamique mais reste fixe) : **57837**    
+![4screens](voip_m1_salim/q4--enregistrement sip)
+
+1. On teste le client :    
 -  Nous avons rechargé le fichier de configuration via `dialplan reload`  
 -  Le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
 > Résultat :    
@@ -76,6 +77,7 @@ La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 l
    
   Sur Wireshark :
   - Dans l'onglet statistic -> flow graph   
+![3screens](voip_m1_salim/q7--others-sip)
    
    
    
