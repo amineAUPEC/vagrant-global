@@ -23,7 +23,7 @@ VOIP
   - `dialplan reload`     
    
 3. Nous avons configuré le client SIP sous Windows microsip en ajoutant le compte :      
-   - En ajoutant un compte : utilisateur celui qui est renseigné dans le sip.conf (amine) et son mot de passe (directive secret): test     
+   - En ajoutant un compte : utilisateur celui qui est renseigné dans le *sip.conf* (amine) et son mot de passe (directive *secret*): ***test***    
    - le client est enregistré :     
    - `sip show peers`       
    
@@ -163,12 +163,14 @@ par défaut le paramètres directmedia=yes
 
 
 # exo1 : 1. CALCUL SUR LES TEMPS
+<!-- tnum =0 -->
+<!-- T_remplissage = ((64-16)*8)/8kbit/sec -->
+<!-- T_remplissage = 48 ms -->
 ```dotnet
 calcul = d=v*t
 
 temps de numérisation car temps négligeable
 
-tnum =0
 
 total=totaltransmissionpaquet= 64 
 en_tête =16 octets
@@ -177,8 +179,6 @@ contenant_utile = total- en_tête
 print("contenant utile" $contenant_utile "octets")
 
 
-T_remplissage = ((64-16)*8)/8kbit/sec
-T_remplissage = 48 ms
 
 D=Dmax
 T_propagation= $D/200 000 km/s
@@ -432,7 +432,7 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
 - Nous avons communiqué entre différents clients SIP/VoIP (SoftPhone).   
 - Le protocole RTP est utilisé lors de la communication. Le RTCP contrôle la latence/corrige les erreurs.   
   - Le SIP quant à lui contrôle la signalisation.   
-- Nous avons stresser le réseau avec la commande tc (trafic control) afin de détecter les seuils de la qualité de service (QoS).  
+- Nous avons stresser le réseau avec la commande `tc` (trafic control) afin de détecter les seuils de la qualité de service (QoS).  
 
 
 ## sources : 
