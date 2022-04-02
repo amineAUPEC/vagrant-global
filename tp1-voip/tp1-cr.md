@@ -97,22 +97,22 @@ La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 l
 8. b. Les messages utilisés pour transporter la voix sont :   
    - Le transport de la voix s'effectue via le protocole RTP     
    - Real time transport protocol     
+8. c. Le message utilisé pour clore la session contient **un request bye**   
    
-8. c.)   Le message utilisé pour clore la session contient **un request bye**   
+8. d.   Les différentes sources sont : 
+- ip source   : *192.168.1.110*  
+- ip dest   : *192.168.1.114*  
    
-8.d)    
-port source :    192.168.1.110
-port dest   :
-ip source   
-ip dest   
-   
-8.e)    
+8. e    : Les différents ports utilisées sont :
+- port source :    *4018*  
+- port dest   :  *14096*  
 
-1. Avec `directmedia=yes` pour *sip.conf* :   
+9.  Avec `directmedia=yes` pour *sip.conf* :   
 - Le client communique directement avec le second client sans passer par le serveur SIP. Sauf lors de l'appel est initialisé.  
 - Le serveur SIP se contente de gérer les appels entrant et sortant. Et de les couper.
 - La communication passe à travers le protocole RTP.
-10. Le client ne répond pas 
+
+10.  Le client ne répond pas :
 - Le client n'arrive pas à initialiser l'appel car il ne trouve pas de client.
 
 
@@ -440,3 +440,4 @@ https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-con
 faire question 3
 
 trouver valeur qos
+finir exo2
