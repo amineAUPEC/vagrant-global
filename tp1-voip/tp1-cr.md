@@ -184,8 +184,7 @@ D=Dmax
 T_propagation= $D/200 000 km/s
 T_transmission=(64*8)/100Mbit/s=0.005212
 
-
-ricardo :
+==========================    CALCUL SUR LES TEMPS    ==========================
 Tnumérisation = 0 
 Tremplissage = ((64-16)*8) / 8kbit/seconde = 48ms 
 Tpropagation = D / 200000km/s 
