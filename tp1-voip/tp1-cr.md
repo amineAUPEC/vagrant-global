@@ -270,18 +270,128 @@ directmedia=yes
 ```
 
 
-1. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
-   - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  
+[Screen pret](docx)
+L'affichage et l'appel est rejoué grâce au bouton play stream.
+
+
+2. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
+   - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  GSM / G.711
    - Les codecs G.723 8khz et Speex 8khz ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
 
 
-2. Les valeurs Qos associés sont différentes en fonction utilisées 
-    - Le codec par défaut : (G.711 A-law G.711 u-law ) : a la valeur de QoS la plus élevée.
-    - 
-3. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe).  
-L'appel n'est pas réalisé.  
+3. Les valeurs Qos associés sont différentes en fonction des codecs utilisées 
+    - Le codec par défaut : (G.711 A-law G.711 u-law ) : a la valeur de QoS la plus élevée. 0% de perte de paquets.
+      - Le codec a une valeur plus basse puisque des pertes de paquets sont liés à la compression.
+    - Ces valeurs sont conformes aux contraintes ToIP qui exige 99.999% de taux de disponibilité.  
+    - Les 5 contraintes : sont respectées :
+      - Temps de numérisation de la voix
+      - Temps de remplissage des paquets
+      - Temps de propagation
+      - Temps de transmission
+      - Temps de traitement par les noeuds intermédiaires
+    - Le temps de latence ne dépasse pas les 150ms et est inférieur à 300ms.
+4. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe).  
+- **L'appel n'est pas réalisé.**
+- Le client est configuré avec le codec *gsm 8khz* pour **Chhiny** et l'autre client est avec le codec *speex 8khz* pour **Amine**    
+![screen1](./images/tp2-images/6-Q4directmediayes_disallowall/1-2022-03-28-233830.png)
+![screen2](./images/tp2-images/6-Q4directmediayes_disallowall/2-speex_amine.png)
+- Les paramètres appliqués sont:
+   - `disallow all`    
+   -`directmedia yes`    
+> résultat channel unavailable 
+    -- Auto fallthrough, channel 'SIP/chhiny-00000011' status is 'CHANUNAVAIL'  
+- L'appel n'est pas réalisée car le canal de transmission est incompatible / selon Asterisk il serait indisponible, par conséquent : il y a une congestion      
+  `== Everyone is busy/congested at this time (1:0/0/1)`
+  car les appareils clients n'arrivent pas à communiquer  correctement il faudrait potentiellement faire transiter  grâce au serveur SIP PROXY via Asterisk en remplaçant le `directmedia yes` par la valeur `no`  
+- Le message *Service unavailable* est affiché sur le softphone. Lors de l'appel.
+![screen3](./images/tp2-images/6-Q4directmediayes_disallowall/3-CHANUNNAVLAIBLE.png)
+
+
+- Voici le fichier de configuration en détail : `nano /etc/asterisk/sip.conf && cat /etc/asterisk/sip.conf` 
+```ini
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+disallow=all
+
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+disallow=all
+directmedia=yes
+
+[chhiny]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=vitrygtr
+context=internal
+disallow=all
+directmedia=yes
+```
+
+
 5. Remettre `directmedia=no`. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)  
-L'appel n'est pas réalisé. 
+-**L'appel n'est pas réalisé.**
+- Le client est configuré avec le codec *gsm 8khz* pour **Chhiny** et l'autre client est avec le codec *speex 8khz* pour **Amine**    
+- Voici le fichier de configuration en détail : `nano /etc/asterisk/sip.conf && cat /etc/asterisk/sip.conf` 
+```ini
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+disallow=all
+
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+disallow=all
+directmedia=no
+
+[chhiny]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=vitrygtr
+context=internal
+disallow=all
+
+directmedia=no
+```
+
+- Voici ce qui est affiché sur la console : *No compatible codecs, not accepting this offer!*
+```dotnet
+ubuntu-bionic*CLI> sip reload
+ Reloading SIP
+  == Parsing '/etc/asterisk/sip.conf': Found
+  == Parsing '/etc/asterisk/users.conf': Found
+  == Using SIP CoS mark 4
+  == Parsing '/etc/asterisk/sip_notify.conf': Found
+    -- Registered SIP 'amine' at 192.168.1.110:58950
+    -- Registered SIP 'chhiny' at 192.168.1.110:62988
+  == Using SIP RTP CoS mark 5
+[Apr  2 12:54:29] NOTICE[2216][C-00000000]: chan_sip.c:10884 process_sdp: No compatible codecs, not accepting this offer!
+```
+- Visualisation des clients connectés : 
+```dotnet
+ubuntu-bionic*CLI> sip show peers
+Name/username             Host                                    Dyn Forcerport Comedia    ACL Port     Status      Description
+amine/amine               192.168.1.110                            D  Auto (No)  No             58950    Unmonitored
+chhiny/chhiny             192.168.1.110                            D  Auto (No)  No             62988    Unmonitored
+2 sip peers [Monitored: 0 online, 0 offline Unmonitored: 2 online, 0 offline]
+```
+
+
+- Microsip affiche `not acceptable here.`
+- [screen](docx)
+
 
 6. Utiliser Wireshark pour enregistrer l’appel. Comment peut-on sécuriser l’échange ?  
 
@@ -300,7 +410,7 @@ L'appel n'est pas réalisé.
    7. Mettre en place plus d'utilisateur/ authentification entre ses utilisateurs/ protection De déni de service.  
    8. Mise en place du SRTP Secure Real Time Protocol au lieu du RTP classique.  
 
-   
+![4 images](./tp2-images/7-/10-/directmediano--allowall--disallownone/fix)
 
 
 ## Nota Bene : 
@@ -328,3 +438,5 @@ https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-con
 
 ## tasks
 faire question 3
+
+trouver valeur qos
