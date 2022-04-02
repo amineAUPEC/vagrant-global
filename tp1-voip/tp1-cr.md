@@ -47,7 +47,7 @@ chhiny                    (Unspecified)                            D  Auto (No) 
 5. On teste le client :    
 -  Nous avons rechargé le fichier de configuration via `dialplan reload`  
 -  Le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
-> Result :    
+> Résultat :    
 ```dotnet   
  == Using SIP RTP CoS mark 5   
     > 0x7f42e801d290 -- Strict RTP learning after remote address set to: 192.168.1.110:4000   
@@ -60,7 +60,7 @@ chhiny                    (Unspecified)                            D  Auto (No) 
    
 6. La capture a lieu sur la carte en accès par pont    
 La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte. (Lorsque le mot de passer est incorrect).  
-
+![4screens](voip_m1_salim/q6--motdepasse incorrect)
    
 7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète"     
 - Les différentes étapes sont :   
@@ -437,7 +437,8 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
 https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-connaitre/
 
 ## tasks
-faire question 3
 
-trouver valeur qos
-finir exo2
+- faire question 3
+  - trouver valeur qos
+- finir exo2
+- images à mettre
