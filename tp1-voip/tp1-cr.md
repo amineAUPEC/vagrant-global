@@ -166,35 +166,24 @@ par défaut le paramètres directmedia=yes
 <!-- tnum =0 -->
 <!-- T_remplissage = ((64-16)*8)/8kbit/sec -->
 <!-- T_remplissage = 48 ms -->
-```dotnet
-calcul = d=v*t
-
-temps de numérisation car temps négligeable
-
-
-total=totaltransmissionpaquet= 64 
-en_tête =16 octets
-contenant_utile = 64 -16 octets
-contenant_utile = total- en_tête 
-print("contenant utile" $contenant_utile "octets")
-
-
-
-D=Dmax
-T_propagation= $D/200 000 km/s
-T_transmission=(64*8)/100Mbit/s=0.005212
-
+```markdown
 ==========================    CALCUL SUR LES TEMPS    ==========================
-Tnumérisation = 0 
-Tremplissage = ((64-16)*8) / 8kbit/seconde = 48ms 
-Tpropagation = D / 200000km/s 
-Ttransmission = (64*8) / 100mbit/s = 0.00512 ms (négligeable) 
-Ttraitement = 7 ms 
+On calcule souvent la distance avec la formule : d=v*t
+On sait que l'**en_tête** vaut  16 octets et le **total_transmission_paquet** vaut 64 bits
+On détermine alors le **contenant_utile** vaut le **total_transmission_paquet** - l'**en_tête**.
+On a le **temps de numérisation** qui vaut 0 car le **temps de transmission** est négligeable.
+
+On a le calcul suivant : 
+**T_numérisation** = 0 
+**T_remplissage** = ((64-16)*8) / 8 kbit/secondes = 48ms 
+**T_propagation** = D / 200 000 km/s 
+**T_transmission** = (64*8) / 100 mbit/s = 0.00512 ms (ce temps est négligeable) 
+**T_traitement** = 7 ms 
  
 
-0 + 48 + (D / 200km/ms) + 0.00512 + 7 < 150 
+0 + 48 + (D / 200 km/ms) + 0.00512 + 7 < 150 
 D <  (150 – 48 – 0.00512 – 7) *200km 
-D < 19000 km 
+D < 1 9000 km 
 ```
 
 # exo2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
