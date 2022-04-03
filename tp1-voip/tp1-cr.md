@@ -437,7 +437,12 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
 
 ## sources : 
 https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-connaitre/
+https://www4.cs.fau.de/Projects/JRTP/pmt/node83.html
 
+https://sip.goffinet.org/wireshark/analyse-voip-wireshark/
+https://stackoverflow.com/questions/35497913/direct-media-and-direct-rtp-setup-in-asteisk
+https://www.voip-info.org/asterisk-config-sipconf/
+http://irt.enseeiht.fr/beylot/enseignement/VoIPQoS.pdf
 ## tasks
 
 - faire question 3
