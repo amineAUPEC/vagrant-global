@@ -25,7 +25,7 @@ VOIP
   - `dialplan reload`     
 ### Question 3
 3. Nous avons configuré le client SIP sous Windows Microsip en ajoutant le compte :      
-   - En ajoutant un compte : utilisateur celui qui est renseigné dans le *sip.conf* (amine) et son mot de passe (directive *secret*): ***test***    
+   - En ajoutant un compte : utilisateur celui qui est renseigné dans le *sip.conf* (amine) et son mot de passe (directive *secret*) : ***test***    
    - Le client est enregistré :     
    - `sip show peers`       
    
@@ -43,7 +43,7 @@ chhiny                    (Unspecified)                            D  Auto (No) 
 ### Question 4   
 4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP :    
 - Ce sont des ports dynamiques qui sont utilisés  : 
-   - Port source : côté VM (dynamique): **4000; 4002 ; 5060**
+   - Port source : côté VM (dynamique) : **4000; 4002 ; 5060**
    - Port source : côté PC : (port plage dynamique mais reste fixe) : **57837**    
 ![4screens](voip_m1_salim/q4--enregistrement sip)
 
@@ -99,7 +99,7 @@ chhiny                    (Unspecified)                            D  Auto (No) 
   -  des échanges ACK ont lieu afin de confirmer la réception.  
    
    
-### Question 8 : a    
+### Question 8 : b    
 8. b. Les messages utilisés pour transporter la voix sont :   
    - Le transport de la voix s'effectue via le protocole RTP     
    - Real time transport protocol     
@@ -177,7 +177,7 @@ par défaut le paramètres directmedia=yes
 ```markdown
 ==========================    CALCUL SUR LES TEMPS    ==========================
 On calcule souvent la distance avec la formule : d=v*t
-On sait que l'**en_tête** vaut  16 octets et le **total_transmission_paquet** vaut 64 bits
+On sait que l'**en_tête** vaut 16 octets et le **total_transmission_paquet** vaut 64 bits
 On détermine alors le **contenant_utile** vaut le **total_transmission_paquet** - l'**en_tête**.
 On a le **temps de numérisation** qui vaut 0 car le **temps de transmission** est négligeable.
 
@@ -255,7 +255,7 @@ L'affichage et l'appel est rejoué grâce au bouton play stream.
 ### Question 2
 2. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
    - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  **GSM** / **G.711**
-   - Les codecs **G.723 8khz** et **Speex 8khz**ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
+   - Les codecs **G.723 8khz** et **Speex 8khz** ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
 
 ### Question 3
 3. Les valeurs Qos associés sont différentes en fonction des codecs utilisées 
@@ -279,7 +279,7 @@ L'affichage et l'appel est rejoué grâce au bouton play stream.
 - Les paramètres appliqués sont :
    - `disallow=all`    
    - `directmedia=yes`    
-> résultat channel unavailable 
+> Résultat :  **channel unavailable**  
     -- Auto fallthrough, channel 'SIP/chhiny-00000011' status is 'CHANUNAVAIL'  
 - L'appel n'est pas réalisée car le canal de transmission est incompatible / selon Asterisk il serait indisponible, par conséquent : il y a une congestion      
   `== Everyone is busy/congested at this time (1:0/0/1)`
