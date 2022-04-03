@@ -2,15 +2,16 @@
 VOIP   
 # TP1 : VOIX SUR IP : ASTERISK   
 # ASTERISK   
-### question 1
+### Question 1
 1. Nous commençons par installer le paquet à l'aide de la commande :      
         `sudo apt-get update -y && sudo apt-get install -y Asterisk`      
 - Les fichier de configurations se situe dans */etc/asterix/* donc */etc/asterisk/sip.conf* sera notre fichier de configuration principale.   
    
 - Pour trouver la localisation :      
         `package_name="asterisk" && dpkg -L $package_name | sort | uniq -c`     
-  - On voit bien que la majorité des fichiers se trouve dans */etc/asterisk*            
-1. Nous lançons Asterisk en mode debug (en mode verbose)       
+  - On voit bien que la majorité des fichiers se trouve dans */etc/asterisk*     
+### Question 2
+2. Nous lançons Asterisk en mode debug (en mode verbose)       
         `sudo asterisk -rvvv`      
 - L'option `-r` : permet de s'attacher au processus existant.  
 - L'option `-v` : permet d'afficher des informations afin de diagnostiquer les problèmes/échanges. Plus il y a de `-v` plus il y a de détails.  
@@ -22,10 +23,10 @@ VOIP
   - `core show applications`    
   - `sip reload`    
   - `dialplan reload`     
-### question 3
+### Question 3
 3. Nous avons configuré le client SIP sous Windows Microsip en ajoutant le compte :      
    - En ajoutant un compte : utilisateur celui qui est renseigné dans le *sip.conf* (amine) et son mot de passe (directive *secret*): ***test***    
-   - le client est enregistré :     
+   - Le client est enregistré :     
    - `sip show peers`       
    
 > Résultat :     
@@ -39,14 +40,14 @@ chhiny                    (Unspecified)                            D  Auto (No) 
     -- Registered SIP 'amine' at 192.168.1.110:57837   
    
 ```   
-### question 4   
+### Question 4   
 4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP :    
 - Ce sont des ports dynamiques qui sont utilisés  : 
    - Port source : côté VM (dynamique): **4000; 4002 ; 5060**
    - Port source : côté PC : (port plage dynamique mais reste fixe) : **57837**    
 ![4screens](voip_m1_salim/q4--enregistrement sip)
 
-### question 5
+### Question 5
 5. On teste le client :    
 -  Nous avons rechargé le fichier de configuration via `dialplan reload`  
 -  Le service fonctionne en appelant le **600**, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
@@ -60,12 +61,13 @@ chhiny                    (Unspecified)                            D  Auto (No) 
  -- <SIP/amine-00000001> Playing 'demo-echotest.gsm' (language 'en')   
     > 0x7f42e801d290 -- Strict RTP learning complete - Locking on source address 192.168.1.110:4000   
 ```   
-   
+### Question 6      
 6. La capture a lieu sur la carte en accès par pont :    
-- La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte. (Lorsque le mot de passe est incorrect).  
+- La valeur du **binding** est à **1** lors de l'enregistrement tandis qu'elle est à **0** lorsque l'on se déconnecte. (Lorsque le mot de passe est incorrect).  
 ![4screens](voip_m1_salim/q6--motdepasse incorrect)
-   
-7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète" :       
+
+### Question 7   
+7. La déconnexion se déroule par une demande `request remove 1 binding` , les informations sont par conséquent "obsolète" :       
 - Les différentes étapes sont :   
    - L'échange de l'appel est réalisé à travers le protocole RTP et son protocole de transport reste le UDP   
    Le RTCP rentre aussi en jeu   
@@ -75,14 +77,14 @@ chhiny                    (Unspecified)                            D  Auto (No) 
    - Ensuite il y a le protocole RTCP puis à nouveau le SIP/SDP dès qu'il obtient le feu vert (SIP/SDP 200 OK) : le protocole RTP prend le relai de l'appel   
       
       
-   - On peut visualiser l'échange de la conversation vocale : dans l'onglet telephony > VOIP   
+   - On peut visualiser l'échange de la conversation vocale : **Dans l'onglet telephony > VOIP**  
    
   Sur Wireshark :
-  - Dans l'onglet statistic -> flow graph   
+  - **Dans l'onglet statistic -> flow graph**   
 ![3screens](voip_m1_salim/q7--others-sip)
    
    
-   
+### Question 8 : a    
 8. a. L'analyse des paquets suivant avec Wireshark :   
 - Le protocole de transport est toujours **UDP**    
 - Pour établir la session :   
@@ -97,25 +99,29 @@ chhiny                    (Unspecified)                            D  Auto (No) 
   -  des échanges ACK ont lieu afin de confirmer la réception.  
    
    
-   
+### Question 8 : a    
 8. b. Les messages utilisés pour transporter la voix sont :   
    - Le transport de la voix s'effectue via le protocole RTP     
    - Real time transport protocol     
+### Question 8 : c   
 8. c. 8. c.  Le message utilisé pour clore la session contient **un request bye**   
-   
+
+### Question 8 : d    
 8. d.  8. d. Les différentes sources sont : 
 - IP source   : *192.168.1.110*  
 - IP dest   : *192.168.1.114*  
-   
+### Question 8 : e    
 8. e    : Les différents ports utilisées sont :
 - Port source :    *4018*  
 - Port dest   :  *14096*  
 
+### Question 9 
 9.  Avec `directmedia=yes` pour *sip.conf* :   
 - Le client communique directement avec le second client sans passer par le serveur SIP. Sauf lorsque l'appel est initialisé.  
 - Le serveur SIP se contente de gérer les appels entrant et sortant. Et de les couper.
 - La communication passe à travers le protocole RTP.
 
+### Question 10
 10.  Le client ne répond pas :
 - Le client n'arrive pas à initialiser l'appel car il ne trouve pas de client.
 
@@ -190,6 +196,7 @@ D < 1 9000 km
 
 # Exercice 2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
 
+### Question 1
 1. Nous avons capturé le flux RTP et le flux RTCP. 
    - Tout d'abord : On ajoute les erreurs.
    - En effet la communication est directe entre les différents clients mais le serveur SIP contrôle / Initie les demandes téléphoniques.
@@ -203,7 +210,7 @@ sudo wireshark &
 ![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)  
 
 ![screen1](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\1-2022-03-08-165432.png)
-- Grâce à l'onglet **RTP STREAM**:
+- Grâce à l'onglet **RTP STREAM** :
   - Le port source pour le *client1* est : *4002*, son adresse IP est *192.168.1.110*. 
     - A destination du port *11322* du serveur SIP *192.168.1.114*.
   - Le port source pour le *client2* est : *4004*, son adresse IP est *192.168.1.110*.
@@ -245,12 +252,12 @@ directmedia=yes
 [Screen pret](docx)    
 L'affichage et l'appel est rejoué grâce au bouton play stream.
 
-
+### Question 2
 2. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
    - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  **GSM** / **G.711**
    - Les codecs **G.723 8khz** et **Speex 8khz**ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
 
-
+### Question 3
 3. Les valeurs Qos associés sont différentes en fonction des codecs utilisées 
     - Le codec par défaut : (G.711 A-law G.711 u-law ) : a la valeur de QoS la plus élevée. 0% de perte de paquets.
       - Le codec a une valeur plus basse puisque des pertes de paquets sont liés à la compression.
@@ -262,12 +269,14 @@ L'affichage et l'appel est rejoué grâce au bouton play stream.
       - Temps de transmission
       - Temps de traitement par les noeuds intermédiaires
     - Le temps de latence ne dépasse pas les 150ms et est inférieur à 300ms.
+
+### Question 4
 4. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe).  
 - **L'appel n'est pas réalisé.**
 - Le client est configuré avec le codec *gsm 8khz* pour **Chhiny** et l'autre client est avec le codec *speex 8khz* pour **Amine**    
 ![screen1](./images/tp2-images/6-Q4directmediayes_disallowall/1-2022-03-28-233830.png)
 ![screen2](./images/tp2-images/6-Q4directmediayes_disallowall/2-speex_amine.png)
-- Les paramètres appliqués sont:
+- Les paramètres appliqués sont :
    - `disallow=all`    
    - `directmedia=yes`    
 > résultat channel unavailable 
@@ -306,7 +315,7 @@ disallow=all
 directmedia=yes
 ```
 
-
+### Question 5
 5. Remettre `directmedia=no`. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)    
 - **L'appel n'est pas réalisé.**
 - Le client est configuré avec le codec *gsm 8khz* pour **Chhiny** et l'autre client est avec le codec *speex 8khz* pour **Amine**    
@@ -364,7 +373,7 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
 - Microsip affiche `not acceptable here.`
 - [screen](docx)
 
-
+### Question 6
 6. Utiliser Wireshark pour enregistrer l’appel. Comment peut-on sécuriser l’échange ?  
 
 - L'appel est bien réalisé, lorsque l'on change `allow=all`:   
@@ -390,7 +399,7 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
   - Le serveur SIP se termine par *.114*
 
 ## Nota Bene : 
-- Nous avons utilisés VAGRANT afin de gérer la gestion des machines virtuelles. Pour les créer en 5 min chronos.  
+- Nous avons utilisé VAGRANT afin de gérer la gestion des machines virtuelles. Pour les créer en 5 min chronos.  
 - Nous avons aussi mis en place différents procédés afin de conserver un script bash afin d'appeler la fonction au moment donné.  
 
 
@@ -406,25 +415,25 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
 - Nous avons communiqué entre différents clients SIP/VoIP (SoftPhone).   
 - Le protocole RTP est utilisé lors de la communication. Le RTCP contrôle la latence/corrige les erreurs.   
   - Le SIP quant à lui contrôle la signalisation.   
-- Nous avons stresser le réseau avec la commande `tc` (trafic control) afin de détecter les seuils de la qualité de service (QoS).  
+- Nous avons stressé le réseau avec la commande `tc` (trafic control) afin de détecter les seuils de la qualité de service (QoS).  
 
 
-## sources : 
-https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-connaitre/
-https://www4.cs.fau.de/Projects/JRTP/pmt/node83.html
+## Sources : 
+https://aircall.io/fr/blog/voip-fr/voip-et-securite-les-5-bonnes-pratiques-a-connaitre/  
+https://www4.cs.fau.de/Projects/JRTP/pmt/node83.html  
+https://sip.goffinet.org/wireshark/analyse-voip-wireshark/  
+https://stackoverflow.com/questions/35497913/direct-media-and-direct-rtp-setup-in-asteisk  
+https://www.voip-info.org/asterisk-config-sipconf/    
+http://irt.enseeiht.fr/beylot/enseignement/VoIPQoS.pdf  
 
-https://sip.goffinet.org/wireshark/analyse-voip-wireshark/
-https://stackoverflow.com/questions/35497913/direct-media-and-direct-rtp-setup-in-asteisk
-https://www.voip-info.org/asterisk-config-sipconf/
-http://irt.enseeiht.fr/beylot/enseignement/VoIPQoS.pdf
-## tasks
+## Tasks
 
 - faire question 3
   - trouver valeur qos
 - finir exo2
 - images à mettre
 
-## draft
+## Draft
 mise en place de téléphones SIP qui communique à travers un SIP PROXY  
 
 
