@@ -209,7 +209,7 @@ sudo wireshark &
 - Lorsque nous modifions le codec, on voit que l'en-tête des paquets RTP sont modifiés  :   
 ![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)  
 
-![screen1](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\1-2022-03-08-165432.png)
+![screen1](voip-tp2/codexc/2-capturefluxrtcp_directmedia_yes/1-2022-03-08-165432.png)
 - Grâce à l'onglet **RTP STREAM** :
   - Le port source pour le *client1* est : *4002*, son adresse IP est *192.168.1.110*. 
     - A destination du port *11322* du serveur SIP *192.168.1.114*.
