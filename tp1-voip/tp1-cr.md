@@ -1,7 +1,8 @@
 # Info   
 VOIP   
-# TP1 : VOIX SUR IP :ASTERISK   
+# TP1 : VOIX SUR IP : ASTERISK   
 # ASTERISK   
+### question 1
 1. Nous commençons par installer le paquet à l'aide de la commande :      
         `sudo apt-get update -y && sudo apt-get install -y Asterisk`      
 - Les fichier de configurations se situe dans */etc/asterix/* donc */etc/asterisk/sip.conf* sera notre fichier de configuration principale.   
@@ -9,7 +10,7 @@ VOIP
 - Pour trouver la localisation :      
         `package_name="asterisk" && dpkg -L $package_name | sort | uniq -c`     
   - On voit bien que la majorité des fichiers se trouve dans */etc/asterisk*            
-2. Nous lançons Asterisk en mode debug (en mode verbose)       
+1. Nous lançons Asterisk en mode debug (en mode verbose)       
         `sudo asterisk -rvvv`      
 - L'option `-r` : permet de s'attacher au processus existant.  
 - L'option `-v` : permet d'afficher des informations afin de diagnostiquer les problèmes/échanges. Plus il y a de `-v` plus il y a de détails.  
@@ -21,7 +22,7 @@ VOIP
   - `core show applications`    
   - `sip reload`    
   - `dialplan reload`     
-   
+### question 3
 3. Nous avons configuré le client SIP sous Windows Microsip en ajoutant le compte :      
    - En ajoutant un compte : utilisateur celui qui est renseigné dans le *sip.conf* (amine) et son mot de passe (directive *secret*): ***test***    
    - le client est enregistré :     
@@ -38,13 +39,14 @@ chhiny                    (Unspecified)                            D  Auto (No) 
     -- Registered SIP 'amine' at 192.168.1.110:57837   
    
 ```   
-   
+### question 4   
 4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP :    
 - Ce sont des ports dynamiques qui sont utilisés  : 
    - Port source : côté VM (dynamique): **4000; 4002 ; 5060**
    - Port source : côté PC : (port plage dynamique mais reste fixe) : **57837**    
 ![4screens](voip_m1_salim/q4--enregistrement sip)
 
+### question 5
 5. On teste le client :    
 -  Nous avons rechargé le fichier de configuration via `dialplan reload`  
 -  Le service fonctionne en appelant le **600**, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
@@ -92,7 +94,7 @@ chhiny                    (Unspecified)                            D  Auto (No) 
   -  ringing     
   -  register      
   -  200 ok     
-  -  des échanges ACK ont lieu afin dre confirmer la réception.  
+  -  des échanges ACK ont lieu afin de confirmer la réception.  
    
    
    
@@ -159,10 +161,10 @@ le servur sip proxy : peut jouer le role de transcripteur via sa gestion des cod
 par défaut le paramètres directmedia=yes
 
 
-# tp 2 -cr 
+# TP2 : VOIX SUR IP : ASTERISK   
 
 
-# exo1 : 1. CALCUL SUR LES TEMPS
+# Exercice 1 : 1. CALCUL SUR LES TEMPS
 <!-- tnum =0 -->
 <!-- T_remplissage = ((64-16)*8)/8kbit/sec -->
 <!-- T_remplissage = 48 ms -->
@@ -186,7 +188,7 @@ D <  (150 – 48 – 0.00512 – 7) *200km
 D < 1 9000 km 
 ```
 
-# exo2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
+# Exercice 2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
 
 1. Nous avons capturé le flux RTP et le flux RTCP. 
    - Tout d'abord : On ajoute les erreurs.
@@ -370,13 +372,13 @@ chhiny/chhiny             192.168.1.110                            D  Auto (No) 
   - On passe par le proxy SIP grâce à `directmedia=no`.  
   - L'appel est transmis en clair.  L'appel est bien réalisé entre les 2 **Softphones**.  
 
-- **On pourra sécurisé cet échange**  :
+- **On pourra sécuriser cet échange**  :
    1. On chiffre l'échange à l'aide d'un VPN par exemple  
    2. On peut chiffrer à l'aide de protocole de chiffrement, certificats ou des clés de chiffrement.  
    3. On peut aussi sécuriser grâce à des codecs propriétaires.  
    4. On pourrait mettre en place du bourrage pour compliquer la compréhension / lecture par un tiers.  
    5. On pourrait créer un réseau de serveur/proxy SIP avec des couches de chiffrement.    
-   6. On pourrait utilisé firewall ou un PBX.  
+   6. On pourrait utiliser firewall ou un PBX.  
    7. Mettre en place plus d'utilisateur/ authentification entre ses utilisateurs/ protection De déni de service.  
    8. Mise en place du SRTP Secure Real Time Protocol au lieu du RTP classique.  
 
