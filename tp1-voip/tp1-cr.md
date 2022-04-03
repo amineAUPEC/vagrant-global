@@ -8,11 +8,11 @@ VOIP
    
 - Pour trouver la localisation :      
         `package_name="asterisk" && dpkg -L $package_name | sort | uniq -c`     
-  - On voit bien que la majorité des fichiers se trouve dans /etc/asterisk            
+  - On voit bien que la majorité des fichiers se trouve dans */etc/asterisk*            
 2. Nous lançons Asterisk en mode debug (en mode verbose)       
         `sudo asterisk -rvvv`      
-- L'option -r : permet de s'attacher au processus existant.  
-- L'option -v : permet d'afficher des informations afin de diagnostiquer les problèmes/échanges. Plus il y a de -v plus il y a de détails.  
+- L'option `-r` : permet de s'attacher au processus existant.  
+- L'option `-v` : permet d'afficher des informations afin de diagnostiquer les problèmes/échanges. Plus il y a de `-v` plus il y a de détails.  
 
 
 - Les commandes principales sont :      
@@ -22,7 +22,7 @@ VOIP
   - `sip reload`    
   - `dialplan reload`     
    
-3. Nous avons configuré le client SIP sous Windows microsip en ajoutant le compte :      
+3. Nous avons configuré le client SIP sous Windows Microsip en ajoutant le compte :      
    - En ajoutant un compte : utilisateur celui qui est renseigné dans le *sip.conf* (amine) et son mot de passe (directive *secret*): ***test***    
    - le client est enregistré :     
    - `sip show peers`       
@@ -39,15 +39,15 @@ chhiny                    (Unspecified)                            D  Auto (No) 
    
 ```   
    
-4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP    
+4. L'enregistrement se déroule à travers une liaison UDP et l'échange de paquets  en utilisant le protocole RTP :    
 - Ce sont des ports dynamiques qui sont utilisés  : 
-   - Port source côté VM (dynamique): **4000; 4002 ; 5060**
-   - Port source côté PC : (port plage dynamique mais reste fixe) : **57837**    
+   - Port source : côté VM (dynamique): **4000; 4002 ; 5060**
+   - Port source : côté PC : (port plage dynamique mais reste fixe) : **57837**    
 ![4screens](voip_m1_salim/q4--enregistrement sip)
 
-1. On teste le client :    
+5. On teste le client :    
 -  Nous avons rechargé le fichier de configuration via `dialplan reload`  
--  Le service fonctionne en appelant le 600, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
+-  Le service fonctionne en appelant le **600**, nous avons la sonnerie par défaut (l'équivalent d'un standard)   
 > Résultat :    
 ```dotnet   
  == Using SIP RTP CoS mark 5   
@@ -59,11 +59,11 @@ chhiny                    (Unspecified)                            D  Auto (No) 
     > 0x7f42e801d290 -- Strict RTP learning complete - Locking on source address 192.168.1.110:4000   
 ```   
    
-6. La capture a lieu sur la carte en accès par pont    
-La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte. (Lorsque le mot de passer est incorrect).  
+6. La capture a lieu sur la carte en accès par pont :    
+- La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 lorsque l'on se déconnecte. (Lorsque le mot de passe est incorrect).  
 ![4screens](voip_m1_salim/q6--motdepasse incorrect)
    
-7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète"     
+7. La déconnexion se déroule par une demande request remove 1 binding , les informations sont par conséquent "obsolète" :       
 - Les différentes étapes sont :   
    - L'échange de l'appel est réalisé à travers le protocole RTP et son protocole de transport reste le UDP   
    Le RTCP rentre aussi en jeu   
@@ -99,18 +99,18 @@ La valeur du binding est à 1 lors de l'enregistrement tandis qu'elle est à 0 l
 8. b. Les messages utilisés pour transporter la voix sont :   
    - Le transport de la voix s'effectue via le protocole RTP     
    - Real time transport protocol     
-8. c. Le message utilisé pour clore la session contient **un request bye**   
+8. c. 8. c.  Le message utilisé pour clore la session contient **un request bye**   
    
-8. d.   Les différentes sources sont : 
-- ip source   : *192.168.1.110*  
-- ip dest   : *192.168.1.114*  
+8. d.  8. d. Les différentes sources sont : 
+- IP source   : *192.168.1.110*  
+- IP dest   : *192.168.1.114*  
    
 8. e    : Les différents ports utilisées sont :
-- port source :    *4018*  
-- port dest   :  *14096*  
+- Port source :    *4018*  
+- Port dest   :  *14096*  
 
 9.  Avec `directmedia=yes` pour *sip.conf* :   
-- Le client communique directement avec le second client sans passer par le serveur SIP. Sauf lors de l'appel est initialisé.  
+- Le client communique directement avec le second client sans passer par le serveur SIP. Sauf lorsque l'appel est initialisé.  
 - Le serveur SIP se contente de gérer les appels entrant et sortant. Et de les couper.
 - La communication passe à travers le protocole RTP.
 
@@ -188,33 +188,16 @@ D < 1 9000 km
 
 # exo2 : 2. NÉGOCIATION DES CODECS ET QUALITÉ AUDIO
 
-## draft
-mise en place de téléphones SIP qui communique à travers un SIP PROXY  
-
-
-on envoie vers un relai intermédiaire   
-1. La qualité audio varie en fonction des codecs  
-2. Les rapports RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )  
-3.  
-4. Il faudrait mettre en place une couche de chiffrement /d'authentification supplémentaire.  
-
-
-draft
-
-1-capturelfuxrtcp_directmedia_yes
-   on rejoue la communication téléphonique
-## draftend
-   
 1. Nous avons capturé le flux RTP et le flux RTCP. 
    - Tout d'abord : On ajoute les erreurs.
    - En effet la communication est directe entre les différents clients mais le serveur SIP contrôle / Initie les demandes téléphoniques.
 
-- Pour cela nous avons utilisé la commande suivante : afin de le lancer avec X11 :
+- Pour cela nous avons utilisé la commande suivante : Afin de le lancer avec X11 :
 ```bash
 sesu - etudiant
 sudo wireshark &
 ```
-- Lorsque nous modifions le codec on voit que l'en-tête des paquets RTP sont modifiés  :   
+- Lorsque nous modifions le codec, on voit que l'en-tête des paquets RTP sont modifiés  :   
 ![rtcp analysis stream scenario2.png](\images\2-\rtcp analysis stream scenario2.png)  
 
 ![screen1](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\1-2022-03-08-165432.png)
@@ -231,7 +214,7 @@ sudo wireshark &
   -  On voit l'initiation  de l'appel entre les clients. Avec le protocole SIP.
   -  On voit bien les paquets RTP échangés et leur longueur.
 <!-- ![screen4](voip-tp2\codexc\2-capturefluxrtcp_directmedia_yes\4-2022-03-08-161139.png) -->
-Configuration du serveur Asterisk : *sip.conf*
+Configuration du serveur Asterisk : *sip.conf*  
 `nano /etc/asterisk/sip.conf && cat /etc/asterisk/sip.conf` 
 ```ini
 [general]
@@ -257,13 +240,13 @@ directmedia=yes
 ```
 
 
-[Screen pret](docx)
+[Screen pret](docx)    
 L'affichage et l'appel est rejoué grâce au bouton play stream.
 
 
 2. Observez-vous la même qualité audio selon les différents codecs utilisés ? Si non, quelle observation pouvez-vous faire ?  
-   - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  GSM / G.711
-   - Les codecs G.723 8khz et Speex 8khz ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
+   - La qualité audio se dégrade en fonction du codec utilisé. Même si pour autant l'ensemble de ces codecs sont satisfaisants.  **GSM** / **G.711**
+   - Les codecs **G.723 8khz** et **Speex 8khz**ne sont pas fonctionnels avec Asterisk et Microsip. Du moins avec la configuration actuelle.  
 
 
 3. Les valeurs Qos associés sont différentes en fonction des codecs utilisées 
@@ -283,13 +266,13 @@ L'affichage et l'appel est rejoué grâce au bouton play stream.
 ![screen1](./images/tp2-images/6-Q4directmediayes_disallowall/1-2022-03-28-233830.png)
 ![screen2](./images/tp2-images/6-Q4directmediayes_disallowall/2-speex_amine.png)
 - Les paramètres appliqués sont:
-   - `disallow all`    
-   -`directmedia yes`    
+   - `disallow=all`    
+   - `directmedia=yes`    
 > résultat channel unavailable 
     -- Auto fallthrough, channel 'SIP/chhiny-00000011' status is 'CHANUNAVAIL'  
 - L'appel n'est pas réalisée car le canal de transmission est incompatible / selon Asterisk il serait indisponible, par conséquent : il y a une congestion      
   `== Everyone is busy/congested at this time (1:0/0/1)`
-  car les appareils clients n'arrivent pas à communiquer  correctement il faudrait potentiellement faire transiter  grâce au serveur SIP PROXY via Asterisk en remplaçant le `directmedia yes` par la valeur `no`  
+  car les appareils clients n'arrivent pas à communiquer  correctement il faudrait potentiellement faire transiter  grâce au serveur SIP PROXY via Asterisk en remplaçant le `directmedia=yes` par la valeur `no`  
 - Le message *Service unavailable* est affiché sur le softphone. Lors de l'appel.
 ![screen3](./images/tp2-images/6-Q4directmediayes_disallowall/3-CHANUNNAVLAIBLE.png)
 
@@ -322,8 +305,8 @@ directmedia=yes
 ```
 
 
-5. Remettre `directmedia=no`. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)  
--**L'appel n'est pas réalisé.**
+5. Remettre `directmedia=no`. Est-ce que l’appel est bien réalisé (décrire ce que l’on observe)    
+- **L'appel n'est pas réalisé.**
 - Le client est configuré avec le codec *gsm 8khz* pour **Chhiny** et l'autre client est avec le codec *speex 8khz* pour **Amine**    
 - Voici le fichier de configuration en détail : `nano /etc/asterisk/sip.conf && cat /etc/asterisk/sip.conf` 
 ```ini
@@ -438,3 +421,20 @@ http://irt.enseeiht.fr/beylot/enseignement/VoIPQoS.pdf
   - trouver valeur qos
 - finir exo2
 - images à mettre
+
+## draft
+mise en place de téléphones SIP qui communique à travers un SIP PROXY  
+
+
+on envoie vers un relai intermédiaire   
+1. La qualité audio varie en fonction des codecs  
+2. Les rapports RTCP donne : et les valeurs de Qos  : et : le codec par défaut est :  (G.711 A-law G.711 u-law )  
+3.  
+4. Il faudrait mettre en place une couche de chiffrement /d'authentification supplémentaire.  
+
+
+draft
+
+1-capturelfuxrtcp_directmedia_yes
+   on rejoue la communication téléphonique
+## draftend
