@@ -1,0 +1,6 @@
+/images
+/perso/*
+/pcap/*
+/history/*
+/.vagrant/*
+*console*.log
