@@ -4,6 +4,14 @@
 ![sip_trunk](images/2022-04-05-14-06-31.png)
 [sip_trunk_guide](https://support.voipcloud.online/hc/en-us/articles/201488150-Asterisk-SIP-Trunk-Guide)
 ![torontoconnectingtwoasterisk](2022-04-05-14-39-56.png)
+![sip.conf](2022-04-05-16-14-06.png)
+![](2022-04-05-16-14-36.png)
+![](2022-04-05-16-15-31.png)
+![](2022-04-05-16-18-49.png)
+![](2022-04-05-16-25-23.png)
+![](2022-04-05-16-25-09.png)
+
+
 
 
 1. TRUNK SIP
@@ -20,3 +28,9 @@ Implémenter les services suivants :
 5. Interception dans le groupe
 6. Un petit call center
 
+
+
+
+1. 
+- client1 = amine : numéro:100
+- client2 = chhinyleboss : numéro:900

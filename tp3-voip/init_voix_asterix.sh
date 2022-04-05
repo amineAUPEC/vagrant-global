@@ -420,16 +420,16 @@ transport=udp
 
 register => trunk_A_vers_B:azerty@192.168.1.153
 
-[amine]
+[vithu]
 type=friend
-callerid="My name" <100>
+callerid="My name" <800>
 host=dynamic
 secret=test
 context=internal
 
-[chhiny]
+[chhinyleboss]
 type=friend
-callerid="My name" <200>
+callerid="My name" <900>
 host=dynamic
 secret=vitrygtr
 context=internal
