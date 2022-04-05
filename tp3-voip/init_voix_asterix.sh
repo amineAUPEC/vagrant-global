@@ -30,7 +30,7 @@ function install_package_gui(){
 
 
 install_package
-install_package_gui
+# install_package_gui
 
 
 function verify_status(){
