@@ -359,3 +359,93 @@ context=internal
 disallow=all
 
 directmedia=yes
+
+
+
+
+
+
+function TP3_sipconf_config_VMA(){
+
+cat >  $default_config_dir_asterisk/$default_config_file << EOF 
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+
+[trunk_A_vers_B]
+type=friend
+secret=azerty
+context=local
+host=dynamic
+allow=ulaw
+disallow=all
+insecure=port,invite 
+
+
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+
+[chhiny]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=vitrygtr
+context=internal
+
+
+
+
+
+
+EOF
+
+cat  $default_config_dir_asterisk/$default_config_file
+}
+
+TP3_sipconf_config_VMA
+
+
+function TP3_sipconf_config_VMB(){
+
+cat >  $default_config_dir_asterisk/$default_config_file << EOF 
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+
+register => trunk_A_vers_B:azerty@192.168.1.153
+
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+
+[chhiny]
+type=friend
+callerid="My name" <200>
+host=dynamic
+secret=vitrygtr
+context=internal
+
+
+
+
+
+EOF
+
+cat  $default_config_dir_asterisk/$default_config_file
+}
+
+
+
+function extensions_draft(){
+
+exten => _2XXX,1,Dial(SIP/trunk_A_vers_B/${EXTEN})
+}
