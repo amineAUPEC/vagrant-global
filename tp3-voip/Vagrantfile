@@ -5,28 +5,35 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
   config.vm.define "trunksip"
   config.vm.hostname = "trunksip"
-  config.vm.network "public_network", ip: "192.168.1.153"
+  config.vm.network "public_network"
   config.vm.provider "virtualbox" do |vb|
     vb.name = "trunksip"
     vb.memory = "2048"
   end
 
-  config.vm.box = "ubuntu/bionic64"
-  config.vm.define "peersip"
-  config.vm.hostname = "peersip"
-  config.vm.network "public_network", ip: "192.168.1.154"
-  config.vm.provider "virtualbox" do |vb|
-    vb.name = "peersip"
-    vb.memory = "2048"
-  end
+
 
   # config.ssh.username="vagrant"
   # config.ssh.password="vagrant"
+  # cd /vagrant && ./init_voix_asterix.sh
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update -y
-    apt-get install -y asterix
-    cd /vagrant && ./init_voix_asterix.sh
+    apt-get install -y asterisk
   SHELL
 end
 
+Vagrant.configure("2") do |configb|
+  configb.vm.box = "ubuntu/bionic64"
+  configb.vm.define "peersip"
+  configb.vm.hostname = "peersip"
+  configb.vm.network "public_network"
+  configb.vm.provider "virtualbox" do |vba|
+    vba.name = "peersip"
+    vba.memory = "2048"
+  end
 
+  configb.vm.provision "shell", inline: <<-SHELL
+    apt-get update -y
+    apt-get install -y asterisk
+  SHELL
+end
