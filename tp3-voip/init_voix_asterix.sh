@@ -255,6 +255,11 @@ function install_jami(){
 
 }
 
+function copy_pcap(){
+    cp /home/vagrant/pcap/*.pcap /vagrant/pcap/
+}
+
+
 # function sipconf_config_default(){
 
 # cat >  $default_config_dir_asterisk/$default_config_file << EOF 
