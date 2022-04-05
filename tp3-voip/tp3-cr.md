@@ -1,4 +1,5 @@
 ![alt](images/2022-04-05-12-45-45.png)
+[trunk_asterisk](https://wiki.mdl29.net/lib/exe/fetch.php?media=braveo:02_trunk_asterisk.pdf)
 
 
 
@@ -18,3 +19,4 @@ Implémenter les services suivants :
 4. Conférence
 5. Interception dans le groupe
 6. Un petit call center
+
