@@ -34,3 +34,143 @@ Implémenter les services suivants :
 1. 
 - client1 = amine : numéro:100
 - client2 = chhinyleboss : numéro:900
+
+
+
+## Question 1
+### Sur le serveur A : trunksip .153
+- Sur la VM A : sip.conf
+```ini
+[general]
+context=public
+bindaddr=0.0.0.0
+transport=udp
+
+
+
+[amine]
+type=friend
+callerid="My name" <100>
+host=dynamic
+secret=test
+context=internal
+
+
+
+[trunk_A_vers_B]
+type=friend
+secret=azerty
+context=internal
+host=dynamic
+insecure=port,invite 
+```
+- Sur la VM A : extensions.conf
+
+```python
+
+[internal]
+
+exten => 600,1,Playback(demo-echotest)
+exten => 600,n,Echo
+
+exten => 100,1,Dial(SIP/amine)
+exten => 200,1,Dial(SIP/chhiny)
+
+exten => 900,1,Dial(SIP/trunk_A_vers_B/${EXTEN})
+
+```
+
+### Sur le serveur B : peersipe .154
+-  Sur la VM B : sip.conf
+```ini
+[general]
+context=internal
+bindaddr=0.0.0.0
+transport=udp
+register => trunk_A_vers_B:azerty@192.168.1.153
+
+
+
+
+[chhinyleboss]
+type=friend
+callerid="My name" <900>
+host=dynamic
+secret=vitrygtr
+context=internal
+```
+
+
+
+-  Sur la VM B : extensions.conf
+
+```ini
+[internal]
+
+exten => 600,1,Playback(demo-echotest)
+exten => 600,n,Echo
+
+exten => 100,1,Dial(SIP/amine)
+exten => 900,1,Dial(SIP/chhinyleboss)
+
+```
+
+
+
+
+### Récapitulatif
+
+- on Précise sur la VMA : 
+    - le context (internal)
+    - un mot de passe
+    - on  relève son adresse IP
+    - Dans le extensions.conf    : on précise les numéros de téléphone et 900,1,Dial(SIP/trunk_A_vers_B/${EXTEN}) la plage de début.
+- On précise sur la VMB : 
+  - on précise le lien trunk dans la section register sous le format : `register => $user_trunk:$mdp@$ip_trunk_vm_a`
+  - On précise dans le extensions.conf 
+    - les numéros connus.
+
+
+##  question 2
+1. SIP INVITE
+
+![](2022-04-06-11-17-38.png)
+
+[capture1_question2et3.pcapng](./pcap)
+
+
+
+##  question 4
+
+
+- j'appuie sur la webcam sur microsip
+![](2022-04-06-11-51-22.png)
+
+
+[capture3_question4_video](./pcap/TP3/capture3_question4_video.pcapng)
+
+RTCP
+![video](2022-04-06-11-52-42.png)
+
+
+
+# partie 2 : services téléphoniques
+## question 1 : transfert d'appels
+
+### Ressources du prof draft :
+
+![](2022-04-06-12-03-47.png) blind transfer 
+    ![](2022-04-06-12-01-01.png)
+
+![transfertappel](2022-04-06-12-00-41.png)
+## question 2 :  messagerie vocale et consultation de la messagerie vocale
+
+## question 3 :  standard automatique
+
+
+
+## question 4 :  conférence
+
+
+## question 5 :  interception dans le groupe
+## question 6 :  un petit call center

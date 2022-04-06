@@ -478,4 +478,6 @@ cp /etc/asterisk/sip.conf /vagrant/conf/trunksip_vma/
 
 cp /etc/asterisk/extensions.conf /vagrant/conf/peersipe_vmb/
 cp /etc/asterisk/sip.conf /vagrant/conf/peersipe_vmb/
+
+cp -R /home/vagrant/TP3 /vagrant/pcap
 }
