@@ -181,6 +181,24 @@ sudo cat $default_config_dir_asterisk/extensions.conf
 
 }
 
+function config_extensions_conf(){
+sudo echo "" > $default_config_dir_asterisk/extensions.conf
+sudo cat > $default_config_dir_asterisk/extensions.conf << EOF
+[internal]
+
+exten => 600,1,Playback(demo-echotest)
+exten => 600,n,Echo
+
+exten => 100,1,Dial(SIP/amine)
+exten => 900,1,Dial(SIP/chhinyleboss)
+EOF
+sudo cat $default_config_dir_asterisk/extensions.conf 
+
+
+
+
+}
+
 config_extensions_conf
 
 function reload_config(){
@@ -376,7 +394,7 @@ transport=udp
 [trunk_A_vers_B]
 type=friend
 secret=azerty
-context=local
+context=trunk_incoming
 host=dynamic
 allow=ulaw
 disallow=all
@@ -448,4 +466,16 @@ cat  $default_config_dir_asterisk/$default_config_file
 function extensions_draft(){
 
 exten => _2XXX,1,Dial(SIP/trunk_A_vers_B/${EXTEN})
+}
+
+
+
+function sync_files_conf(){
+cp /etc/asterisk/extensions.conf /vagrant/conf/trunksip_vma/
+cp /etc/asterisk/sip.conf /vagrant/conf/trunksip_vma/
+
+
+
+cp /etc/asterisk/extensions.conf /vagrant/conf/peersipe_vmb/
+cp /etc/asterisk/sip.conf /vagrant/conf/peersipe_vmb/
 }
