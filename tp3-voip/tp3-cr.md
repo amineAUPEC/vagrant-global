@@ -1,54 +1,21 @@
-# annexes 
-## images-annexes
-![alt](images/2022-04-05-12-45-45.png)
-[trunk_asterisk](https://wiki.mdl29.net/lib/exe/fetch.php?media=braveo:02_trunk_asterisk.pdf)
+# Compte-rendu TP3
+- Compte de rendu de : 
+  - Chhiny LIM
+  - Amine ABDOUL-AZID
+- Efrei NSM1 : Networks and Security Manager
+- Salim BENAYOUNE : Module VOIP
 
-![sip_trunk](images/2022-04-05-14-06-31.png)
-[sip_trunk_guide](https://support.voipcloud.online/hc/en-us/articles/201488150-Asterisk-SIP-Trunk-Guide)
-![torontoconnectingtwoasterisk](images/2022-04-05-14-39-56.png)
-![sip.conf](images/2022-04-05-16-14-06.png)
-![](images/2022-04-05-16-14-36.png)
-![](images/2022-04-05-16-15-31.png)
-![](images/2022-04-05-16-18-49.png)
-![](images/2022-04-05-16-25-23.png)
-![](images/2022-04-05-16-25-09.png)
-
-
-# consignes
-
-1. TRUNK SIP
-   1. Réaliser une communication entre le téléphone A et le téléphone B de l’architecture suivante :
-   2. Analyser le contenu des messages SIP INVITE et leur contenu SDP.
-   3. Faites des manipulations afin de faire apparaitre le maximum des message SIP et les erreurs associées.
-   4. Etablir une session avec activation de la vidéo, puis analyser tous les points essentiels de l’établissement de la session et des échanges RTP/RTCP qui s’en suivent.
-2. SERVICES TELEPHONIQUES
-Implémenter les services suivants :
-1. Transfer d’appel
-2. Messagerie vocale et consultation de la messagerie vocale
-3. Standard automatique
-4. Conférence
-5. Interception dans le groupe
-6. Un petit call center
-
-
-# schéma
-
-1. 
-- client1 = amine : numéro:100
-- client2 = chhinyleboss : numéro:900
 
 # réalisations 
 
-## Question 1
+## Question 1 :
 ### Sur le serveur A : trunksip .153
-- Sur la VM A : sip.conf
+- Sur la VM A : *sip.conf* :   
 ```ini
 [general]
 context=public
 bindaddr=0.0.0.0
 transport=udp
-
-
 
 [amine]
 type=friend
@@ -57,8 +24,6 @@ host=dynamic
 secret=test
 context=internal
 
-
-
 [trunk_A_vers_B]
 type=friend
 secret=azerty
@@ -66,12 +31,9 @@ context=internal
 host=dynamic
 insecure=port,invite 
 ```
-- Sur la VM A : extensions.conf
-
-```python
-
+- Sur la VM A : *extensions.conf* :   
+```ini
 [internal]
-
 exten => 600,1,Playback(demo-echotest)
 exten => 600,n,Echo
 
@@ -83,16 +45,13 @@ exten => 900,1,Dial(SIP/trunk_A_vers_B/${EXTEN})
 ```
 
 ### Sur le serveur B : peersipe .154
--  Sur la VM B : sip.conf
+-  Sur la VM B : *sip.conf* :   
 ```ini
 [general]
 context=internal
 bindaddr=0.0.0.0
 transport=udp
 register => trunk_A_vers_B:azerty@192.168.1.153
-
-
-
 
 [chhinyleboss]
 type=friend
@@ -104,8 +63,7 @@ context=internal
 
 
 
--  Sur la VM B : extensions.conf
-
+-  Sur la VM B : *extensions.conf* :   
 ```ini
 [internal]
 
@@ -120,44 +78,50 @@ exten => 900,1,Dial(SIP/chhinyleboss)
 
 
 
-### Récapitulatif
+### Récapitulatif de la question 1
 
-- on Précise sur la VMA : 
-    - le context (internal)
-    - un mot de passe
-    - on  relève son adresse IP
-    - Dans le extensions.conf    : on précise les numéros de téléphone et 900,1,Dial(SIP/trunk_A_vers_B/${EXTEN}) la plage de début.
+- On Précise sur la VMA : 
+    - Le contexte (internal)
+    - Un mot de passe
+    - On  relève son adresse IP
+    - Dans le *extensions.conf*    : On précise les numéros de téléphone et `900,1,Dial(SIP/trunk_A_vers_B/${EXTEN})` la plage de début.
 - On précise sur la VMB : 
-  - on précise le lien trunk dans la section register sous le format : `register => $user_trunk:$mdp@$ip_trunk_vm_a`
-  - On précise dans le extensions.conf 
-    - les numéros connus.
+  - On précise le lien trunk dans la section register sous le format : `register => $user_trunk:$mdp@$ip_trunk_vm_a`
+  - On précise dans le *extensions.conf*
+    - Les numéros connus.
 
 
-##  question 2
+##  Question 2 :  
 1. SIP INVITE
-
-![](images/2022-04-06-11-17-38.png)
+- Voici un paquet **SIP INVITE** un ACK a lieu entre **chhinyleboss** et **amine**.
+![SIP_invite](images/2022-04-06-11-17-38.png)
 
 [capture1_question2et3.pcapng](./pcap)
 
-## question 3 : 
+## Question 3 : 
+- Pour faire apparaître le maximum des messages SIP et les erreurs associées, on va faire des manipulations sur les messages SIP INVITE.  
+   - On initie le dialogue avec le client1 et on lui envoie un INVITE.  
+   - On initialise le dialogue avec le client2 et on lui envoie un INVITE.  
+   - On initialise le dialogue avec le client1 et on lui envoie un ACK.  
+   - On initie la requête SIP mais on n'accepte pas l'appel afin de provoquer une erreur.  
+   - On initie la requête SIP mais on coupe l'appel afin de provoquer une erreur.  
 
-##  question 4
+##  Question 4 :  
+- J'appuie sur la webcam sur **microsip** : 
+![bouton_webcam](images/2022-04-06-11-51-22.png)
 
 
-- j'appuie sur la webcam sur microsip
-![](images/2022-04-06-11-51-22.png)
+[capture3_question4_video.pcapng](./pcap/TP3/capture3_question4_video.pcapng)
 
-
-[capture3_question4_video](./pcap/TP3/capture3_question4_video.pcapng)
-
-RTCP
+- RTCP : 
+  - Les échanges RTP/RTCP sont réalisés à travers le protocole RTP.  Le codec G.711 est utilisé, le SSRC est unique pour chaque échange. 
+  - Nous le constatons durant les échanges vidéos.
 ![video](images/2022-04-06-11-52-42.png)
 
+- Pour maximiser la transmission de la vidéo, on utiliserait le codec H.264.
 
-
-# Partie 2 : services téléphoniques
-## Question 1 : transfert d'appels
+# Partie 2 : Services téléphoniques
+## Question 1 : Transfert d'appels
 <!-- ![docs_blind_transfer](images/2022-04-06-12-03-47.png) blind transfer  -->
 - Nous avons le fichier *extensions.conf* suivant : 
 ![transfertappel](images/2022-04-06-12-00-41.png)
@@ -177,7 +141,7 @@ atxfer => *2
 
 - **Ensuite on recharge la configuration...**
 
-## question 2 :  messagerie vocale et consultation de la messagerie vocale
+## Question 2 :  Messagerie vocale et consultation de la messagerie vocale
 
 #### Mise en place de la messagerie vocale
 - La commande Record() est utilisée pour enregistrer des messages vocaux. Le premier message est dédiée pour l'auto-attendant et le second pour l'IVR : 
@@ -244,7 +208,7 @@ exten=9,1,voicemailmain()
   - Si il n'a pas de réponse `exten=>s,n(NOANSWER),voicemail(${ARG2},u)`, on lui laisse un message.  
   - Si le canal, n'est pas disponible ou que la personne refuse volontairement l'appel exemple l'arnaque au CPF... `exten=>s,n(CHANUNAVAIL),hangup` et `exten=>s,n(CANCEL),hangup`  
 
-## question 3 :  Standard automatique  
+## Question 3 :  Standard automatique  
 - Nous mettons en place une auto-attendance aussi connu sous le nom de *standard automatique*.  
 - Mais également en tant que IVR :   
 - En effet IVR signifiant *Interactive Voice Response system*.   
@@ -266,11 +230,11 @@ exten=>100,1,Dial(SIP/amine)
 exten=>900,1,Dial(SIP/chhiny)
 ```
 
-- Nous appelons **le 8** et nous testons en appuyant sur le **900** afin d'être redirigé vers le SIP/chhiny.  
+- Nous appelons **le 8** et nous testons en appuyant sur le **900** afin d'être redirigé vers le **SIP/chhiny**.  
 
 - Nous allons vers la **priorité n°1**.   
 - **Waitextension** est une fonction qui permet de faire attendre l'appelant pendant un certain temps.  
-- Il fera appel à **OPERATOR** pour le rediriger vers le SIP/chhiny par exemple.  
+- Il fera appel à **OPERATOR** pour le rediriger vers le **SIP/chhiny** par exemple.  
 
 
 
@@ -298,7 +262,7 @@ exten=>900,1,Dial(SIP/chhiny)
 - Le menu2 est utilisé toujours avec  le préfixe 4. soit 4menu2.   
 - On  tape 1 pour amine , 2 pour chhiny et 3 pour amine2.  
 
-## question 4 :  Conférence
+## Question 4 :  Conférence
 - La conférence est un service qui permet de communiquer entre plusieurs personnes. 
 - En effet cette dernière est assez simple à mettre en place et dans notre contexte, on peut la mettre en place en utilisant un appel entre trois personnes.  
 
@@ -321,7 +285,7 @@ exten => 1,n,ConfBridge(1234,,1234_participants,1234_menu)
 [confbridge](https://wiki.asterisk.org/wiki/display/AST/ConfBridge)
 
 
-## question 5 :  Interception dans le groupe
+## Question 5 :  Interception dans le groupe
 - Introduction :   
   - Le parcage d'appels permet à une personne de mettre un appel en attente sur un poste téléphonique et de poursuivre la conversation à partir de n'importe quel autre poste téléphonique.  
 
@@ -406,10 +370,7 @@ leavewhenempty=strict
 
 - Mais on peut simplifier le processus d'autres modules que nous avons déjà vu.  
 
-[ACR_asterisk](https://obrienlabs.net/automate-asterisk-to-auto-dial-a-number-for-testing/)  
-[voip-info.org](https://www.voip-info.org/acd-for-asterisk-by-indosoft/)  
-[ACD](https://www.asterisk.org/get-started/applications/call-center/)  
-[asterisk_book_chunk_acd](http://www.asteriskdocs.org/en/3rd_Edition/asterisk-book-html-chunk/asterisk-ACD.html)  
+
 
 - De cette manière : aussi on peut le définir dans le *queues.conf* :   
 ```ini
@@ -439,6 +400,12 @@ same => n,Hangup()
 [LocalSets]
 include => Queues      ; allow phones to call queues
 ```
+
+- Sources :   
+[ACR_asterisk](https://obrienlabs.net/automate-asterisk-to-auto-dial-a-number-for-testing/)  
+[voip-info.org](https://www.voip-info.org/acd-for-asterisk-by-indosoft/)  
+[ACD](https://www.asterisk.org/get-started/applications/call-center/)    
+[asterisk_book_chunk_acd](http://www.asteriskdocs.org/en/3rd_Edition/asterisk-book-html-chunk/asterisk-ACD.html)  
 ## Les fichiers de configuration final : 
 #### sip.conf
 ```ini
