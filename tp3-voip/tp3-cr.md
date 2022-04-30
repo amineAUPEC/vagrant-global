@@ -159,17 +159,88 @@ RTCP
 
 ### Ressources du prof draft :
 
-![](images/2022-04-06-12-03-47.png) blind transfer 
-    ![](images/2022-04-06-12-01-01.png)
+<!-- ![docs_blind_transfer](images/2022-04-06-12-03-47.png) blind transfer  -->
 
+Nous avons le fichier extensions.conf suivant : 
 ![transfertappel](images/2022-04-06-12-00-41.png)
+
+
+Pour transférer un appel : nous allons mettre en place le blind transfer
+
+Lorsque nous utilisons la touche # , nous verrons que l'appel sera transféré vers le numéro suivant.
+
+Pour cela nous activons dans le fichier features.conf : dans la section [featuremap] on ajoute :
+
+```ini
+[featuremap]
+blindxfer => #1
+atxfer => *2
+```
+![modification_features](images/2022-04-06-12-01-01.png)
+
+
+Ensuite on recharge la configuration...
+
+
 ## question 2 :  messagerie vocale et consultation de la messagerie vocale
+
+
+#### mise en place pour consulter de la messagerie vocale
+
+La consultation de la messagerie vocale : 
+
+
+Nous ajoutons dans le fichier extensions.conf : 
+
+```ini
+[stdexten]
+exten=>s,1,Dial(${ARG1},20,tT)
+exten=>s,n,Goto(${DIALSTATUS})
+exten=>s,n,hangup()
+exten=>s,n(BUSY),voicemail(${ARG2},b)
+exten=>s,n,hangup()
+exten=>s,n(NOANSWER),voicemail(${ARG2},u)
+exten=>s,n,hangup()
+exten=>s,n(CANCEL),hangup
+exten=>s,n(CHANUNAVAIL),hangup
+exten=>s,n(CONGESTION),hangup
+
+[from-internal]
+exten=>6000,1,Gosub(stdexten,s,1(SIP/Zoiper,${EXTEN}))
+exten=>6001,1,Gosub(stdexten,s,1(SIP/xlite,${EXTEN}))
+exten=7,1,voicemailmain()
+```
+
+
+Nous testons en appuyant sur la touche 7.
 
 ## question 3 :  standard automatique
 
 
 
 ## question 4 :  conférence
+La conférence est un service qui permet de communiquer entre plusieurs personnes.
+En effet cette dernière est assez simple à mettre en place et dans notre contexte, on peut la mettre en place en utilisant un appel entre trois personnes.
+
+
+
+Dans le fichier extensions.conf, on peut trouver la ligne suivante :
+
+```ini
+exten=4,1,Confbridge(main)
+```
+
+Cette directive Confbridge(main) permet de démarrer une conférence.
+Le numéro 4 lors de l'appel permettra de démarrer la conférence. En effet ce numéro est souvent utilisé avec la plupart des softphones.
+
+
+On peut aussi la spécifier de cette manière :
+```ini
+exten => 1,1,Answer()
+exten => 1,n,ConfBridge(1234,,1234_participants,1234_menu)
+```
+
+[confbridge](https://wiki.asterisk.org/wiki/display/AST/ConfBridge)
 
 
 ## question 5 :  interception dans le groupe
