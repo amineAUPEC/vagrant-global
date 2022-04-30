@@ -3,7 +3,7 @@
   - Chhiny LIM
   - Amine ABDOUL-AZID
 - Efrei NSM1 : Networks and Security Manager
-- Salim BENAYOUNE : Module VOIP
+- Salim BENAYOUNE : Module VOIP  
 ![efrei_images](images/2022-04-30-20-43-21.png)
 
 # réalisations 
