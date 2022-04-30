@@ -3,13 +3,13 @@
 
 ![sip_trunk](images/2022-04-05-14-06-31.png)
 [sip_trunk_guide](https://support.voipcloud.online/hc/en-us/articles/201488150-Asterisk-SIP-Trunk-Guide)
-![torontoconnectingtwoasterisk](2022-04-05-14-39-56.png)
-![sip.conf](2022-04-05-16-14-06.png)
-![](2022-04-05-16-14-36.png)
-![](2022-04-05-16-15-31.png)
-![](2022-04-05-16-18-49.png)
-![](2022-04-05-16-25-23.png)
-![](2022-04-05-16-25-09.png)
+![torontoconnectingtwoasterisk](images/2022-04-05-14-39-56.png)
+![sip.conf](images/2022-04-05-16-14-06.png)
+![](images/2022-04-05-16-14-36.png)
+![](images/2022-04-05-16-15-31.png)
+![](images/2022-04-05-16-18-49.png)
+![](images/2022-04-05-16-25-23.png)
+![](images/2022-04-05-16-25-09.png)
 
 
 
@@ -134,7 +134,7 @@ exten => 900,1,Dial(SIP/chhinyleboss)
 ##  question 2
 1. SIP INVITE
 
-![](2022-04-06-11-17-38.png)
+![](images/2022-04-06-11-17-38.png)
 
 [capture1_question2et3.pcapng](./pcap)
 
@@ -144,13 +144,13 @@ exten => 900,1,Dial(SIP/chhinyleboss)
 
 
 - j'appuie sur la webcam sur microsip
-![](2022-04-06-11-51-22.png)
+![](images/2022-04-06-11-51-22.png)
 
 
 [capture3_question4_video](./pcap/TP3/capture3_question4_video.pcapng)
 
 RTCP
-![video](2022-04-06-11-52-42.png)
+![video](images/2022-04-06-11-52-42.png)
 
 
 
@@ -159,10 +159,10 @@ RTCP
 
 ### Ressources du prof draft :
 
-![](2022-04-06-12-03-47.png) blind transfer 
-    ![](2022-04-06-12-01-01.png)
+![](images/2022-04-06-12-03-47.png) blind transfer 
+    ![](images/2022-04-06-12-01-01.png)
 
-![transfertappel](2022-04-06-12-00-41.png)
+![transfertappel](images/2022-04-06-12-00-41.png)
 ## question 2 :  messagerie vocale et consultation de la messagerie vocale
 
 ## question 3 :  standard automatique
