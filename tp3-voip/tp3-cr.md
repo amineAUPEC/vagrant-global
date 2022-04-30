@@ -208,11 +208,11 @@ exten=>s,n(CONGESTION),hangup
 [from-internal]
 exten=>6000,1,Gosub(stdexten,s,1(SIP/Zoiper,${EXTEN}))
 exten=>6001,1,Gosub(stdexten,s,1(SIP/xlite,${EXTEN}))
-exten=7,1,voicemailmain()
+exten=9,1,voicemailmain()
 ```
 
 
-Nous testons en appuyant sur la touche 7.
+Nous testons en appuyant sur la touche 9.
 
 ## question 3 :  standard automatique
 
@@ -260,7 +260,20 @@ Cela nécessite l'ajout d'un troisième poste téléphonique.
 
 #### Mise en place du call parking
 Le **call parking** s'active dans le fichier *extensions.conf*  
+```ini
+[from-internal]
+include => parkedcalls
+```
 
+Cela peut aussi être fait de la manière suivante : dans le fichier res_parking.conf : 
+
+```ini
+[general]
+[default]                      
+parkext => 700                 
+parkpos => 701-720              
+context => parkedcalls          
+```
 
 #### Mise en place du call pickup
 Tandis que le **call pickup** s'active dans le fichier *features.conf* :  et en modifiant ensuite le fichier *extensions.conf*
@@ -304,3 +317,113 @@ using voicemail.conf
 
 
 
+
+
+## Les fichiers de configuration final : 
+#### sip.conf
+```ini
+[general]
+bindport=5060
+bindaddr=0.0.0.0
+context=dummy
+disallow=all
+allow=ulaw
+alwaysauthreject=yes
+allowguest=no
+
+register=>1020:vitrygtr@sip.kaiba.corp:5600/9999
+
+[group1](!)
+type=friend
+secret=vitrygtr
+host=dynamic
+qualify=yes
+callgroup=1
+pickupgroup=1
+directmedia=no
+context=from-internal
+
+
+[zoiper](group1)
+[xlite](group1)
+[bria](group1)
+[blink](group1)
+
+[siptrunk]
+type=peer
+defaultuser=1040
+secret=vitrygtr
+port=5600 
+insecure=invite
+host=sip.kaiba.corp
+fromuser=1040
+fromdomain=sip.kaiba.corp
+context=from-siptrunk
+```
+
+#### extensions.conf
+```ini
+[globals]
+OPERATOR=SIP/xlite
+
+
+[from-internal]
+include=>parkedcalls
+
+exten => _4.,1,Record(${EXTEN:1}:gsm)
+exten => _4.,n,wait(1)
+exten => _4.,n,Playback(${EXTEN:1})
+exten => _4.,n,Hangup()
+
+exten=>6001,1,Gosub(stdexten,s,1(SIP/Zoiper,${EXTEN}))
+exten=>6002,1,Gosub(stdexten,s,1(SIP/xlite,${EXTEN}))
+exten=>6003,1,Gosub(stdexten,s,1(SIP/blink,${EXTEN}))
+exten=>6004,1,Gosub(stdexten,s,1(SIP/bria,${EXTEN}))
+
+exten=>_9.,1,dial(SIP/siptrunk/${EXTEN:1},20)
+
+exten=6,1,Confbridge(main)
+exten=7,1,goto(aasiptrunk,9999,1)
+exten=9,1,voicemailmain()
+
+exten => 8100,1,Answer()
+exten => 8100,n,MusicOnHold(default,30)
+
+[from-siptrunk]
+include=aasiptrunk
+
+[aasiptrunk]
+exten=>9999,1,answer()
+exten=>9999,n,background(menu2)
+exten=>9999,n,WaitExten(10)
+exten=>9999,n,Dial(${OPERATOR})
+exten=>1,1,dial(SIP/zoiper)
+exten=>2,1,dial(SIP/xlite)
+exten=>3,1,dial(SIP/bria)
+exten=>6000,1,Dial(SIP/zoiper)
+exten=>6001,1,Dial(SIP/xlite)
+
+[stdexten]
+exten=>s,1,Dial(${ARG1},20,tT)
+exten=>s,n,FollowMe(${ARG2})
+exten=>s,n,Goto(${DIALSTATUS})
+exten=>s,n,hangup()
+exten=>s,n(BUSY),voicemail(${ARG2},b)
+exten=>s,n,hangup()
+exten=>s,n(NOANSWER),voicemail(${ARG2},u)
+exten=>s,n,hangup()
+exten=>s,n(CANCEL),hangup
+exten=>s,n(CHANUNAVAIL),hangup
+exten=>s,n(CONGESTION),hangup
+```
+#### features.conf
+
+#### res_parking.conf :
+```ini
+[general]
+[default]                       ; Default Parking Lot
+parkext => 700                  ; What extension to dial to park. (optional; if
+parkpos => 701-720              ; What range of parking spaces to use - must be numeric
+context => parkedcalls          ; Which context parked calls and the default park
+
+```
