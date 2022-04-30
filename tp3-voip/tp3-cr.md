@@ -213,8 +213,8 @@ exten => _4.,n,Hangup()
 [general]
 format=wav49|gsm|wav
 [default]
-6000=>6000,Caixa do PAP2,root@localhost,,|attach=yes|delete=0
-6001=>6001,Xlite, root@localhost,,|attach=yes|delete=0
+100=>100,Caixa do PAP2,root@localhost,,|attach=yes|delete=0
+900=>900,chhiny, root@localhost,,|attach=yes|delete=0
 ```
 - Nous ajoutons dans le fichier *extensions.conf* : 
 ```ini
@@ -231,8 +231,8 @@ exten=>s,n(CHANUNAVAIL),hangup
 exten=>s,n(CONGESTION),hangup
 
 [from-internal]
-exten=>6000,1,Gosub(stdexten,s,1(SIP/Zoiper,${EXTEN}))
-exten=>6001,1,Gosub(stdexten,s,1(SIP/xlite,${EXTEN}))
+exten=>100,1,Gosub(stdexten,s,1(SIP/amine,${EXTEN}))
+exten=>900,1,Gosub(stdexten,s,1(SIP/chhiny,${EXTEN}))
 exten=9,1,voicemailmain()
 ```
 - Nous testons en appuyant sur la **touche 9**. Afin de **consulter la messagerie vocale**.    
@@ -254,23 +254,23 @@ exten=9,1,voicemailmain()
 - Mise en place avec la méthode auto réceptionniste dans le fichier *extensions.conf* :   
 ```ini
 [from-internal]
-exten=>8,1,goto(aasiptrunk,9999,1)
+exten=>8,1,goto(trunk_A_vers_B,9999,1)
 [from-siptrunk]
-include=aasiptrunk
-[aasiptrunk]
+include=trunk_A_vers_B
+[trunk_A_vers_B]
 exten=>9999,1,answer()
 exten=>9999,n,background(menu1)
 exten=>9999,n,waitexten(10)
 exten=>9999,n,Dial(${OPERATOR})
-exten=>6000,1,Dial(SIP/zoiper)
-exten=>6001,1,Dial(SIP/xlite)
+exten=>100,1,Dial(SIP/amine)
+exten=>900,1,Dial(SIP/chhiny)
 ```
 
-- Nous appelons **le 8** et nous testons en appuyant sur le **6001** afin d'être redirigé vers le SIP/xlite.  
+- Nous appelons **le 8** et nous testons en appuyant sur le **900** afin d'être redirigé vers le SIP/chhiny.  
 
 - Nous allons vers la **priorité n°1**.   
 - **Waitextension** est une fonction qui permet de faire attendre l'appelant pendant un certain temps.  
-- Il fera appel à **OPERATOR** pour le rediriger vers le SIP/xlite par exemple.  
+- Il fera appel à **OPERATOR** pour le rediriger vers le SIP/chhiny par exemple.  
 
 
 
@@ -286,17 +286,17 @@ exten=>9999,1,answer()
 exten=>9999,n,background(menu2)
 exten=>9999,n,waitexten(10)
 exten=>9999,n,Dial(${OPERATOR})
-exten=>1,1,dial(SIP/zoiper)
-exten=>2,1,dial(SIP/xlite)
-exten=>3,1,dial(IAX/zoiper2)
-exten=>6000,1,Dial(SIP/zoiper)
-exten=>6001,1,Dial(SIP/xlite)
+exten=>1,1,dial(SIP/amine)
+exten=>2,1,dial(SIP/chhiny)
+exten=>3,1,dial(IAX/amine2)
+exten=>100,1,Dial(SIP/amine)
+exten=>900,1,Dial(SIP/chhiny)
 ```
 
 - Ensuite nous appelons **le 8** afin de tester son fonctionnement et de choisir les différentes options.   
 - Il cherche l'extension 9999 dans le contexte *ivrsip* en gros c'est une étiquette pour se brancher.  
 - Le menu2 est utilisé toujours avec  le préfixe 4. soit 4menu2.   
-- On  tape 1 pour zoiper , 2 pour xlite et 3 pour zoiper2.  
+- On  tape 1 pour amine , 2 pour chhiny et 3 pour amine2.  
 
 ## question 4 :  Conférence
 - La conférence est un service qui permet de communiquer entre plusieurs personnes. 
@@ -451,7 +451,8 @@ allow=ulaw
 alwaysauthreject=yes
 allowguest=no
 
-register=>1020:vitrygtr@sip.kaiba.corp:5600/9999
+register=1040:vitrygtr@sip.kaiba.corp:5600/9999
+register => trunk_A_vers_B:azerty@192.168.1.153
 
 [group1](!)
 type=friend
@@ -464,10 +465,10 @@ directmedia=no
 context=from-internal
 
 
-[zoiper](group1)
-[xlite](group1)
-[bria](group1)
-[blink](group1)
+[amine](group1)
+[chhiny](group1)
+[kaiba](group1)
+[makuba](group1)
 
 [siptrunk]
 type=peer
@@ -484,7 +485,7 @@ context=from-siptrunk
 #### extensions.conf
 ```ini
 [globals]
-OPERATOR=SIP/xlite
+OPERATOR=SIP/chhiny
 
 
 [from-internal]
@@ -495,33 +496,33 @@ exten => _4.,n,wait(1)
 exten => _4.,n,Playback(${EXTEN:1})
 exten => _4.,n,Hangup()
 
-exten=>6001,1,Gosub(stdexten,s,1(SIP/Zoiper,${EXTEN}))
-exten=>6002,1,Gosub(stdexten,s,1(SIP/xlite,${EXTEN}))
-exten=>6003,1,Gosub(stdexten,s,1(SIP/blink,${EXTEN}))
-exten=>6004,1,Gosub(stdexten,s,1(SIP/bria,${EXTEN}))
+exten=>900,1,Gosub(stdexten,s,1(SIP/amine,${EXTEN}))
+exten=>6002,1,Gosub(stdexten,s,1(SIP/chhiny,${EXTEN}))
+exten=>6003,1,Gosub(stdexten,s,1(SIP/makuba,${EXTEN}))
+exten=>6004,1,Gosub(stdexten,s,1(SIP/kaiba,${EXTEN}))
 
 exten=>_9.,1,dial(SIP/siptrunk/${EXTEN:1},20)
 
 exten=6,1,Confbridge(main)
-exten=7,1,goto(aasiptrunk,9999,1)
+exten=7,1,goto(trunk_A_vers_B,9999,1)
 exten=9,1,voicemailmain()
 
 exten => 8100,1,Answer()
 exten => 8100,n,MusicOnHold(default,30)
 
 [from-siptrunk]
-include=aasiptrunk
+include=trunk_A_vers_B
 
-[aasiptrunk]
+[trunk_A_vers_B]
 exten=>9999,1,answer()
 exten=>9999,n,background(menu2)
 exten=>9999,n,WaitExten(10)
 exten=>9999,n,Dial(${OPERATOR})
-exten=>1,1,dial(SIP/zoiper)
-exten=>2,1,dial(SIP/xlite)
-exten=>3,1,dial(SIP/bria)
-exten=>6000,1,Dial(SIP/zoiper)
-exten=>6001,1,Dial(SIP/xlite)
+exten=>1,1,dial(SIP/amine)
+exten=>2,1,dial(SIP/chhiny)
+exten=>3,1,dial(SIP/kaiba)
+exten=>100,1,Dial(SIP/amine)
+exten=>900,1,Dial(SIP/chhiny)
 
 [stdexten]
 exten=>s,1,Dial(${ARG1},20,tT)
