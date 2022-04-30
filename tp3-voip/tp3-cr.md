@@ -173,6 +173,63 @@ RTCP
 
 
 ## question 5 :  interception dans le groupe
+- Introduction : 
+  - Le parcage d'appels permet à une personne de mettre un appel en attente sur un poste téléphonique et de poursuivre la conversation à partir de n'importe quel autre poste téléphonique.
 
+- 2 modes sont possibles : "Park Pickup Config" ou "Directed Call Pickup" 
+  - "Park Pickup Config" : 
+    - on appelle le numéro de l'appelant
+    - on attend qu'un poste téléphonique appelle le numéro de l'appelé
+    - on récupère l'appel
+    - on continue la conversation
+    
+cALL PICKUP REPRENDRE UN APPEL
+FOLLOW ME : pour continuer à suivre une fonctionnalité
+Cela nécessite l'ajout d'un troisième poste téléphonique. 
+
+#### Mise en place du call parking
+Le **call parking** s'active dans le fichier *extensions.conf*  
+
+
+#### Mise en place du call pickup
+Tandis que le **call pickup** s'active dans le fichier *features.conf* :  et en modifiant ensuite le fichier *extensions.conf*
+
+`pickupexten = *8`  
+
+
+Pour recharger la modification : du fichier *features.conf*  dans le terminal : 
+
+`module reload features`
+
+
+Ensuite on modifie le fichier *extensions.conf* :
+```python
+callgroup=1
+pickupgroup=1
+directmedia=no
+```
+
+Pour recharger la modification : du fichier *extension.conf* dans le terminal :   
+`sip reload`
+
+
+[CALLPARK](https://github.com/flaviogoncalves/AsteriskTraining/wiki/Lab-4---PBX-Features)
 
 ## question 6 :  un petit call center
+Un call parking est nécessaire pour un call center
+Un agent avec des queues peut être utilisé pour gérer les appels entrants. Et le trafic dans un call center.
+
+Using queues.conf]()
+mais on peut simplifier le processus d'autres modules que nous avons déjà vu.
+
+
+call center asterisk : call center phone systems
+
+automated call distributor : ACD
+using voicemail.conf
+[ACR_asterisk](https://obrienlabs.net/automate-asterisk-to-auto-dial-a-number-for-testing/)
+[doc_astreisk_agent](https://link)
+
+
+
+
