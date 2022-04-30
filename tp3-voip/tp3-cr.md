@@ -138,7 +138,7 @@ exten => 900,1,Dial(SIP/chhinyleboss)
 
 [capture1_question2et3.pcapng](./pcap)
 
-
+## question 3 : 
 
 ##  question 4
 
@@ -154,11 +154,8 @@ RTCP
 
 
 
-# partie 2 : services téléphoniques
-## question 1 : transfert d'appels
-
-### Ressources du prof draft :
-
+# Partie 2 : services téléphoniques
+## Question 1 : transfert d'appels
 <!-- ![docs_blind_transfer](images/2022-04-06-12-03-47.png) blind transfer  -->
 
 Nous avons le fichier extensions.conf suivant : 
@@ -184,14 +181,39 @@ Ensuite on recharge la configuration...
 
 ## question 2 :  messagerie vocale et consultation de la messagerie vocale
 
+#### Mise en place de la messagerie vocale
+La commande Record() est utilisée pour enregistrer des messages vocaux. Le premier message est dédiée pour l'auto-attendant et le second pour l'IVR : 
+Nous modifions la section [from-internal] dans le le fichier *extensions.conf*
+```ini
+[from-internal]
+exten => _4.,1,Record(${EXTEN:1}:gsm)
+exten => _4.,n,wait(1)
+exten => _4.,n,Playback(${EXTEN:1})
+exten => _4.,n,Hangup()
+```
 
-#### mise en place pour consulter de la messagerie vocale
+On appelle le numéro 4 pour enregistrer un message vocal.  **4menu1**
+"Merci de bien vouloir presser une touche ou d'attendre votre tour". 
+On presse la touche # pour le réécouter.
 
-La consultation de la messagerie vocale : 
+
+On répète les étapes mais pour l'IVR : avec 4menu2
+"Presser 1 pour l'accueil, 2 pour le rayon informatique et 3 pour le rayon vêtement". 
+ 
 
 
-Nous ajoutons dans le fichier extensions.conf : 
+#### Mise en place pour consulter de la messagerie vocale
 
+- La consultation de la messagerie vocale : 
+- Nous ajoutons dans le fichier **voicemail.conf** : 
+```ini
+[general]
+format=wav49|gsm|wav
+[default]
+6000=>6000,Caixa do PAP2,root@localhost,,|attach=yes|delete=0
+6001=>6001,Xlite, root@localhost,,|attach=yes|delete=0
+```
+- Nous ajoutons dans le fichier *extensions.conf* : 
 ```ini
 [stdexten]
 exten=>s,1,Dial(${ARG1},20,tT)
@@ -212,29 +234,75 @@ exten=9,1,voicemailmain()
 ```
 
 
-Nous testons en appuyant sur la touche 9.
+Nous testons en appuyant sur la **touche 9**.
 
-## question 3 :  standard automatique
-
-
-
-## question 4 :  conférence
-La conférence est un service qui permet de communiquer entre plusieurs personnes.
-En effet cette dernière est assez simple à mettre en place et dans notre contexte, on peut la mettre en place en utilisant un appel entre trois personnes.
+## question 3 :  Standard automatique
+- Nous mettons en place une auto-attendance aussi connu sous le nom de *standard automatique*.
+- Mais également en tant que IVR : 
+- En effet IVR signifiant *Interactive Voice Response system*. 
+- Par conséquent, un Serveur Vocal Interactif est un système automatique qui permet de dialoguer avec l'appelant afin de déterminer le plus finement possible le motif de son appel.
 
 
 
-Dans le fichier extensions.conf, on peut trouver la ligne suivante :
+#### Mise en place avec la méthode auto réceptionniste :
+
+
+```ini
+[from-internal]
+exten=>8,1,goto(aasiptrunk,9999,1)
+[from-siptrunk]
+include=aasiptrunk
+[aasiptrunk]
+exten=>9999,1,answer()
+exten=>9999,n,background(menu1)
+exten=>9999,n,waitexten(10)
+exten=>9999,n,Dial(${OPERATOR})
+exten=>6000,1,Dial(SIP/zoiper)
+exten=>6001,1,Dial(SIP/xlite)
+```
+
+
+Nous appelons le 8 et nous testons en appuyant sur le 6001 afin d'être redirigé vers le SIP/xlite.
+
+#### Mise en place avec la méthode IVR 
+- Dans le fichier *extensions.conf* nous ajoutons : 
+```ini
+[from-siptrunk]
+include=ivrsip
+[from-internal]
+exten=>8,1,goto(ivrsip,9999,1)
+[ivrsip]
+exten=>9999,1,answer()
+exten=>9999,n,background(menu2)
+exten=>9999,n,waitexten(10)
+exten=>9999,n,Dial(${OPERATOR})
+exten=>1,1,dial(SIP/zoiper)
+exten=>2,1,dial(SIP/xlite)
+exten=>3,1,dial(IAX/zoiper2)
+exten=>6000,1,Dial(SIP/zoiper)
+exten=>6001,1,Dial(SIP/xlite)
+```
+
+- Ensuite nous appelons **le 8** afin de tester son fonctionnement et de choisir les différentes options. 
+
+
+## question 4 :  Conférence
+- La conférence est un service qui permet de communiquer entre plusieurs personnes.
+- En effet cette dernière est assez simple à mettre en place et dans notre contexte, on peut la mettre en place en utilisant un appel entre trois personnes.
+
+
+
+- Dans le fichier *extensions.conf*, on peut trouver la ligne suivante :
 
 ```ini
 exten=4,1,Confbridge(main)
 ```
 
-Cette directive Confbridge(main) permet de démarrer une conférence.
-Le numéro 4 lors de l'appel permettra de démarrer la conférence. En effet ce numéro est souvent utilisé avec la plupart des softphones.
+- Cette directive Confbridge(main) permet de démarrer une conférence.
+- Le numéro 4 lors de l'appel permettra de démarrer la conférence. En effet ce numéro est souvent utilisé avec la plupart des softphones.
 
 
-On peut aussi la spécifier de cette manière :
+- On peut aussi la spécifier de cette manière :
 ```ini
 exten => 1,1,Answer()
 exten => 1,n,ConfBridge(1234,,1234_participants,1234_menu)
@@ -243,7 +311,7 @@ exten => 1,n,ConfBridge(1234,,1234_participants,1234_menu)
 [confbridge](https://wiki.asterisk.org/wiki/display/AST/ConfBridge)
 
 
-## question 5 :  interception dans le groupe
+## question 5 :  Interception dans le groupe
 - Introduction : 
   - Le parcage d'appels permet à une personne de mettre un appel en attente sur un poste téléphonique et de poursuivre la conversation à partir de n'importe quel autre poste téléphonique.
 
@@ -254,8 +322,8 @@ exten => 1,n,ConfBridge(1234,,1234_participants,1234_menu)
     - on récupère l'appel
     - on continue la conversation
     
-cALL PICKUP REPRENDRE UN APPEL
-FOLLOW ME : pour continuer à suivre une fonctionnalité
+Call Pickup reprendre un appel
+FOLLOW ME : Pour continuer à suivre une fonctionnalité
 Cela nécessite l'ajout d'un troisième poste téléphonique. 
 
 #### Mise en place du call parking
@@ -276,24 +344,24 @@ context => parkedcalls
 ```
 
 #### Mise en place du call pickup
-Tandis que le **call pickup** s'active dans le fichier *features.conf* :  et en modifiant ensuite le fichier *extensions.conf*
+- Tandis que le **call pickup** s'active dans le fichier *features.conf* :  et en modifiant ensuite le fichier *extensions.conf*
 
 `pickupexten = *8`  
 
 
-Pour recharger la modification : du fichier *features.conf*  dans le terminal : 
+- Pour recharger la modification : du fichier *features.conf*  dans le terminal : 
 
 `module reload features`
 
 
-Ensuite on modifie le fichier *extensions.conf* :
+- Ensuite on modifie le fichier *extensions.conf* :
 ```python
 callgroup=1
 pickupgroup=1
 directmedia=no
 ```
 
-Pour recharger la modification : du fichier *extension.conf* dans le terminal :   
+- Pour recharger la modification : du fichier *extension.conf* dans le terminal :   
 `sip reload`
 
 
@@ -303,7 +371,7 @@ Pour recharger la modification : du fichier *extension.conf* dans le terminal :
 Un call parking est nécessaire pour un call center
 Un agent avec des queues peut être utilisé pour gérer les appels entrants. Et le trafic dans un call center.
 
-Using queues.conf]()
+[Using queues.conf](ques)
 mais on peut simplifier le processus d'autres modules que nous avons déjà vu.
 
 
