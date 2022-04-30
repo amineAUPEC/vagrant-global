@@ -1,3 +1,5 @@
+# annexes 
+## images-annexes
 ![alt](images/2022-04-05-12-45-45.png)
 [trunk_asterisk](https://wiki.mdl29.net/lib/exe/fetch.php?media=braveo:02_trunk_asterisk.pdf)
 
@@ -12,7 +14,7 @@
 ![](images/2022-04-05-16-25-09.png)
 
 
-
+# consignes
 
 1. TRUNK SIP
    1. Réaliser une communication entre le téléphone A et le téléphone B de l’architecture suivante :
@@ -29,13 +31,13 @@ Implémenter les services suivants :
 6. Un petit call center
 
 
-
+# schéma
 
 1. 
 - client1 = amine : numéro:100
 - client2 = chhinyleboss : numéro:900
 
-
+# réalisations 
 
 ## Question 1
 ### Sur le serveur A : trunksip .153
