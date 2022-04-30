@@ -194,13 +194,18 @@ exten => _4.,n,Playback(${EXTEN:1})
 exten => _4.,n,Hangup()
 ```
 
-On appelle le numéro 4 pour enregistrer un message vocal.  **4menu1**
-"Merci de bien vouloir presser une touche ou d'attendre votre tour". 
-On presse la touche # pour le réécouter.
+
+- En fait il enregistre un séquence audio spous unn format ici gsm 
+- A vrai dire le **4.** signifie que on accepte tout autre caractère suivi du n°4.
 
 
-On répète les étapes mais pour l'IVR : avec 4menu2
-"Presser 1 pour l'accueil, 2 pour le rayon informatique et 3 pour le rayon vêtement". 
+- On appelle le numéro 4 pour enregistrer un message vocal.  **4menu1**
+> "Merci de bien vouloir presser une touche ou d'attendre votre tour". 
+- On presse la touche # pour le réécouter.
+
+
+- On répète les étapes mais pour l'IVR : avec 4menu2
+> "Presser 1 pour l'accueil, 2 pour le rayon informatique et 3 pour le rayon vêtement". 
  
 
 
@@ -234,9 +239,15 @@ exten=>6000,1,Gosub(stdexten,s,1(SIP/Zoiper,${EXTEN}))
 exten=>6001,1,Gosub(stdexten,s,1(SIP/xlite,${EXTEN}))
 exten=9,1,voicemailmain()
 ```
+- Nous testons en appuyant sur la **touche 9**. Afin de consulter la messagerie vocale.
 
-
-Nous testons en appuyant sur la **touche 9**.
+- Par conséquent nous avons réadapté le fichier *extensions.conf*  :
+  - Il attends 20 secondes avant de passer à la messagerie vocale. `s,1,Dial(${ARG1},20,tT)`
+  - On peut changer de contexte grâce au Goto et ainsi récupère la valeur de DIALSTATUS.
+  - Elle correspond à la réponse par exemple n'a pas répondu car il est déjà en communication ou le téléphone est éteint ou voire si le numéro n'est plus attribué. 
+  - 
+  - Si il n'a pas de réponse `exten=>s,n(NOANSWER),voicemail(${ARG2},u)`, on lui laisse un message.
+  - Si le canal, n'est pas disponible ou que la personne refuse volontairement l'appel exemple l'arnaque au CPF... `exten=>s,n(CHANUNAVAIL),hangup` et `exten=>s,n(CANCEL),hangup`
 
 ## question 3 :  Standard automatique
 - Nous mettons en place une auto-attendance aussi connu sous le nom de *standard automatique*.
@@ -244,11 +255,8 @@ Nous testons en appuyant sur la **touche 9**.
 - En effet IVR signifiant *Interactive Voice Response system*. 
 - Par conséquent, un Serveur Vocal Interactif est un système automatique qui permet de dialoguer avec l'appelant afin de déterminer le plus finement possible le motif de son appel.
 
-
-
 #### Mise en place avec la méthode auto réceptionniste :
-
-
+- Mise en place avec la méthode auto réceptionniste dans le fichier *extensions.conf* : 
 ```ini
 [from-internal]
 exten=>8,1,goto(aasiptrunk,9999,1)
@@ -263,8 +271,13 @@ exten=>6000,1,Dial(SIP/zoiper)
 exten=>6001,1,Dial(SIP/xlite)
 ```
 
+- Nous appelons **le 8** et nous testons en appuyant sur le **6001** afin d'être redirigé vers le SIP/xlite.
 
-Nous appelons le 8 et nous testons en appuyant sur le 6001 afin d'être redirigé vers le SIP/xlite.
+- Nous allons vers la **priorité n°1**. 
+- **Waitextension** est une fonction qui permet de faire attendre l'appelant pendant un certain temps.
+- Il fera appel à **OPERATOR** pour le rediriger vers le SIP/xlite par exemple.
+
+
 
 #### Mise en place avec la méthode IVR 
 - Dans le fichier *extensions.conf* nous ajoutons : 
@@ -286,7 +299,9 @@ exten=>6001,1,Dial(SIP/xlite)
 ```
 
 - Ensuite nous appelons **le 8** afin de tester son fonctionnement et de choisir les différentes options. 
-
+- Il cherche l'extension 9999 dans le contexte *ivrsip* en gros c'est une étiquette pour se brancher.
+- Le menu2 est utilisé toujours avec  le préfixe 4. soit 4menu2.
+- On  tape 1 pour zoiper , 2 pour xlite et 3 pour zoiper2.
 
 ## question 4 :  Conférence
 - La conférence est un service qui permet de communiquer entre plusieurs personnes.
@@ -300,8 +315,8 @@ exten=>6001,1,Dial(SIP/xlite)
 exten=4,1,Confbridge(main)
 ```
 
-- Cette directive Confbridge(main) permet de démarrer une conférence.
-- Le numéro 4 lors de l'appel permettra de démarrer la conférence. En effet ce numéro est souvent utilisé avec la plupart des softphones.
+- Cette directive `Confbridge(main)` permet de démarrer une conférence.
+- Le **numéro 4** lors de l'appel permettra de démarrer la conférence. En effet ce numéro est souvent utilisé avec la plupart des softphones.
 
 
 - On peut aussi la spécifier de cette manière :
@@ -323,10 +338,10 @@ exten => 1,n,ConfBridge(1234,,1234_participants,1234_menu)
     - on attend qu'un poste téléphonique appelle le numéro de l'appelé
     - on récupère l'appel
     - on continue la conversation
-    
-Call Pickup reprendre un appel
-FOLLOW ME : Pour continuer à suivre une fonctionnalité
-Cela nécessite l'ajout d'un troisième poste téléphonique. 
+- Nous pouvons aussi nous intéréssé à ces méthodes :  
+    - Call Pickup reprendre un appel
+    - FOLLOW ME : Pour continuer à suivre une fonctionnalité
+  - Cela nécessite l'ajout d'un troisième poste téléphonique. 
 
 #### Mise en place du call parking
 Le **call parking** s'active dans le fichier *extensions.conf*  
@@ -335,8 +350,7 @@ Le **call parking** s'active dans le fichier *extensions.conf*
 include => parkedcalls
 ```
 
-Cela peut aussi être fait de la manière suivante : dans le fichier res_parking.conf : 
-
+- Cela peut aussi être fait de la manière suivante : dans le fichier *res_parking.conf*: 
 ```ini
 [general]
 [default]                      
@@ -369,26 +383,71 @@ directmedia=no
 
 [CALLPARK](https://github.com/flaviogoncalves/AsteriskTraining/wiki/Lab-4---PBX-Features)
 
-## question 6 :  un petit call center
+## Question 6 :  Un petit call center
 Un call parking est nécessaire pour un call center
 Un agent avec des queues peut être utilisé pour gérer les appels entrants. Et le trafic dans un call center.
 
-[Using queues.conf](ques)
-mais on peut simplifier le processus d'autres modules que nous avons déjà vu.
+En effet nous voulons créer un call center via Asterisk : En général cela s'appelle Automated call distributor : ACD
+
+Nous avons aussi besoin d'une messagerie vocale :  *voicemail.conf* que nous avons défini précédemment. 
+[Using queues.conf](http://wiki.asterisk.org/wiki/display/AST/Using+queues.conf)
+- Voici le fichier queues.conf : 
+```ini
+[general]
+persistentmembers = yes
+
+; General sales queue
+[sales-general]
+context=sales
+music=default
+strategy=ringall
+joinempty=strict
+leavewhenempty=strict
+; Customer service queue
+[customerservice]
+context=customerservice
+music=default
+strategy=ringall
+joinempty=strict
+leavewhenempty=strict
+```
 
 
-call center asterisk : call center phone systems
+Mais on peut simplifier le processus d'autres modules que nous avons déjà vu.
 
-automated call distributor : ACD
-using voicemail.conf
 [ACR_asterisk](https://obrienlabs.net/automate-asterisk-to-auto-dial-a-number-for-testing/)
-[doc_astreisk_agent](https://link)
+[doc_asterisk_agent](https://link)
+[voip-info.org](https://www.voip-info.org/acd-for-asterisk-by-indosoft/)
+[ACD](https://www.asterisk.org/get-started/applications/call-center/)
+[asterisk_book_chunk_acd](http://www.asteriskdocs.org/en/3rd_Edition/asterisk-book-html-chunk/asterisk-ACD.html)
+- De cette manière : aussi on peut le définir dans le *queues.conf* : 
+```ini
+[general]
+autofill=yes              
+shared_lastcall=yes       
+[StandardQueue](!)       
+musicclass=default       
+strategy=rrmemory        
+joinempty=no             
+leavewhenempty=yes       
+ringinuse=no             
+[sales](StandardQueue)   
+[support](StandardQueue) 
+```
+-  Le fichier *extensions.conf* sera réadapté : afin d'ajouter la partie dédié à l'ACD : Automated Distributed Call Center
+```ini
+[Queues]
+exten => 7001,1,Verbose(2,${CALLERID(all)} entering the support queue)
+same => n,Queue(support)
+same => n,Hangup()
 
+exten => 7002,1,Verbose(2,${CALLERID(all)} entering the sales queue)
+same => n,Queue(sales)
+same => n,Hangup()
 
-
-
-
-
+[LocalSets]
+include => Queues      ; allow phones to call queues
+```
 ## Les fichiers de configuration final : 
 #### sip.conf
 ```ini
