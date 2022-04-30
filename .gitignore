@@ -4,3 +4,5 @@ tp1-voip/history/*
 tp1-voip/pcap/*
 tp1-voip/pcapcopy/*
 # /tp3-voip/conf
+
+docs/
