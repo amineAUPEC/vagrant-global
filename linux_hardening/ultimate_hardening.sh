@@ -8,7 +8,7 @@ set_keyboards_fr
 
 
 function install_package(){
-    sudo apt-get install -y asterisk fish tcpdump
+    sudo apt-get install -y asterisk fish tcpdump 
 
 }
 
