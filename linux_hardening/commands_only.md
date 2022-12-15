@@ -76,7 +76,20 @@ echo "PARTIE2"
 
 
 
+echo " Installer l'outil *acl*"
 sudo apt-get install -y acl 
 
 
 
+
+echo "Créer un fichier */data_clear/flag1.txt* (droits 600, propriétaire : root, groupe : root)"
+
+touch /data_clear/flag1.txt
+chmod 600 /data_clear/flag1.txt
+chown root:root /data_clear/flag1.txt
+
+setfacl -m u:root:rw /data_clear/flag1.txt
+
+setfacl -m u:grinheux:r /data_clear/flag1.txt
+
+- Ajouter une ACL pour que grincheux puisse lire ce fichier *sans modifier les permissions*
