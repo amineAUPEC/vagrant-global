@@ -51,7 +51,7 @@ sudo echo “UUID=id de la 1er partition /data_clear auto defaults 0 0” >> /et
 
 
 
-
+sudo chown root:grincheux /data_clear
 sudo chown root:grincheux /data_encrypted
 sudo chmod 750 /data_encrypted
 
@@ -63,13 +63,13 @@ echo "PARTIE1"
 chown grincheux:grincheux /home/grincheux 
 chmod 700 /home/grincheux
 
-
+drwxr-xr-x 
 chmod 755 /etc
 
 
 
-chmod -R 711 /etc/apt /etc/network /etc/modules 
-chmod 711 /etc/sysctl.conf 
+chmod -R 700 /etc/apt /etc/network /etc/modules 
+chmod 700 /etc/sysctl.conf 
 
 
 echo "PARTIE2"
@@ -107,7 +107,26 @@ chown root:root /data_clear/flag2.txt
 
 
 - Rendre ce fichier impossible à modifier.
-chmod 644 /data_clear/flag2.txt
+chmod 444 /data_clear/flag2.txt
+
+
 
 - Tenter de le modifier.
 nano /data_clear/flag2.txt
+
+
+# Partie 4
+- Installer la librairie *libpam-cap* et l'outil *tcpdump*
+sudo apt-get install -y libpam-cap tcpdump
+
+
+which tcpdump
+setcap cap_net_raw, cap_net_admin=eip /usr/bin/tcpdump
+nano /etc/security/capability.conf
+sudo groupadd pcap
+sudo usermod -a -G pcap grincheux
+chgrp pcap /usr/bin/tcpdump
+sudo usermod -a G pcap grincheux
+su grincheux
+tcpdump
+
