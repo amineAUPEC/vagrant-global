@@ -123,10 +123,13 @@ sudo apt-get install -y libpam-cap tcpdump
 which tcpdump
 setcap cap_net_raw, cap_net_admin=eip /usr/bin/tcpdump
 nano /etc/security/capability.conf
+
+
 sudo groupadd pcap
 sudo usermod -a -G pcap grincheux
 chgrp pcap /usr/bin/tcpdump
-sudo usermod -a G pcap grincheux
+
+
 su grincheux
 tcpdump
 
