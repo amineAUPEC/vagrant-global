@@ -118,17 +118,18 @@ nano /data_clear/flag2.txt
 # Partie 4
 - Installer la librairie *libpam-cap* et l'outil *tcpdump*
 sudo apt-get install -y libpam-cap tcpdump
+nano /etc/security/capability.conf
 
 
 which tcpdump
-setcap cap_net_raw, cap_net_admin=eip /usr/bin/tcpdump
-nano /etc/security/capability.conf
+setcap cap_net_raw,cap_net_admin=eip /usr/bin/tcpdump
 
 
 sudo groupadd pcap
 sudo usermod -a -G pcap grincheux
 chgrp pcap /usr/bin/tcpdump
 
+setcap cap_net_raw,cap_net_admin=eip /usr/bin/tcpdump
 
 su grincheux
 tcpdump
