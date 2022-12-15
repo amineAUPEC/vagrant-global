@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "debian/bullseye64"
+  
+
+  config.vm.network "private_network", ip: "192.168.1.10"
+
+  config.vm.network "public_network"
+
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  #
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+  #   2GB of RAM
+    vb.memory = "2048"
+  end
+  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
+  # documentation for more information about their specific syntax and use.
+  config.ssh.username="vagrant"
+  config.ssh.password="vagrant"
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update -y
+    apt-get install -y fish
+    cd /vagrant && ./ultimate_hardening.sh
+  SHELL
+end
