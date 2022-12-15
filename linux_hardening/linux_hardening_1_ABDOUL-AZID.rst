@@ -80,7 +80,7 @@ Partie 1 - Les permissions
 
 - Configurer les permissions sur le répertoire home de grincheux de sorte que personne d'autre
   que lui-même ne puisse y accéder. 
-    `chown grincheux:grincheux /home/grincheux ; chmod 770 /home/grincheux`
+    `chown grincheux:grincheux /home/grincheux ; chmod 700 /home/grincheux`
 - Modifier les permissions sur le répertoire /etc (quelles permissions peuvent être possibles sans casser le système ?)
 
 - Restreindre l'accès à certains fichiers et/ou répertoires dans /etc de sorte qu'un utilisateur
