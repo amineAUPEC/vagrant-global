@@ -134,3 +134,16 @@ setcap cap_net_raw,cap_net_admin=eip /usr/bin/tcpdump
 su grincheux
 tcpdump
 
+# partie 6 chroot
+- Créer le group *sftpusers* et l'utilisateur *simplet* (*simplet* appartient avec le mdp simple
+
+
+sudo groupadd sftpusers
+sudo adduser simplet 
+sudo usermod -a -G sftpusers simplet
+
+
+- Créer l'arborescence suivante /data_clear/sftp-chroot/writable
+
+sudo mkdir -p /data_clear/sftp-chroot/writable
+
