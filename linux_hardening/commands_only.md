@@ -241,3 +241,45 @@ grincheux ALL=(root:root) NOPASSWD: CAT_FLAG6
 
 echo "
 Defaults:grincheux env_keep+=HARDEN_LINUX" >> /etc/sudoers
+
+
+
+# Partie 9 ssh 
+ed25519
+ssh-keygen -t ed25519
+
+ Ajouter la clé publique dans le fichier */home/xxx/.ssh/authorized_keys* de votre utilisateur
+    pass
+- Ajouter la clé publique suivante dans le fichier authorized_keys de grincheux :
+  *ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIG1EMj39R4uiSXKmka9+rE7Tgu3EKpUpQTGlyg0lhp0 tiix@grincheux*
+      pass  
+        
+
+- Créer un groupe *sshusers*, et ajouter de l'utilisateur *grincheux* dans ce groupe (votre utilisateur également si nécessaire)
+sudo groupadd sshusers
+sudo usermod -a -G sshusers grincheux
+
+
+ Modifier la configuration SSH comme suit :
+  - Port d'écoute : 2222
+  - IP d'écoute : IP de votre VM (pas 0.0.0.0)
+  - Famille d'écoute : IPv4 only
+  - Autorisation de connexion : uniquement les groupes *sshusers* et *sftpusers*
+  - Désactiver l'authentification par mot de passe
+  - 
+
+AddressFamily inet
+ListenAddress 192.168.2.10
+Port 2222
+PermitRootLOgin no 
+Allowgroups sshusers sftpusers
+PasswordAuthentication no
+
+AllowAgentForwarding no
+AllowStreamLocalForwarding no
+X11Forwarding no
+LoginGraceTime 2m
+StrictModes yes
+MaxAuthTries 3
+MaxSessions 3
+DebianBanner no
