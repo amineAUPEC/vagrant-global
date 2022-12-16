@@ -151,5 +151,27 @@ sudo mkdir -p /data_clear/sftp-chroot/writable
 
 - Modifier les permissions de sorte que :
   - *simplet* puisse se connecter en SFTP
+echo "Match group simplet" >> /etc/ssh/sshd_config
+On ajoute le groupe sftpusers à l’utilisateur simplet
+sudo usermod -a -G sftpusers simplet
+
+
   - *simplet* puisse télécharger un fichier déposé dans */data_clear/sftp-chroot*
-  - *simplet* puisse déposer un fichier dans */data_clear/sftp-chroot/writable*
+chown -R simplet:simplet /data_clear/sftp-chroot
+
+chmod 550 /data_clear/sftp-chroot 
+
+
+    - *simplet* puisse déposer un fichier dans */data_clear/sftp-chroot/writable*
+
+chmod 550   /data_clear/sftp-chroot/writable
+
+chown simplet:simplet  /data_clear/sftp-chroot/writable
+chown simplet:sftpusers  /data_clear/sftp-chroot/writable
+
+- S'assurer que le service SSH est installé et fonctionnel, puis ajouter la configuration nécessaire (dans un fichier dédié : /etc/ssh/sshd_config.d/chroot.conf puis inclure ce fichier)
+
+systemctl status sshd 
+  - 
+  - 
+  - 
