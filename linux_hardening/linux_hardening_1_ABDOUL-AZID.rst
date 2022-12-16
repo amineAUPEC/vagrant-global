@@ -170,7 +170,6 @@ Partie 7 - Les quotas
 - Initialiser les quotas dans le dossier */data_clear* (hint: quotacheck, quotaon)
 - Ajouter des quotas pour empêcher l'utilisateur *simplet* d'utiliser plus
   d'1Go d'espace disque sur la partition */data_clear*
-- Ajouter des quotas pour empêcher l'utilisateur *grincheux* de créer plus de 20
   fichiers sur la partition */data_clear*
 - Tester (hint: commande **dd**)
 

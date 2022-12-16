@@ -164,7 +164,7 @@ chmod 550 /data_clear/sftp-chroot
 
     - *simplet* puisse déposer un fichier dans */data_clear/sftp-chroot/writable*
 
-chmod 550   /data_clear/sftp-chroot/writable
+chmod 750   /data_clear/sftp-chroot/writable
 
 chown simplet:simplet  /data_clear/sftp-chroot/writable
 chown simplet:sftpusers  /data_clear/sftp-chroot/writable
@@ -175,3 +175,25 @@ systemctl status sshd
   - 
   - 
   - 
+
+
+# ! Partie 7 : quotas
+- Installer l'outil **quota**
+    sudo apt-get install -y quota
+- Activer les quotas sur le point de montage */data_clear*
+    quotaon -v /data_clear
+- Initialiser les quotas dans le dossier */data_clear* (hint: quotacheck, quotaon)
+    quotaon -v /data_clear
+
+    quotacheck -cugm /data_clear
+
+- Ajouter des quotas pour empêcher l'utilisateur *simplet* d'utiliser plus   d'1Go d'espace disque sur la partition */data_clear*
+
+ setquota -u simplet 1000M 1000M 0 0 /data_clear
+
+
+- Ajouter des quotas pour empêcher l'utilisateur *grincheux* de créer plus de 20   fichiers sur la partition */data_clear*
+
+ setquota -u grincheux 20 20 0 0 /data_clear
+
+# ! Partie 8 : sudo
