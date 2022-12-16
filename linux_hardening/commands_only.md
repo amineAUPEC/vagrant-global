@@ -218,3 +218,15 @@ a. Le fichier de configuration sera /etc/sudoers
   suivantes en tant que root, **sans mot de passe** :
   - systemctl status ssh.service
   - cat /root/flag6.txt
+
+1. create 2 Cmnd_Alias : 
+1. A. Cmnd_Alias SSH_SERVICE = /usr/bin/systemctl status ssh.service
+1. B. Cmnd_Alias CAT_FLAG6 = /usr/bin/cat /root/flag6.txt
+
+
+2. Dans un second temps on relie l'utilisateur aux commandes
+
+grincheux ALL=(root:root) NOPASSWD: SSH_SERVICE
+grincheux ALL=(root:root) NOPASSWD: CAT_FLAG6
+
+3. Enfin on teste
