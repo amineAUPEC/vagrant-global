@@ -59,6 +59,7 @@ sudo chmod 750 /data_encrypted
 
 
 echo "PARTIE1"
+# "PARTIE1"
 
 chown grincheux:grincheux /home/grincheux 
 chmod 700 /home/grincheux
@@ -73,6 +74,7 @@ chmod 700 /etc/sysctl.conf
 
 
 echo "PARTIE2"
+# "PARTIE2"
 
 
 
@@ -147,3 +149,7 @@ sudo usermod -a -G sftpusers simplet
 
 sudo mkdir -p /data_clear/sftp-chroot/writable
 
+- Modifier les permissions de sorte que :
+  - *simplet* puisse se connecter en SFTP
+  - *simplet* puisse télécharger un fichier déposé dans */data_clear/sftp-chroot*
+  - *simplet* puisse déposer un fichier dans */data_clear/sftp-chroot/writable*
