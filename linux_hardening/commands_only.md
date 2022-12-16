@@ -214,8 +214,7 @@ a. Le fichier de configuration sera /etc/sudoers
     grincheux ALL=(ALL:ALL) ALL
 
 
-- Configurer une règle pour que *grincheux* puisse exécuter les commandes
-  suivantes en tant que root, **sans mot de passe** :
+- Configurer une règle pour que *grincheux* puisse exécuter les commandes suivantes en tant que root, **sans mot de passe** :
   - systemctl status ssh.service
   - cat /root/flag6.txt
 
@@ -230,3 +229,15 @@ grincheux ALL=(root:root) NOPASSWD: SSH_SERVICE
 grincheux ALL=(root:root) NOPASSWD: CAT_FLAG6
 
 3. Enfin on teste
+1. 
+
+
+
+- Créer une variable d'environnement pour *grincheux* (hint: /etc/environement) nommée HARDEN_LINUX=yes
+
+    echo "HARDEN_LINUX=yes" >> /etc/environment
+
+- Configurer une règle pour que *grincheux* puisse conserver cette variable d'environnement lors de l'utilisation de sudo
+
+echo "
+Defaults:grincheux env_keep+=HARDEN_LINUX" >> /etc/sudoers
