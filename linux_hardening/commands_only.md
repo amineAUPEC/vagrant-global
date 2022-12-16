@@ -197,3 +197,24 @@ systemctl status sshd
  setquota -u grincheux 20 20 0 0 /data_clear
 
 # ! Partie 8 : sudo
+- Installer l'outil *sudo*, lister les règles existantes.
+
+    sudo apt-get install -y sudo
+
+- Créer un fichier */root/flag6.txt* en 600:root:root
+    touch /root/flag6.txt
+    chmod 600 /root/flag6.txt
+    chown root:root /root/flag6.txt
+
+- Configurer une règle pour que *grincheux* puisse exécuter n'importe quelle
+  commande en root **avec un mot de passe** (directement dans le fichier de configuration, sans utiliser le groupe sudo)
+
+a. Le fichier de configuration sera /etc/sudoers
+1. nous ajoutons la ligne 
+    grincheux ALL=(ALL:ALL) ALL
+
+
+- Configurer une règle pour que *grincheux* puisse exécuter les commandes
+  suivantes en tant que root, **sans mot de passe** :
+  - systemctl status ssh.service
+  - cat /root/flag6.txt
