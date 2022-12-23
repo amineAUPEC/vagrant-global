@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "debian/bullseye64"
+  
+  # premiere nat defauult
+  # deuxieme carte en host_only
+  config.vm.network "private_network", ip: "192.168.2.12"
+
+
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  #
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+  #   2GB of RAM
+    vb.memory = "2048"
+  end
+  # to use allow ssh
+  # config.ssh.username="vagrant"
+  # config.ssh.password="vagrant"
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update -y
+    apt-get install -y fish
+  SHELL
+end
