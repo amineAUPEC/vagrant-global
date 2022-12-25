@@ -227,7 +227,17 @@ Partie 10 - LUKS
 *Encrypt all the drives !!*
 
 - Formater la deuxième partition du 2nd disque dur au format LUKS (hint: cryptsetup)
+
+  $cryptsetup luksFormat /dev/sda2
+
+
 - Déchiffrer la partition avec le mot de passe, puis la formater au format ext4 (hint: cryptsetup, mkfs.ext4 /dev/mapper/xxx)
+
+  $cryptsetup luksOpen /dev/sda2 encrypted_disk
+  
+  $ mkfs.ext4 /dev/mapper/sda2
+
+
 - Générer une clé aléatoire nommée *key_part2.lek* qui servira pour déchiffrer la partition (hint: dd)
 - Stocker la clé dans le répertoire */etc/luks*, et rendre le dossier et le fichier lisibles uniquement par root, et rendre le fichier impossible à modifier
 - Ajouter un slot de déchiffrement par fichier clé

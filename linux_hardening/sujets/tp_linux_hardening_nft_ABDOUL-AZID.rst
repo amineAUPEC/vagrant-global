@@ -35,3 +35,13 @@ comment ”ssh-in”
   - Autoriser les états related, established en entrée
 nft add rule amazingFilter firstInput ct state established,related
 accept comment ”allow-established-sessions”
+
+$ if $(whoami)==”root” then  ruleset   fi
+
+
+$ iptables -A INPUT -p udp --sport 123 -j ACCEPT
+$ iptables -A OUTPUT -p udp --dport 123 -j ACCEPT
+
+
+
+$  ruleset 
