@@ -17,10 +17,10 @@ config.vm.provision "shell", inline: <<-SHELL
   docker pull portainer/portainer:latest
   docker volume create portainer_data
   docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data --name portainer portainer/portainer:latest
-  echo "portainer_url: https://localhost:9000"
+  echo "portainer_url: http://$(hostname):9000"
 
 
-  # /vagrant/1-shells-framework/zsh-framework.sh <<< "Yes"
-  # /vagrant/1-shells-framework/2-zsh-plugs.sh
+  /vagrant/1-shells-framework/zsh-framework.sh <<< "Yes"
+  /vagrant/1-shells-framework/2-zsh-plugs.sh
 SHELL
 end
