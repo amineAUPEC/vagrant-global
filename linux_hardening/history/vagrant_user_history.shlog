@@ -1,0 +1,5 @@
+exit
+sudo -i
+su -
+su grincheux
+sudo chown root:grincheux /data_clear
