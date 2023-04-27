@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.network "public_network"
+  config.vm.hostname = "jfrog-shirt"
+  config.vm.network "public_network", ip: "192.168.1.92"
+  config.vm.network "private_network", ip: "192.168.4.92",  virtualbox__intnet: true
+  config.vm.network "forwarded_port", guest: 22, host: 2292
+config.vm.provider "virtualbox" do |vb|
+  vb.memory = "2048"
+end
+
+config.vm.provision "shell", inline: <<-SHELL
+  apt-get update -y
+  apt-get install -y fish zsh
+  /vagrant/1-shells-framework/zsh-framework.sh
+  /vagrant/1-shells-framework/2-zsh-plugs.sh
+SHELL
+end
