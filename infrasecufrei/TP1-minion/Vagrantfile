@@ -20,7 +20,12 @@ config.vm.provision "shell", inline: <<-SHELL
   echo "portainer_url: http://$(hostname):9000"
 
 
-  /vagrant/1-shells-framework/zsh-framework.sh <<< "Yes"
-  /vagrant/1-shells-framework/2-zsh-plugs.sh
+  # /vagrant/1-shells-framework/zsh-framework.sh <<< "Yes"
+  # /vagrant/1-shells-framework/2-zsh-plugs.sh
+
+  # zellij bat lunarvim 
+  # curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+  # filebrowser -a 0.0.0.0 -r $(pwd) 
+
 SHELL
 end

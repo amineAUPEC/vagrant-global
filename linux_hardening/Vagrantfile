@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
     vb.gui = true
   #   2GB of RAM
     vb.memory = "2048"
+    vb.disk :disk, size: "10GB", name: "extra_storage"
   end
   # to use allow ssh
   # config.ssh.username="vagrant"
