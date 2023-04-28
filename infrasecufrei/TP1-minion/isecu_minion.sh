@@ -11,3 +11,4 @@ apt install awesome -y
 apt install xinit -y
 echo "startx"
 apt install firefox -y
+dpkg-reconfigure keyboard-configuration
