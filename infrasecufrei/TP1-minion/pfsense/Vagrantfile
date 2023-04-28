@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
   config.vm.box = "xenomii/pfsense-2.6.0"
-  config.vm.network "public_network"
   config.vm.hostname = "isecu-minion-pfsense"
   config.vm.network "public_network", ip: "192.168.1.91"
   config.vm.network "private_network", ip: "192.168.100.254",  virtualbox__intnet: true
@@ -18,6 +17,8 @@ end
 config.vm.provision "shell", inline: <<-SHELL
 
   echo "test"
+  sudo pfctl -d
+  sudo /etc/rc.initial.password
   # apt-get update -y
   # apt-get install -y fish zsh fzf docker.io docker-compose git avahi-daemon 
   # docker pull portainer/portainer:latest
