@@ -67,13 +67,35 @@ On configure le dhcp pour les interfaces LAN1 et LAN2
 du .50 au .100
 
 partie 2.1
-On configure le server à hardening on réinstalle debian
-Ou bien on clone la VM2 
+On configure le server à hardening on réinstalle Debian
+Ou bien on clone la VM2 en régénérant les addresses MAC.
+
 Cette VM3 sera sur le réseau DMZ tandis que la VM2 sera sur le réseau LAN1
 On conserve l'interface NAT pour l'accès à internet.
 de préférence avec un disque en mode LVM pour l'instant non chiffré.
  
 partie 2.2
+On se connecte avec l'utilisateur lab
+nano /etc/sudoers.d/vagrant
+vagrant ALL=(ALL:ALL) NOPASSWD: ALL
+
+
+Afin d'éviter de faire scanner les ports par défaut on change l port 22 en 2222 dans /etc/ssh/sshd_config
+On complique la tâche aux bots. 
+
+S'authentifier avec une clé ssh
+
+
+ssh-keygen avec une passphrase
+on copie le fichier id_rsa.pub dans le fichier authorized_keys
+partie 2.3
+
+On bloque le tmp avec noexec
+nano /etc/fstab
+tmpfs /tmp tmpfs defaults,nodev,nosuid,noexec 0 0
+mount -a
+sudo /tmp/script.sh
+partie 2.4
 On installe sudo sur la machine Debian avec la commande
 apt-get update -y && apt-get install sudo -y
 on crée un script bash pour configurer notre machine Debian avec du hardening (de la protection avancée).
