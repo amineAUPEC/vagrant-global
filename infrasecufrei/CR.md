@@ -106,7 +106,8 @@ apt-get update -y && apt-get install awesome xinit  xterm -y
 on installe aussi firefox 
 apt-get update -y && apt-get install firefox-esr  -y
 
-
+partie 2.5
+On change les règles de firewall du DMZ que 53, 80, 443 en sortie
 
 
 plan d'adressage
