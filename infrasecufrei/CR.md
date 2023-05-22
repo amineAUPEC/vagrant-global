@@ -158,8 +158,131 @@ https://dsi.ut-capitole.fr/blacklists/download/blacklists_for_pfsense.tar.gz
 
 download 
 common acl 
+Do not allow IP-Addresses in URL true
+adult dating drogue gambling phishing publicite vpn à bloquer
 
+sudo apt-get install -y open-vm-tools-desktop
+
+
+
+# partie 3.1
+nouvelle vm debian sans interface graphique
+ srv-web1
+
+on va effectuer du hardening sur cette machine (aussi sur cette VM)
+on effectue un spliceall dans MITM mode pour ssl man in the middle filtering
+
+
+# partie 3.2
+sudo cp efrei-ca.crt /usr/local/share/ca-certificates/.
+
+sudo update-ca-certificates
+sudo apt install -y lynx sudo lnav
+sudo apt install -y apache2
+
+
+```bash
+nano /etc/sudoers.d/vagrant  
+vagrant ALL=(ALL:ALL) NOPASSWD: ALL
+```
+
+# partie 3.3
+WEB-EFREI -- ST=FRANCE, OU=LAB, O=EFREI, L=PARIS, CN=WEB-SERVERs, C=FR 
+
+
+srv1.efrei.local
+# partie 3.4
+server certificate
+FR
+France 
+Paris 
+efrei
+lab
+fqdn or hostname : srv1.efrei.local
+
+# partie 3.5
+/etc/apache2/sites-available/000-default.conf
+/etc/apache2/sites-available/default-ssl.conf
+
+    a2enmod ssl
+    a2ensite default-ssl.conf
+
+
+systemctl restart apache2
+nano /etc/ssl/certs/ssl-cert-efrei-srv1.pem
+
+
+/etc/ssl/private/ssl-cert-efrei-srv1.key
+
+nmap -p 7443 --script ssl-cert 192.168.100.53
+
+
+netstat -tunlp
+# partie 3.6
+host srv1
+domain efrei.local
+ip address 192.168.100.51
+
+eanble dns resolver true
+
+# partie 3.7
+https://192.168.116.133/pkg_mgr_install.php
+snort à installer depuis le package manager
+on active le service pour les WAN et DMZ
+
+zero trust network et zero trust a devoir montrer pate blanche avec un sso ou un portail captif. 
+sso avec okata ou keycloak
+wallix 
+open-bastion
+teleport
+cles api de snort
+
+# partie 3.8
+tempmail
+https://temp-mail.org/fr/
+
+rahox84579@duscore.com
+42b45af55b7bcdd9b92d1cefde35b81177bb33b 0
+
+soxet89719@pgobo.com
+
+
+enable snort vrt pattern de rules
+
+enable snort gplv2
+enable et open emerging threats rules développé par proofpoint ( américiain)
+à valider : 
+- Click to clear all blocked hosts added by Snort when removing the package.
+- Click to clear all blocked hosts added by Snort when removing the package. 
+1 day : règles update toutes les 24H
+12 hours : serait débloquer après 12H éviter de surcharger la base de blocage
+
+# partie 3.9
+
+Il faut mettre à jour : https://192.168.116.133/snort/snort_download_updates.php
+
+
+inetrface wan 
+envoie Send Alerts to System Log
+
+
+p2p scan shellcode
+smtp sql snmp telnet tor trojan user-agents exploit dshield java exploit-kit
+
+outil de reconnaissance des failles web avec nikto
+
+on vérifie les alerts snorts dans https://192.168.116.133/snort/snort_alerts.php?instance=0
+
+changer à legacy mode pour blocking mode
+- Block Offenders : Checking this option will automatically block hosts that generate a Snort alert. 
+ - IPS Mode
+ 
+qcm
+présenter et créer infrav3
+- dnsfiltering 
+- trafic shapping
 # Plan d'adressage :  
+
 - NAT :   
     192.168.116.129 - nat - VM2 - Debian - Bastion  
     192.168.116.131 - nat - WAN - VM1 - Pfsense - Pfsense  
