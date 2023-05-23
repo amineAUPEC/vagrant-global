@@ -329,10 +329,10 @@ On active les alertes suivantes : Dans Services -> Snort -> Interface Settings -
 p2p scan shellcode smtp sql snmp telnet tor trojan user-agents exploit dshield java exploit-kit  
 
 # Partie 3.10
-outil de reconnaissance des failles web avec nikto  
+On peut utiliser un outil de reconnaissance des failles web avec nikto  
 
 # Partie 4.1
-on vérifie les alerts snorts dans https://192.168.116.133/snort/snort_alerts.php?instance=0  
+On vérifie les alerts snorts dans https://192.168.116.133/snort/snort_alerts.php?instance=0  
 
 # Partie 4.2
 - Block Offenders : Checking this option will automatically block hosts that generate a Snort alert.   
@@ -341,7 +341,7 @@ on vérifie les alerts snorts dans https://192.168.116.133/snort/snort_alerts.ph
 # Partie 4.3
 status -> system logs -> system -> general  
 
-sudo nmap -A -vvv 192.168.100.0/24  
+`sudo nmap -A -vvv 192.168.100.0/24`  
  
 # Pour plus tard
 On aura un qcm sur la partie théorique  
