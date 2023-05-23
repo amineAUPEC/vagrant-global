@@ -228,7 +228,7 @@ vagrant ALL=(ALL:ALL) NOPASSWD: ALL
 On va dans system Certmanager -> CA -> add -> add this to trust store  
 WEB-EFREI -- ST=FRANCE, OU=LAB, O=EFREI, L=PARIS, CN=WEB-SERVERs, C=FR   
 Pour éviter que le certificat soit fuité ou usurpé il existe un délai d'expiration afin de garantir l'intégrité.  
-Au minimum 1 an au maximum 2 ans.  Mais surtout il peuvent usurpés l'autorité de certifications.
+Au minimum 1 an au maximum 2 ans.  Mais surtout il peuvent usurpés l'autorité de certifications.  
 srv1.efrei.local  
 # Partie 3.4
 
@@ -261,7 +261,7 @@ systemctl enable --now apache2
 
 Dans le fichier efrei-ca.crt on greffe tout le contenu de PROXY-CA.crt télécharger précédemment dans le certmanager
 `nano efrei-ca.crt` 
-On le copie ( efrei-ca.crt ) et on colle dans le dossier /usr/local/share/ca-certificates/.
+On le copie ( efrei-ca.crt ) et on colle dans le dossier /usr/local/share/ca-certificates/.  
 Ensuite on update avec sudo update-ca-certificates
   
 
