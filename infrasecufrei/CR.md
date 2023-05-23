@@ -183,12 +183,12 @@ On va dans l'onglet blacklist
  
 adult dating drogue gambling phishing publicite vpn à bloquer  
 
-sudo apt-get install -y open-vm-tools-desktop  
+`sudo apt-get install -y open-vm-tools-desktop`   
 
 
 
 # Partie 3.1
-On crée une nouvelle vm debian sans interface graphique  
+On crée une nouvelle VM Debian sans interface graphique  
  srv-web1  
 
 On va effectuer du hardening sur cette machine (aussi sur cette VM)  
@@ -203,7 +203,7 @@ On clique sur le bouton Clear Disk Cache NOW
 Et on modifie le SSL MITM MODE en splice all à nouveau  
 
 
-Puis il passe par l'efrei   
+Puis il passe par l'EFREI   
 # Partie 3.1.3
 Installation de lightsquid  
 # Partie 3.2
@@ -266,7 +266,7 @@ Ensuite on update avec sudo update-ca-certificates
   
 
 
-on utilise openssl  
+On utilise openssl  
 
 /etc/ssl/private/ssl-cert-efrei-srv1.key  
 
