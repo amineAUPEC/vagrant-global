@@ -259,10 +259,10 @@ systemctl enable --now apache2
 `systemctl restart apache2`  
 `nano /etc/ssl/certs/ssl-cert-efrei-srv1.pem`  
 
-Dans le fichier efrei-ca.crt on greffe tout le contenu de PROXY-CA.crt télécharger précédemment dans le certmanager
-`nano efrei-ca.crt` 
-On le copie ( efrei-ca.crt ) et on colle dans le dossier /usr/local/share/ca-certificates/.  
-Ensuite on update avec sudo update-ca-certificates
+Dans le fichier efrei-ca.crt on greffe tout le contenu de PROXY-CA.crt télécharger précédemment dans le certmanager :   
+`nano efrei-ca.crt`   
+On le copie ( efrei-ca.crt ) et on colle dans le dossier /usr/local/share/ca-certificates/.   
+Ensuite on update avec `sudo update-ca-certificates`  
   
 
 
@@ -275,10 +275,12 @@ On utilise openssl
 
 `netstat -tunlp` 
 # Partie 3.6
+On ajoute dans DNS resolver : 
 host srv1  
 domain efrei.local  
 ip address 192.168.100.51  
 
+Dans System -> services -> DNS resolver
 enable dns resolver true  
 
 # Partie 3.7
