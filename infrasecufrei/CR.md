@@ -342,6 +342,14 @@ On vérifie les alerts snorts dans https://192.168.116.133/snort/snort_alerts.ph
 status -> system logs -> system -> general  
 
 `sudo nmap -A -vvv 192.168.100.0/24`  
+# Partie 4.4
+On crée une nouvelle VM pour Zabbix avec 30Gb de Stockage
+
+
+
+
+
+shodan.io et sansys sont des outils pour scanner les vulnérabilités publiques.
  
 # Pour plus tard
 On aura un qcm sur la partie théorique  
@@ -358,3 +366,17 @@ On devra présenter et créer infrav3
     192.168.1.1 - nat - VM1 - Pfsense - Pfsense  
 - DMZ :  
     192.168.100.254 dmz  - VM1 - Pfsense - Pfsense   
+
+# Cours : 
+# 5 piliers de la sécurité
+- Intégrité : garantir que les données sont celles spécifiées
+- Disponibilité : comme la redondance, un SLA. 
+- Confidentialité : seul la personne destinataire a le droit de le lire : gpg.
+- Non répudiation : être sur que c'est bien la bonne personne et que ça lui qui l'ait envoyé comme pour les mails SPF et signatures
+- Authentification : que seul les personnes soient autorisés à accéder aux ressources
+- CIDTN : 
+
+- reverse proxy
+- firewall
+- une note de linfra v3
+monitoring avoir un visuel sur l'infrastructure
