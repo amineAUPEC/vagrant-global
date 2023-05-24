@@ -280,8 +280,8 @@ host srv1
 domain efrei.local  
 ip address 192.168.100.51  
 
-Dans System -> services -> DNS resolver
-enable dns resolver true  
+Dans System -> services -> DNS resolver  
+enable dns resolver true    
 
 # Partie 3.7
 https://192.168.116.133/pkg_mgr_install.php  
@@ -408,6 +408,7 @@ fichier de conf  /etc/zabbix/zabbix_agentd.conf
 Server=ip_zabbix 192.168.100.56  
 
 ServerActive à commenter  
+
 # Partie 4.7
 zabbix déclencheurs  
 uptime.is pour gérer le SLA  
@@ -432,7 +433,31 @@ En défense je propose un :
 - mise en place freeradius3
 - mise en place de ntopng
 - mise en place de zeeek
-- 
+- mail gpg
+- lvm chiffré
+# Partie 5.3
+Sélectionner : Services – Captive Portal
++ADD
+Nom du portail : CaptivePortal
+Activer "Enable Captive Portal"
+Sélectionner l’interface "LAN" 
+Maximum concurrent connections : 1  : Limite le nombre de connexions simultanées d’un même utilisateur
+Idle timeout (Minutes) : Choisir entre 1 à 5  : Les clients seront déconnectés après la période d’inactivité
+
+
+
+Activer  "Enable logout popup window" 
+Définir  "Pre-authentication Redirect URL"  : URL HTTP de redirection par défaut. Les visiteurs ne seront redirigés vers cette URL après authentification que si le portail captif ne sait pas où les rediriger
+Définir  After authentication Redirection URL  : URL HTTP de redirection forcée. Les clients seront redirigés vers cette URL au lieu de celle à laquelle ils ont initialement tenté d’accéder après s’être authentifiés
+Activer  "Disable Concurrent user logins"  : seule la connexion la plus récente par nom d’utilisateur sera active
+Activer  "Disable MAC filtering"  : nécessaire lorsque l’adresse MAC du client ne peut pas être déterminée
+
+
+Sélectionner  "Use an Authentication backend" 
+Sélectionner  "Local Database"  pour  "Authentication Server" 
+Il faut faire attention à éviter de laisser cocher "Local Database"  pour  "Secondary Authentication Server" 
+On active  "Local Authentication Privileges" pour autoriser uniquement les utilisateurs avec les droits de  "Connexion au portail captif" 
+Puis on "sauvegarde" 
 
 # Pour plus tard
 On aura un qcm sur la partie théorique   
@@ -466,7 +491,9 @@ monitoring avoir un visuel sur l'infrastructure
 # Sources
 https://www.provya.net/?d=2021/06/08/09/46/24-pfsense-la-gestion-des-packages-sous-pfsense  
 http://gelit.ch/td/linux/Golliet_RTB.pdf  
-https://pixelabs.fr/installation-configuration-pfsense-workstation/
-
+https://pixelabs.fr/installation-configuration-pfsense-workstation/  
+https://neptunet.fr/openvpn-pfsense/  
+https://github.com/shadonet/pfSense-pkg-zeek/blob/master/README.md  
+https://www.pc2s.fr/pfsense-portail-captif-avec-authentification-utilisateur/  
 ---  
 https://www.swisstransfer.com/d/2b874a0a-2ca4-446a-87fe-ce0dc21def4b   
