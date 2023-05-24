@@ -343,16 +343,99 @@ status -> system logs -> system -> general
 
 `sudo nmap -A -vvv 192.168.100.0/24`  
 # Partie 4.4
-On crée une nouvelle VM pour Zabbix avec 30Gb de Stockage
+On crée une nouvelle VM pour Zabbix avec 30Gb de Stockage.    
 
 
 
 
 
-shodan.io et sansys sont des outils pour scanner les vulnérabilités publiques.
+shodan.io et sansys sont des outils pour scanner les vulnérabilités publiques.    
  
+# Partie 4.5
+
+
+
+```bash
+sudo apt update -y   
+ wget https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb  
+ dpkg -i zabbix-release_6.4-1+debian11_all.deb  
+ apt update  
+ apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+```
+
+
+
+```bash
+sudo apt install -y mariadb-server
+
+mysql -uroot -p
+password
+mysql> create database zabbix character set utf8mb4 collate utf8mb4_bin;
+mysql> create user zabbix@localhost identified by 'password';  
+mysql> grant all privileges on zabbix.* to zabbix@localhost;  
+mysql> set global log_bin_trust_function_creators = 1;  
+mysql> quit;
+```
+
+'%' peut remplacer localhost  
+
+zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p zabbix  
+
+echo "DBPassword=password" >> /etc/zabbix/zabbix_server.conf  
+sudo reboot   
+
+ systemctl restart zabbix-server zabbix-agent apache2  
+ systemctl enable zabbix-server zabbix-agent apache2  
+# Partie 4.6
+On ajoute le client 
+sudo apt-get install -y zabbix-agent  
+sudo systemctl enable zabbix-agent  
+
+On rajoute uniquement sur le client kali   
+deb http://deb.debian.org/debian bullseye main contrib non-free  
+dans le fichier cat /etc/apt/sources.list 
+
+Depuis l'interface web de Zabbix : 
+nom : WEB-SRv1 et ClientKali  
+
+template : os -> linux by zabbix agent   
+groups linuxserver   
+
+agent :   
+ 
+fichier de conf  /etc/zabbix/zabbix_agentd.conf  
+
+Server=ip_zabbix 192.168.100.56  
+
+ServerActive à commenter  
+# Partie 4.7
+zabbix déclencheurs  
+uptime.is pour gérer le SLA  
+# Partie 4.8
+mode maintenance de zabbix  
+# Partie 4.9
+ajouter règle firewall ntp   
+# Partie 5.1 : outils
+pfBlockerNG  
+empoisonnement du cache arp    
+# Partie 5.2
+
+
+En défense je propose un : 
+- fail2ban
+- adguard ou pihole
+- hids
+- un tunnel VPN avec wireguard
+- mettre en place le portail captif
+- openVPN via pfsense
+- mise en place sur pfsense avec le paquet arpwatch
+- mise en place freeradius3
+- mise en place de ntopng
+- mise en place de zeeek
+- 
+
 # Pour plus tard
-On aura un qcm sur la partie théorique  
+On aura un qcm sur la partie théorique   
 On devra présenter et créer infrav3  
 - dnsfiltering   
 - trafic shapping  
@@ -369,14 +452,21 @@ On devra présenter et créer infrav3
 
 # Cours : 
 # 5 piliers de la sécurité
-- Intégrité : garantir que les données sont celles spécifiées
-- Disponibilité : comme la redondance, un SLA. 
-- Confidentialité : seul la personne destinataire a le droit de le lire : gpg.
-- Non répudiation : être sur que c'est bien la bonne personne et que ça lui qui l'ait envoyé comme pour les mails SPF et signatures
-- Authentification : que seul les personnes soient autorisés à accéder aux ressources
-- CIDTN : 
+- Intégrité : garantir que les données sont celles spécifiées  
+- Disponibilité : comme la redondance, un SLA.   
+- Confidentialité : seul la personne destinataire a le droit de le lire : gpg.  
+- Non répudiation : être sur que c'est bien la bonne personne et que ça lui qui l'ait envoyé comme pour les mails SPF et signatures  
+- Authentification : que seul les personnes soient autorisés à accéder aux ressources  
+- CIDTN :   
 
-- reverse proxy
-- firewall
-- une note de linfra v3
-monitoring avoir un visuel sur l'infrastructure
+- reverse proxy  
+- firewall  
+- une note de l'infra v3  
+monitoring avoir un visuel sur l'infrastructure   
+# Sources
+https://www.provya.net/?d=2021/06/08/09/46/24-pfsense-la-gestion-des-packages-sous-pfsense  
+http://gelit.ch/td/linux/Golliet_RTB.pdf  
+https://pixelabs.fr/installation-configuration-pfsense-workstation/
+
+---  
+https://www.swisstransfer.com/d/2b874a0a-2ca4-446a-87fe-ce0dc21def4b   
