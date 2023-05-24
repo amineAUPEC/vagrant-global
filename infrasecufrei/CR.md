@@ -387,13 +387,14 @@ sudo reboot
  systemctl restart zabbix-server zabbix-agent apache2  
  systemctl enable zabbix-server zabbix-agent apache2  
 # Partie 4.6
-On ajoute le client 
-sudo apt-get install -y zabbix-agent  
-sudo systemctl enable zabbix-agent  
 
 On rajoute uniquement sur le client kali   
 deb http://deb.debian.org/debian bullseye main contrib non-free  
-dans le fichier cat /etc/apt/sources.list 
+Dans le fichier cat /etc/apt/sources.list  
+
+On ajoute le client  
+sudo apt-get install -y zabbix-agent  
+sudo systemctl enable zabbix-agent  
 
 Depuis l'interface web de Zabbix : 
 nom : WEB-SRv1 et ClientKali  
@@ -407,7 +408,7 @@ fichier de conf  /etc/zabbix/zabbix_agentd.conf
 
 Server=ip_zabbix 192.168.100.56  
 
-ServerActive à commenter  
+ServerActive à commenter  car on veut que l'agent soit passif.
 
 # Partie 4.7
 zabbix déclencheurs  
