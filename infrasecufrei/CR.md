@@ -460,6 +460,38 @@ Il faut faire attention à éviter de laisser cocher "Local Database"  pour  "Se
 On active  "Local Authentication Privileges" pour autoriser uniquement les utilisateurs avec les droits de  "Connexion au portail captif" 
 Puis on "sauvegarde" 
 
+# Partie 5.4
+ VPN -> OpenVPN -> Wizards  
+ Type of Server -> Local User Access -> Proxy CA -> SRV-WEB1  
+Description : VPN OPENVPN  
+DH Parameters Length : 4096  
+Data Encryption Algorithms : AES-256-GCM  
+Auth digest algorithm : SHA512 512 BIT  
+ la partie Tunnel settings :   
+Tunnel Network :  192.168.254.0/28   
+Local Network : adresse réseau de la DMZ :  192.168.100.0/24  
+
+ Client settings  : laisser tel quel.  
+On coche la case Firewall Rule et OpenVPN rule  
+
+System -> User Manager -> Add ->   
+Définissez son nom d’utilisateur qui correspond à son login (compte de connexion), son nom complet et attribuez-lui un mot de passe.  
+Cochez la case Click to create a user certificate  
+
+Descriptive name : Vagrant cert  
+Lifetime : 365  
+System -> Package Manager -> available packages -> openvpn-client-export   
+
+ VPN-> OpenVPN -> Client Export  
+Remote Access Server ->  OpenVPN Clients -> Remote Access Server laisser par défaut   
+Dans Export on dispose de plusieurs liens de téléchargement pour obtenir la configuration nécessaire à la connexion VPN -> 10/2016/2019 | Windows Installer  
+
+On lance OpenVPN GUI." Un double clic sur l’icône présent sur le bureau aura pour effet d’ouvrir l’application dans la barre des tâches représentée par un petit écran avec un cadenas."  
+"Faites un double-clic sur cet écran cadenassé. La connexion VPN est en train de se mettre en place et les identifiants seront demandés. Lors de la 1ère connexion, Windows vous demandera une exception dans le pare-feu local, cochez les cases et autorisez l’accès."  
+
+On saisit l'utilisateur et le mot de passe.  
+ON vérifie avec ipconfig.   
+
 # Pour plus tard
 On aura un qcm sur la partie théorique   
 On devra présenter et créer infrav3  
