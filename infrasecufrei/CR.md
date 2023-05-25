@@ -308,7 +308,7 @@ soxet89719@pgobo.com
 enable snort vrt pattern de rules  
 
 enable snort gplv2  
-enable**et open** emerging threats rules développé par proofpoint ( américain)    
+enable **et open** emerging threats rules développé par Proofpoint ( américain)    
 à valider : 
 - Hide Deprecated Rules Categories :   
 - Click to clear all blocked hosts added by Snort when removing the package.   
@@ -438,28 +438,28 @@ En défense je propose un :
 - mail gpg
 - lvm chiffré
 # Partie 5.3
-Sélectionner : Services – Captive Portal
-+ADD
-Nom du portail : CaptivePortal
-Activer "Enable Captive Portal"
-Sélectionner l’interface "LAN" 
-Maximum concurrent connections : 1  : Limite le nombre de connexions simultanées d’un même utilisateur
-Idle timeout (Minutes) : Choisir entre 1 à 5  : Les clients seront déconnectés après la période d’inactivité
+Sélectionner : Services – Captive Portal  
++ADD  
+Nom du portail : CaptivePortal  
+Activer "Enable Captive Portal"  
+Sélectionner l’interface "LAN"   
+Maximum concurrent connections : 1  : Limite le nombre de connexions simultanées d’un même utilisateur  
+Idle timeout (Minutes) : Choisir entre 1 à 5  : Les clients seront déconnectés après la période d’inactivité  
 
 
 
-Activer  "Enable logout popup window" 
-Définir  "Pre-authentication Redirect URL"  : URL HTTP de redirection par défaut. Les visiteurs ne seront redirigés vers cette URL après authentification que si le portail captif ne sait pas où les rediriger
-Définir  After authentication Redirection URL  : URL HTTP de redirection forcée. Les clients seront redirigés vers cette URL au lieu de celle à laquelle ils ont initialement tenté d’accéder après s’être authentifiés
-Activer  "Disable Concurrent user logins"  : seule la connexion la plus récente par nom d’utilisateur sera active
-Activer  "Disable MAC filtering"  : nécessaire lorsque l’adresse MAC du client ne peut pas être déterminée
+Activer  "Enable logout popup window"   
+Définir  "Pre-authentication Redirect URL"  : URL HTTP de redirection par défaut. Les visiteurs ne seront redirigés vers cette URL après authentification que si le portail captif ne sait pas où les rediriger  
+Définir  After authentication Redirection URL  : URL HTTP de redirection forcée. Les clients seront redirigés vers cette URL au lieu de celle à laquelle ils ont initialement tenté d’accéder après s’être authentifiés  
+Activer  "Disable Concurrent user logins"  : seule la connexion la plus récente par nom d’utilisateur sera active  
+Activer  "Disable MAC filtering"  : nécessaire lorsque l’adresse MAC du client ne peut pas être déterminée  
 
 
-Sélectionner  "Use an Authentication backend" 
-Sélectionner  "Local Database"  pour  "Authentication Server" 
-Il faut faire attention à éviter de laisser cocher "Local Database"  pour  "Secondary Authentication Server" 
-On active  "Local Authentication Privileges" pour autoriser uniquement les utilisateurs avec les droits de  "Connexion au portail captif" 
-Puis on "sauvegarde" 
+Sélectionner  "Use an Authentication backend"   
+Sélectionner  "Local Database"  pour  "Authentication Server"   
+Il faut faire attention à éviter de laisser cocher "Local Database"  pour  "Secondary Authentication Server"   
+On active  "Local Authentication Privileges" pour autoriser uniquement les utilisateurs avec les droits de  "Connexion au portail captif"   
+Puis on "sauvegarde"   
 
 # Partie 5.4
  VPN -> OpenVPN -> Wizards  
@@ -553,6 +553,7 @@ services:
 ```
 
 ```bash
+cd /home/vagrant/pi-hole-docker/
 sudo docker-compose up -d
 ip a
 ```
