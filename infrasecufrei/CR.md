@@ -565,8 +565,6 @@ On ajoute TCP ALLOW PIHOLE 8082 dans les règles du Firewall Pfsense.
 On ajoute le DNS : https://192.168.116.136/system.php 
 192.168.100.56
 
-# Partie 6.1
-# Partie 6.2
 
 # Pour plus tard
 On aura un qcm sur la partie théorique   
@@ -584,6 +582,64 @@ On devra présenter et créer infrav3
 - DMZ :  
     192.168.100.254 dmz  - VM1 - Pfsense - Pfsense   
 
+# Annexes images de la partie 5.1 à 5.9
+cleardiskcache   
+![Alt text](images/imagesCR/125-cleardiskcache.PNG)  
+dnsresolver  
+![Alt text](images/imagesCR/126-dnsresolver.PNG)  
+zabbix-server-dashboard  
+![Alt text](images/imagesCR/127-zabbix-server-dashboard.PNG)  
+hostserver  
+![Alt text](images/imagesCR/128-hostserver.PNG)  
+zabbix  
+![Alt text](images/imagesCR/129-zabbix.png)  
+ntopng  
+![Alt text](images/imagesCR/130-ntopng.PNG)  
+darkstats  
+![Alt text](images/imagesCR/131-darkstats.PNG)  
+dnsresolvers  
+![Alt text](images/imagesCR/132-dnsresolvers.PNG)  
+
+darkstat  
+![Alt text](images/imagesCR/133-darkstat.PNG)  
+openvpn    
+![Alt text](images/imagesCR/134-openvpn.PNG)  
+
+Ajout des menus  
+![Ajout des menus](images/imagesCR/ajout.PNG)  
+
+certmanager   
+![Alt text](images/imagesCR/certmanager.PNG)  
+certs    
+![Alt text](images/imagesCR/certs.PNG)  
+openvpn  
+![Alt text](images/imagesCR/openvpn.PNG)  
+Règle-dmz  
+![Alt text](images/imagesCR/regle-dmz.PNG)  
+Règles WAN  
+![Alt text](images/imagesCR/regleswan.PNG)  
+
+Ping avec OpenVPN  
+![Alt text](images/imagesCR/ping-.PNG)  
+
+# Annexes : images de toutes les parties
+AVANTCHANGEMENT  
+![Alt text](images/imagesCR/selected/AVANTCHANGEMENT.PNG)  
+ApresCHANGEMENT  
+![Alt text](images/imagesCR/selected/ApresCHANGEMENT.PNG)  
+squid  
+![Alt text](images/imagesCR/selected/squid.PNG)  
+
+blockingmode-legaacy  
+![Alt text](images/imagesCR/selected/blockingmode-legaacy.PNG)  
+curl-portquiz8080  
+![Alt text](images/imagesCR/selected/curl-portquiz8080.PNG)  
+snort-ruleswan-2  
+![Alt text](images/imagesCR/selected/snort-ruleswan-2.PNG)  
+snort-ruleswan  
+![Alt text](images/imagesCR/selected/snort-ruleswan.PNG)  
+snortinstall  
+![Alt text](images/imagesCR/selected/snortinstall.PNG)   
 # Cours : 
 # 5 piliers de la sécurité
 - Intégrité : garantir que les données sont celles spécifiées  
