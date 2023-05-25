@@ -434,6 +434,7 @@ En défense je propose un :
 - mise en place freeradius3
 - mise en place de ntopng
 - mise en place de zeeek
+- mise en place de darkstat
 - mail gpg
 - lvm chiffré
 # Partie 5.3
@@ -490,7 +491,76 @@ On lance OpenVPN GUI." Un double clic sur l’icône présent sur le bureau aura
 "Faites un double-clic sur cet écran cadenassé. La connexion VPN est en train de se mettre en place et les identifiants seront demandés. Lors de la 1ère connexion, Windows vous demandera une exception dans le pare-feu local, cochez les cases et autorisez l’accès."  
 
 On saisit l'utilisateur et le mot de passe.  
-ON vérifie avec ipconfig.   
+On vérifie avec ipconfig.     
+
+Source : https://neptunet.fr/openvpn-pfsense/  
+
+# Partie 5.5
+
+System -> Package Manager -> Available packages -> recherchez ntopng ->  Install.  
+
+Diagnostics -> ntopng Settings  
+Cochez l'option "Enable ntopng" afin d'activer les services correspondants.  
+On définit un mot de passe admin via l'option "ntopng Admin Password" et l'option juste en dessous pour la confirmation.   
+On rajoute une règle en TCP pour le port 3000 : ALLOW NTOPNG 3000 avec log packet  
+
+# Partie 5.6
+
+System -> Package Manager -> Available packages -> recherchez zeek ->  Install.
+https://192.168.116.136/pkg_edit.php?xml=zeek.xml&id=0
+
+# Partie 5.7
+System -> Package Manager -> Available packages -> recherchez filer ->  Install.
+Diagnostics -> Edit file -> browse
+# Partie 5.8
+System -> Package Manager -> Available packages -> recherchez darkstat ->  Install.
+Ajout d'une rule pour le port 666 en TCP avec log packet darkstat 666
+https://192.168.116.136/pkg_edit.php?xml=darkstat.xml
+Enable darkstat à vrai
+Enable darkstat DMZ
+https://192.168.116.136/darkstat_redirect.php
+# Partie 5.9
+
+On installe pi-hole à l'aide de Docker
+```bash
+sudo apt-get update -y
+sudo apt-get install -y docker.io docker-compose 
+
+mkdir -p /home/vagrant/pi-hole-docker/
+nano /home/vagrant/pi-hole-docker/docker-compose.yml
+```
+
+```yaml
+version: "3"
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+      - "8082:80/tcp"
+    environment:
+      TZ: 'America/Chicago'
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
+    restart: unless-stopped
+```
+
+```bash
+sudo docker-compose up -d
+ip a
+```
+On ajoute TCP ALLOW PIHOLE 8082 dans les règles du Firewall Pfsense.
+
+
+# Partie 6.1
+# Partie 6.2
 
 # Pour plus tard
 On aura un qcm sur la partie théorique   
