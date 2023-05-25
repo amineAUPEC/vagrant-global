@@ -544,6 +544,7 @@ services:
       - "8082:80/tcp"
     environment:
       TZ: 'America/Chicago'
+      WEBPASSWORD: 'password'
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
@@ -556,9 +557,13 @@ services:
 cd /home/vagrant/pi-hole-docker/
 sudo docker-compose up -d
 ip a
+
+
 ```
 On ajoute TCP ALLOW PIHOLE 8082 dans les règles du Firewall Pfsense.
 
+On ajoute le DNS : https://192.168.116.136/system.php 
+192.168.100.56
 
 # Partie 6.1
 # Partie 6.2
