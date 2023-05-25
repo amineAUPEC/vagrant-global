@@ -622,6 +622,14 @@ Règles WAN
 Ping avec OpenVPN  
 ![Alt text](images/imagesCR/ping-.PNG)  
 
+adblock-tester  
+![Alt text](images/imagesCR/adblock-tester.PNG)  
+adblock-pihole  
+![Alt text](images/imagesCR/adblock-pihole.PNG)  
+adblock-pihole-logs  
+![Alt text](images/imagesCR/adblock-pihole-logs.PNG)  
+
+
 # Annexes : images de toutes les parties
 AVANTCHANGEMENT  
 ![Alt text](images/imagesCR/selected/AVANTCHANGEMENT.PNG)  
